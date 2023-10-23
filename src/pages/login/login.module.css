@@ -1,0 +1,44 @@
+.login-page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(../../images/login-page-background.png);
+}
+
+.login-page__form-wrap {
+  margin: 0 auto;
+  padding: 40px 52px 56px;
+  width: 428px;
+  background: #fff;
+  border-radius: 16px;
+}
+
+.form {
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  border: 1px solid #797981;
+  border-radius: 4px;
+}
+
+.input::after {
+  content: '';
+  border: none;
+  height: 0;
+}
+
+.input:focus {
+  border: 1px solid #5a9Bff;
+}
+
+.MuiInput-underline {
+  border: none;
+}
+
+/*.input.Mui-focused {*/
+/*  border: 1px solid #5a9Bff;*/
+/*}*/
