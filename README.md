@@ -1,27 +1,62 @@
-# React + TypeScript + Vite
+<h1 align="center">Practicum Project</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Проект представляет собой сервис для HR (рекрутеров), на котором они могут найти подходящего кандидата на свои вакансии из общего числа студентов Практикума.
 
-Currently, two official plugins are available:
+Проект создан @snurnisyan, @dariarus и @elana-tollu во время участия в хакатоне Яндекс Практикум.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Проект создан совместно в команде с PM, дизайнерами и backend-разработчиками.
 
-## Expanding the ESLint configuration
+------
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+<h3 align="center">Реализованные страницы</h2>
 
-- Configure the top-level `parserOptions` property like this:
+1. Авторизация пользователя
+2. Фильтрация поиска кандидата
+3. Результат поиска в виде таблицы
+4. Страницы профиля кандидата
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+
+------
+
+<h3 align="center">Основные технологии проекта</h2>
+
+1. **HTML и SCSS.** Соблюдается корректная семантика тегов и продвинутая стилизация.
+2. **React (React-router v.6).** Компонентная сборка, авторизация, роутинг.
+3. **Redux Toolkit (+ Thunk).** Используется хранилище Redux для хранения данных с API и работы с глобальным контекстом.
+4. **Typescript.** Весь код протипизован, в т.ч. и Redux хранилище.
+5. **React Hook Form, yup.** Для работы с формами и их валидацией.
+6. **Material UI**. Для работы с готовыми UI компонентами.
+
+
+------
+
+<h3 align="center">Запуск проекта</h2>
+
+Проект создан с помощью **<a href="https://vitejs.dev/">Vite</a>**
+
+Проект запускается локально по адресу http://localhost:5173/ путем клонирования данного репозитория и последовательного запуска команд в терминале.
+
+Предварительно должны быть установлены программы Git, NodeJS и менеджер пакетов npm.
+
+
 ```
+// clone repo
+git clone https://github.com/Hackathon-Practicum-Team7/frontend
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+// go to dir
+cd frontend
+
+// install dependencies
+npm install
+
+// build project
+npm run build
+
+// run dev mode
+npm run dev
+
+// run preview Vite mode
+npm run preview
+
+
+```
