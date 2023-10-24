@@ -1,0 +1,35 @@
+@font-face {
+  font-family: 'YS-Display';
+  src:
+    url(./fonts/YS-Display-Regular.woff2) format('woff2'),
+    url(./fonts/YS-Display-Regular.woff) format('woff'),
+    url(./fonts/YS-Display-Regular.ttf) format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'YS-Display';
+  src:
+    url(./fonts/YS-Display-Medium.woff2) format('woff2'),
+    url(./fonts/YS-Display-Medium.woff) format('woff'),
+    url(./fonts/YS-Display-Medium.ttf) format('truetype');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'YS-Text';
+  src:
+    url(./fonts/YS-Text-Regular.woff2) format('woff2'),
+    url(./fonts/YS-Text-Regular.woff) format('woff'),
+    url(./fonts/YS-Text-Regular.ttf) format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'YS-Text';
+  src:
+    url(./fonts/YS-Text-Medium.woff2) format('woff2'),
+    url(./fonts/YS-Text-Medium.woff) format('woff'),
+    url(./fonts/YS-Text-Medium.ttf) format('truetype');
+  font-weight: 500;
+}

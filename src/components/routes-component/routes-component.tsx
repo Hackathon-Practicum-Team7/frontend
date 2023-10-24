@@ -8,6 +8,6 @@ export default function RoutesComponent(): ReactElement {
       <Route path='/login' element={<></>} />
       <Route path='/' element={<HomePage />} />
       <Route path='*' element={<></>} />
-  </Routes>
+    </Routes>
 );
 }

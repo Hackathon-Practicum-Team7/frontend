@@ -1,0 +1,62 @@
+.section {
+  width: 1440px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: 0 58px;
+  box-sizing: border-box;
+}
+
+.header {
+  margin: 0 0 32px 0;
+  font-family: 'YS-Display', 'Arial', sans-serif;
+  font-size: 34px;
+  font-weight: 500;
+}
+
+.grid {
+  padding: 4px 0 64px;
+  display: grid;
+  max-width: 1324px;
+  grid-template-columns: repeat(2, minmax(min-content, max-content));
+  grid-template-rows: repeat(4, minmax(121px, max-content));
+  column-gap: 20px;
+  row-gap: 32px;
+}
+
+.professions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter {
+  display: block;
+  width: 652px;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  box-shadow:
+    0 4px 6px rgba(176, 190, 197, 0.3),
+    0 8px 24px rgba(176, 190, 197, 0.3);
+}
+
+.filter__header {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  padding-bottom: 16px;
+}
+
+.filter__span {
+  color: #FF0200;
+}
+
+.buttons__container {
+  display: flex;
+  gap: 20px;
+}
+
+.button {
+  text-transform: none;
+}
