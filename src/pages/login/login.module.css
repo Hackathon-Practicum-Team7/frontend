@@ -9,36 +9,15 @@
 
 .login-page__form-wrap {
   margin: 0 auto;
-  padding: 40px 52px 56px;
+  padding: 40px 56px 52px;
   width: 428px;
   background: #fff;
   border-radius: 16px;
 }
 
-.form {
-  width: 100%;
+.login-page__inputs-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 36px 0 12px;
 }
-
-.input {
-  width: 100%;
-  border: 1px solid #797981;
-  border-radius: 4px;
-}
-
-.input::after {
-  content: '';
-  border: none;
-  height: 0;
-}
-
-.input:focus {
-  border: 1px solid #5a9Bff;
-}
-
-.MuiInput-underline {
-  border: none;
-}
-
-/*.input.Mui-focused {*/
-/*  border: 1px solid #5a9Bff;*/
-/*}*/
