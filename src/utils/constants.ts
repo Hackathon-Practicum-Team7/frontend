@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material";
+import {createTheme} from "@mui/material";
 import * as yup from 'yup';
 
 declare module '@mui/material/Button' {
@@ -15,7 +15,7 @@ export const theme = createTheme({
     MuiButton: {
       variants: [
         {
-          props: { variant: 'customContained' },
+          props: {variant: 'customContained'},
           style: {
             backgroundColor: '#5A9BFF',
             border: '1px solid transparent',
@@ -23,14 +23,14 @@ export const theme = createTheme({
           },
         },
         {
-          props: { variant: 'customOutlined'},
+          props: {variant: 'customOutlined'},
           style: {
             border: '1px solid #1D6BF3',
             color: '#1D6BF3',
           },
         },
         {
-          props: { variant: 'customFilterActive' },
+          props: {variant: 'customFilterActive'},
           style: {
             fontWeight: '500',
             backgroundColor: '#F1F6FF',
@@ -39,7 +39,7 @@ export const theme = createTheme({
           },
         },
         {
-          props: { variant: 'customFilter' },
+          props: {variant: 'customFilter'},
           style: {
             color: '#797981',
             border: '1px solid #ACCCFF',
@@ -92,6 +92,11 @@ export const customLoginStyles = {
     marginLeft: '5px',
     color: '#fff',
   },
+  'text_errored': {
+    fontSize: '11px',
+    lineHeight: '12px',
+    color: '#ff0200',
+  },
   input: {
     border: 'none',
     fontFamily: `'YS-Text', ` + `'Arial', ` + 'sans-serif',
@@ -114,22 +119,23 @@ export const customLoginStyles = {
       border: 'none',
     },
   },
-  'input_errored': {
-    border: '2px solid #ff0200',
-  },
-  outline: {
+  'input-outline': {
     border: '1px solid #797981',
     borderRadius: '4px',
     ':has(> .Mui-focused)': {
       border: '2px solid #5a9bff',
     }
-  }
+  },
+  'input-outline_errored': {
+    border: '2px solid #ff0200',
+    borderRadius: '4px',
+  },
 }
 
 export const authValidationSchema = yup.object().shape({
   email: yup
     .string()
-    .email('Введите корректный адрес электронной почты')
+    .email('Введите корректный адрес электронной почты вида example@mail.ru')
     .required('Это поле обязательно'),
   password: yup
     .string()

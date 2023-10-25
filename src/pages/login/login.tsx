@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from 'react';
 import {
-  FormControl,
+  FormControl, FormHelperText,
   Input,
   Link,
   TextField,
@@ -48,35 +48,50 @@ export const Login: FunctionComponent = () => {
                         sx={[customLoginStyles.text, customLoginStyles['text_subtitle']]}>
               Войти в аккаунт
             </Typography>
-            <TextField variant="standard"
-                       name="email"
-                       type="email"
-                       {...register("email")}
-                       placeholder="Почта"
-                       fullWidth
-                       error={!!errors.email}
-                       sx={customLoginStyles.outline}
-                       InputProps={{disableUnderline: true}}
-                       inputProps={{sx: customLoginStyles.input}}
-            />
-            {
-              errors.email &&
-              <p>{errors.email?.message}</p>
-            }
-            <TextField variant="standard"
-                       name="password"
-                       type="password"
-                       {...register("password")}
-                       placeholder="Пароль"
-                       fullWidth
-                       error={!!errors.password}
-                       sx={customLoginStyles.outline}
-                       InputProps={{disableUnderline: true}}
-                       inputProps={{sx: customLoginStyles.input}}
-            />
+            <div>
+              <TextField variant="standard"
+                         name="email"
+                         type="email"
+                         {...register("email")}
+                         placeholder="Почта"
+                         fullWidth
+                         error={!!errors.email}
+                         sx={errors?.email ? customLoginStyles['input-outline_errored'] : customLoginStyles['input-outline']}
+                         InputProps={{disableUnderline: true}}
+                         inputProps={{sx: customLoginStyles.input}}
+              />
+              {
+                errors.email &&
+                <FormHelperText
+                  sx={[customLoginStyles.text, customLoginStyles['text_errored']]}>
+                  {errors.email?.message}
+                </FormHelperText>
+              }
+            </div>
+            <div>
+              <TextField variant="standard"
+                         name="password"
+                         type="password"
+                         {...register("password")}
+                         placeholder="Пароль"
+                         fullWidth
+                         error={!!errors.password}
+                         sx={errors?.password ? customLoginStyles['input-outline_errored'] : customLoginStyles['input-outline']}
+                         InputProps={{disableUnderline: true}}
+                         inputProps={{sx: customLoginStyles.input}}
+              />
+              {
+                errors.password &&
+                <FormHelperText
+                  sx={[customLoginStyles.text, customLoginStyles['text_errored']]}>
+                  {errors.password?.message}
+                </FormHelperText>
+              }
+            </div>
           </div>
           <Typography paragraph sx={[customLoginStyles.text, customLoginStyles['text_subtitle']]}>
-            <Link href="#" color="#1d6bf3" underline="hover" sx={[customLoginStyles.text, customLoginStyles['text_form-link']]}>
+            <Link href="#" color="#1d6bf3" underline="hover"
+                  sx={[customLoginStyles.text, customLoginStyles['text_form-link']]}>
               Не помню пароль
             </Link>
           </Typography>
