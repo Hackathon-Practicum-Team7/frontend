@@ -10,6 +10,6 @@ export default function RoutesComponent(): ReactElement {
       <Route path='/' element={<HomePage />} />
       <Route path='/profile/:id' element={<ProfilePage />} />
       <Route path='*' element={<></>} />
-  </Routes>
+    </Routes>
 );
 }
