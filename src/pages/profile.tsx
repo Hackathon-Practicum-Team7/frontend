@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import styles from './profile.module.css';
 import { CardAbout } from '../components/cardAbout/cardAbout';
 import { CardSkills } from '../components/cardSkills/cardSkills';
+import { CardExperience } from '../components/cardExperience/cardExperience';
 
 export const ProfilePage: React.FC = () => {
   const { id } = useParams();
@@ -61,21 +62,9 @@ export const ProfilePage: React.FC = () => {
 
       <CardSkills></CardSkills>
 
-      <ThemeProvider theme={theme}>
+      <CardExperience></CardExperience>
 
-      <Card>
-        <CardHeader title="Опыт работы" />
-        <CardContent>
-6 лет
-Продуктовый дизайнер
-Интеллектуальные динамические системы
-Октябрь 2020 — по настоящее время
-Веду и завершаю крупные разделы продукта, внедряя новые функции и защищая гипотезы. Взаимодействие, как с разработкой, менеджментом, аналитиками, так и с бизнесом. Пересмотр слабых моментов продукта, как в визуальном, так и в функциональном плане. Разработка продукта, базирующегося на legacy движке.
-Дизайнер интерфейсов
-ООО "ГлобалТрак Информационные Технологии"
-Ноябрь 2017 — Сентябрь 2020
-Конкурентный анализ рынка, анализ ЦА, JTBD, разработка внутренней дизайн-системы, проведение бизнес-интервью с пользователями, построение User Flow..</CardContent>
-      </Card>
+      <ThemeProvider theme={theme}>
 
       <Card>
         <CardHeader title="Образование" />

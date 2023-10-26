@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, Icon, ThemeProvider, createTheme } from '@mui/material';
+import { Card, CardContent, CardHeader, ThemeProvider, createTheme } from '@mui/material';
 import React from 'react';
 import styles from './cardSkills.module.css';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
