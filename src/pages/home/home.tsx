@@ -1,13 +1,13 @@
 import styles from "./home.module.css";
 import {ReactElement, useState} from "react";
-import {CustomButton} from "../components/custom-button/custom-button";
-import {SelectInput} from "../components/select-input/select-input";
-import {filterOptions} from "../utils/constants";
-import {SkillsFilter} from "../components/filters/skills-filter/skills-filter";
+import {CustomButton} from "../../components/custom-button/custom-button";
+import {SelectInput} from "../../components/select-input/select-input";
+import {filterOptions} from "../../utils/constants";
+import {SkillsFilter} from "../../components/filters/skills-filter/skills-filter";
 import { useForm, Controller } from "react-hook-form";
-import {LocationFilter} from "../components/filters/location-filter/location-filter";
-import {ProfessionStreamFilter} from "../components/filters/profession-stream-filter/profession-stream-filter";
-import {ProfessionFilter} from "../components/filters/profession-filter/profession-filter";
+import {LocationFilter} from "../../components/filters/location-filter/location-filter";
+import {ProfessionStreamFilter} from "../../components/filters/profession-stream-filter/profession-stream-filter";
+import {ProfessionFilter} from "../../components/filters/profession-filter/profession-filter";
 
 interface IFormInput {
   professionStream: string;

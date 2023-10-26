@@ -1,8 +1,8 @@
 import {Route, Routes} from 'react-router-dom'
 import {ReactElement} from 'react'
-import {HomePage} from "../../pages/home"
+import {HomePage} from "../../pages/home/home"
 import {Login} from '../../pages/login/login';
-import {ResultsPage} from "../../pages/results";
+import {ResultsPage} from "../../pages/results/results";
 
 export default function RoutesComponent(): ReactElement {
   return (
