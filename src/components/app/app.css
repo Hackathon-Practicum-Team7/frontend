@@ -8,3 +8,9 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.main {
+  width: 1440px;
+  background: url(../../images/login-page-background.png) center center no-repeat;
+  background-size: cover;
+}

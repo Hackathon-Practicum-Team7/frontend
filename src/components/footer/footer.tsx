@@ -1,8 +1,10 @@
+import React from 'react';
+
 import {Telegram} from '@mui/icons-material';
 import styles from './footer.module.css';
 import { Button, ThemeProvider, createTheme } from '@mui/material';
 
-export const Footer: React.FC = () => {
+export const Footer: React.FC<{isTransparent: boolean}> = (props) => {
   const theme = createTheme({
     components: {
       MuiButton: {
@@ -19,7 +21,7 @@ export const Footer: React.FC = () => {
   });
 
   return (
-    <footer className={styles.footer}>
+    <footer className={props.isTransparent ? `${styles.footer} ${styles['footer_transparent']}` : `${styles.footer}`}>
       <div className={styles.content}>
         <p className={styles.logo}>© Карьерный Трекер</p>
 
