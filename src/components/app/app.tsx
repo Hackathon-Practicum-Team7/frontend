@@ -1,16 +1,19 @@
 import './app.css';
+
 import {BrowserRouter} from "react-router-dom";
 import RoutesComponent from "../routes-component/routes-component";
 import {ReactElement} from "react";
+
 import {Header} from "../header/header";
 import {Footer} from "../footer/footer";
 
 function App(): ReactElement {
+  const isLoginRoute = window.location.pathname === '/login';
 
   return (
     <BrowserRouter>
       <Header />
-      <main style={{ width: '1440px' }}>
+      <main style={{ width: `${!isLoginRoute && '1440px'}`}}>
         <RoutesComponent />
       </main>
       <Footer />

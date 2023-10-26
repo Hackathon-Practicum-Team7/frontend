@@ -5,7 +5,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url(../../images/login-page-background.png);
+  background: url(../../images/login-page-background.png) center center no-repeat;
+  background-size: cover;
 }
 
 .login-page__form-wrap {
