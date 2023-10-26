@@ -51,7 +51,7 @@ export const CardAbout: React.FC = () => {
       <Card>
         <CardHeader title="О себе" />
         <CardContent>
-          <div className={styles.about}>
+          <div className={styles.content}>
             Помимо дизайна интерфейсов, люблю делать работы в графическом: например,
             разрабатывать презентации или макеты для печати. Хорошо знакома с многостраничной версткой
             и предпечатной подготовкой. Базовые знания HTML и CSS получила именно в техникуме.

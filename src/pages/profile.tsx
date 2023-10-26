@@ -3,6 +3,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './profile.module.css';
 import { CardAbout } from '../components/cardAbout/cardAbout';
+import { CardSkills } from '../components/cardSkills/cardSkills';
 
 export const ProfilePage: React.FC = () => {
   const { id } = useParams();
@@ -58,18 +59,9 @@ export const ProfilePage: React.FC = () => {
 
       <CardAbout></CardAbout>
 
-      <ThemeProvider theme={theme}>
+      <CardSkills></CardSkills>
 
-      <Card>
-        <CardHeader title="Навыки" />
-        <CardContent>
-Маркетинговая аналитика
-UX - исследования
-UI
-Figma
-Adobe Photoshop
-Adobe Photoshop</CardContent>
-      </Card>
+      <ThemeProvider theme={theme}>
 
       <Card>
         <CardHeader title="Опыт работы" />
