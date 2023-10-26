@@ -1,5 +1,5 @@
-import './app.css'
-import { BrowserRouter } from "react-router-dom";
+import './app.module.css'
+import {BrowserRouter} from "react-router-dom";
 import RoutesComponent from "../routes-component/routes-component";
 import {ReactElement} from "react";
 import {Header} from "../header/header";
