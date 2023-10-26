@@ -291,6 +291,5 @@ export const authValidationSchema = yup.object().shape({
     .required('Это поле обязательно'),
   password: yup
     .string()
-    .min(6, 'Пароль должен содержать не менее 6 символов')
     .required('Это поле обязательно')
 });

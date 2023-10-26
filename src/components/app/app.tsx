@@ -12,11 +12,18 @@ function App(): ReactElement {
 
   return (
     <BrowserRouter>
-      <Header />
-      <main style={{ width: `${!isLoginRoute && '1440px'}`}}>
-        <RoutesComponent />
+      {
+        !isLoginRoute &&
+        <Header/>
+      }
+      <main className="main"
+            style={{
+              width: `${isLoginRoute && '100%'}`,
+              background: `${!isLoginRoute && 'none'}`
+            }}>
+        <RoutesComponent/>
       </main>
-      <Footer />
+      <Footer isTransparent={isLoginRoute}/>
     </BrowserRouter>
   )
 }
