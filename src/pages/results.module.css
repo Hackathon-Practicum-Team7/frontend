@@ -1,0 +1,8 @@
+.section {
+  width: 1440px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: 64px 58px;
+  box-sizing: border-box;
+}
