@@ -12,10 +12,14 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import { visuallyHidden } from '@mui/utils';
 
+interface Profile {
+  name: string;
+  profession: string;
+}
 
 interface IData {
   id: number;
-  profile: string;
+  profile: Profile;
   grade: string;
   location: string;
   skills: string[];
@@ -24,7 +28,7 @@ interface IData {
 
 function createData(
   id: number,
-  profile: string,
+  profile: Profile,
   grade: string,
   location: string,
   skills: string[],
@@ -40,9 +44,17 @@ function createData(
   };
 }
 
+// import {student as studentExample} from "../../utils/constants";
+// function studentToData(student): IData {
+//   return {
+//     student
+//   };
+// }
+
 const rows = [
-  createData(1, 'Мария Иванова', 'Junior', 'Москва', ['HTML', 'CSS'], ['bla']),
-  createData(2, 'Анастасия Иванова', 'Middle', 'Санкт-Петербург', ['HTML', 'CSS'], ['bla']),
+  createData(1, { name: 'Мария Иванова', profession: 'Python-разработчик'},
+    'Junior', 'Москва', ['HTML', 'CSS'], ['bla']),
+  createData(2, { name: 'Анастасия Иванова', profession: 'C++-разработчик'}, 'Middle', 'Санкт-Петербург', ['HTML', 'CSS'], ['bla']),
 ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -57,32 +69,14 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
 
 type Order = 'asc' | 'desc';
 
-function getComparator<Key extends keyof any>(
+type Comparator = (a: IData, b: IData) => number;
+function getComparator<Key extends keyof IData>(
   order: Order,
   orderBy: Key,
-): (
-  a: { [key in Key]: number | string },
-  b: { [key in Key]: number | string },
-) => number {
+): Comparator {
   return order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-// Since 2020 all major browsers ensure sort stability with Array.prototype.sort().
-// stableSort() brings sort stability to non-modern browsers (notably IE11). If you
-// only support modern browsers you can replace stableSort(exampleArray, exampleComparator)
-// with exampleArray.slice().sort(exampleComparator)
-function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) {
-  const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
-    }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
 }
 
 interface HeadCell {
@@ -249,7 +243,7 @@ export default function EnhancedTable() {
 
   const visibleRows = React.useMemo(
     () =>
-      stableSort(rows, getComparator(order, orderBy)).slice(
+      rows.slice().sort(getComparator(order, orderBy)).slice(
         page * rowsPerPage,
         page * rowsPerPage + rowsPerPage,
       ),
@@ -306,7 +300,10 @@ export default function EnhancedTable() {
                     >
                       {row.id}
                     </TableCell>
-                    <TableCell align="left">{row.profile}</TableCell>
+                    <TableCell align="left">
+                      <p>{row.profile.profession}</p>
+                      <p>{row.profile.name}</p>
+                    </TableCell>
                     <TableCell align="left">{row.grade}</TableCell>
                     <TableCell align="left">{row.location}</TableCell>
                     <TableCell align="left">{row.skills}</TableCell>
