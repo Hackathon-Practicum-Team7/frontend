@@ -30,6 +30,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  font-family: 'YS-Text', 'YS-Display', 'Arial', sans-serif;
 }
 
 h1 {

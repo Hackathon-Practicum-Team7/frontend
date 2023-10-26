@@ -9,9 +9,11 @@ type TCustomButtonProps = {
   customType: 'customContained' | 'customOutlined' | 'customFilterActive' | 'customFilter',
   extraStyles?: 'button' | 'filterButton',
   onClick?: () => void,
+  type?: 'submit' | 'button' | 'reset',
+  disabled?: boolean,
 }
 
-export const CustomButton = ( { children, width, customType, extraStyles, onClick }: TCustomButtonProps): ReactElement => {
+export const CustomButton = ( { children, width, customType, extraStyles, onClick, type, disabled }: TCustomButtonProps): ReactElement => {
 
   const customStyles = {
     button: {
@@ -61,8 +63,10 @@ export const CustomButton = ( { children, width, customType, extraStyles, onClic
     <ThemeProvider theme={theme}>
       <Button
         variant={customType}
-        sx={ (extraStyles === 'filterButton') ? customStyles.filterButton : customStyles.button}
+        sx={ (extraStyles === 'filterButton') ? customStyles.filterButton : customStyles.button }
         onClick={onClick}
+        type={type}
+        disabled={disabled}
       >
         {children}
       </Button>

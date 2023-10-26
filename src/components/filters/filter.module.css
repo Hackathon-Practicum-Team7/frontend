@@ -1,0 +1,65 @@
+.filter {
+  display: block;
+  width: 652px;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  box-shadow:
+    0 4px 6px rgba(176, 190, 197, 0.3),
+    0 8px 24px rgba(176, 190, 197, 0.3);
+}
+
+.filter__container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter__header {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  padding-bottom: 16px;
+}
+
+.filter__header_inactive {
+  color: #797981;
+}
+
+.text_inactive {
+  font-size: 18px;
+  color: #797981;
+  font-weight: 400;
+  margin: 0;
+}
+
+.delete {
+  display: flex;
+  cursor: pointer;
+}
+
+.delete:hover {
+  opacity: 50%;
+}
+
+.delete__text {
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.delete__icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  margin-top: 1px;
+}
+
+.filter__span {
+  color: #FF0200;
+}
+
+.professions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
