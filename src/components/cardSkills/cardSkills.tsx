@@ -1,9 +1,14 @@
-import { Card, CardContent, CardHeader, ThemeProvider, createTheme } from '@mui/material';
+import { Card, CardContent, CardHeader, Rating, ThemeProvider, createTheme } from '@mui/material';
+import { Circle, CircleOutlined } from '@mui/icons-material';
 import React from 'react';
 import styles from './cardSkills.module.css';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { Skill } from './Skill';
 
-export const CardSkills: React.FC = () => {
+interface Props {
+  skills: Skill[]
+}
+
+export const CardSkills: React.FC<Props> = ({ skills }) => {
 
   const theme = createTheme({
     components: {
@@ -53,36 +58,19 @@ export const CardSkills: React.FC = () => {
         <CardHeader title="Навыки" />
         <CardContent>
           <div className={styles.content}>
-            <div className={styles.skill}>
-              <p className={styles.skill}>Маркетинговая аналитика</p>
-              <MoreHorizIcon fontSize="large"/>
-            </div>
-
-            <div className={styles.skill}>
-              <p>UX - исследования</p>
-              <MoreHorizIcon fontSize="large"/>
-            </div>
-
-            <div className={styles.skill}>
-              <p>UI</p>
-              <MoreHorizIcon fontSize="large"/>
-            </div>
-
-            <div className={styles.skill}>
-              <p>Figma</p>
-              <MoreHorizIcon fontSize="large"/>
-            </div>
-
-            <div className={styles.skill}>
-              <p>Adobe Photoshop</p>
-              <MoreHorizIcon fontSize="large"/>
-            </div>
-
-            <div className={styles.skill}>
-              <p>Adobe Photoshop</p>
-              <MoreHorizIcon fontSize="large"/>
-            </div>
-
+            {skills.map(skill => (
+              <div className={styles.skill}>
+                <p className={styles.skill}>{skill.title}</p>
+                <Rating
+                  name="simple-controlled"
+                  value={skill.level}
+                  readOnly={true}
+                  max={4}
+                  icon={<Circle fontSize="small" />}
+                  emptyIcon={<CircleOutlined fontSize="small" />}
+                />
+              </div>
+            ))}
           </div>
         </CardContent>
       </Card>

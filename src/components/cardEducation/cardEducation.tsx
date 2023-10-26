@@ -36,6 +36,7 @@ export const CardEducation: React.FC = () => {
             color: '#000',
             textTransform: 'none',
             minHeight: '396px',
+            height: '100%',
             padding: '0'
           },
         },

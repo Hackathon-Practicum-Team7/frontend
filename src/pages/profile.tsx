@@ -5,6 +5,7 @@ import { CardAbout } from '../components/cardAbout/cardAbout';
 import { CardSkills } from '../components/cardSkills/cardSkills';
 import { CardExperience } from '../components/cardExperience/cardExperience';
 import { CardEducation } from '../components/cardEducation/cardEducation';
+import { skillsData } from '../components/cardSkills/skillsData';
 
 export const ProfilePage: React.FC = () => {
   const { id } = useParams();
@@ -18,7 +19,7 @@ export const ProfilePage: React.FC = () => {
 
       <CardAbout></CardAbout>
 
-      <CardSkills></CardSkills>
+      <CardSkills skills={skillsData}></CardSkills>
 
       <CardExperience></CardExperience>
 
