@@ -1,11 +1,12 @@
 .login-page {
-  width: 100vw;
-  height: 100vh;
+  position: relative;
+  min-width: 100%;
+  /*height: calc(100vh - 90px); !* высота футера 90px *!*/
+  height: 100vh; /* высота футера 90px */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url(../../images/login-page-background.png);
 }
 
 .login-page__form-wrap {

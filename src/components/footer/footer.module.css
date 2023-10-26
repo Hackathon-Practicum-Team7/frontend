@@ -9,6 +9,13 @@
   align-items: center;
 }
 
+.footer_transparent {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background-color: transparent;
+}
+
 .content {
   min-width: 306px;
   display: flex;
