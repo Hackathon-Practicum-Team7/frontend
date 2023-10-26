@@ -21,9 +21,6 @@ function App(): ReactElement {
               background: `${!isLoginRoute && 'none'}`
             }}>
         <RoutesComponent/>
-      <Header />
-      <main style={{ width: '1440px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <RoutesComponent />
       </main>
       <Footer isTransparent={isLoginRoute}/>
     </BrowserRouter>
