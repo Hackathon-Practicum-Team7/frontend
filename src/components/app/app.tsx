@@ -10,7 +10,7 @@ function App(): ReactElement {
   return (
     <BrowserRouter>
       <Header />
-      <main style={{ width: '1440px' }}>
+      <main style={{ width: '1440px', display: 'flex', flexDirection: 'column' }}>
         <RoutesComponent />
       </main>
       <Footer />
