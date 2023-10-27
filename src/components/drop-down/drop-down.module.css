@@ -1,0 +1,16 @@
+.menu-body {
+  position: fixed;
+  top: 0;
+  left: -24%;
+  width: 24%;
+  height: 100%;
+  background-color: #000;
+  transition: left .3s ease 0s;
+  z-index: 4;
+  overflow: auto;
+}
+
+.menu-body_opened {
+  left: 0;
+}
+

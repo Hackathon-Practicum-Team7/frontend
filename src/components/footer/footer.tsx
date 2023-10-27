@@ -2,23 +2,10 @@ import React from 'react';
 
 import {Telegram} from '@mui/icons-material';
 import styles from './footer.module.css';
-import { Button, ThemeProvider, createTheme } from '@mui/material';
+import { Button, ThemeProvider } from '@mui/material';
+import {themeFooter} from '../../utils/constants/style-constants';
 
 export const Footer: React.FC<{isTransparent: boolean}> = (props) => {
-  const theme = createTheme({
-    components: {
-      MuiButton: {
-        styleOverrides: {
-          root: {
-            color: '#FFF',
-            textTransform: 'none',
-            fontSize: '12px',
-            fontWeight: '500'
-          },
-        },
-      },
-    },
-  });
 
   return (
     <footer className={props.isTransparent ? `${styles.footer} ${styles['footer_transparent']}` : `${styles.footer}`}>
@@ -28,7 +15,7 @@ export const Footer: React.FC<{isTransparent: boolean}> = (props) => {
         <p className={styles.text}>для работодателей, 2023</p>
       </div>
 
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={themeFooter}>
         <Button startIcon={<Telegram />} className={styles.button} variant='text'>
           <p>Написать в поддержку</p>
         </Button>
