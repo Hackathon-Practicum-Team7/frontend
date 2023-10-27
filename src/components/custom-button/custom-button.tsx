@@ -4,8 +4,8 @@ import {ReactElement} from "react";
 import {themeInput} from '../../utils/constants/style-constants';
 
 type TCustomButtonProps = {
-  children: string,
-  width?: string,
+  children: string | ReactElement,
+  width?: string | number,
   customType: 'customContained' | 'customOutlined' | 'customFilterActive' | 'customFilter',
   extraStyles?: 'button' | 'filterButton',
   onClick?: () => void,

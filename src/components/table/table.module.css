@@ -50,13 +50,21 @@
 }
 
 .like_inactive {
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   padding: 0;
   background-image: url('src/images/like-not-active.svg');
+  background-size: 26px 26px;
   background-color: transparent;
   border: 0;
   background-repeat: no-repeat;
+}
+
+.like_inactive:hover {
+  width: 24px;
+  height: 24px;
+  background-image: url('src/images/like-active.svg');
+  opacity: 50%;
 }
 
 .like_active {
@@ -67,6 +75,10 @@
   background-color: transparent;
   border: 0;
   background-repeat: no-repeat;
+}
+
+.like_active:hover {
+  opacity: 50%;
 }
 
 .table__bottom {
@@ -93,4 +105,8 @@
   display: flex;
   gap: 20px;
   padding-bottom: 44px;
+}
+
+.download-icon {
+  padding-right: 8px;
 }

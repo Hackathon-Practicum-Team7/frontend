@@ -1,0 +1,23 @@
+.no-results {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 106px;
+}
+
+.no-results__header {
+  font-family: 'YS-Display', 'Arial', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+  padding-bottom: 16px;
+}
+
+.no-results__text {
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0;
+  color: rgba(121, 121, 129, 1);
+  padding-bottom: 48px;
+}

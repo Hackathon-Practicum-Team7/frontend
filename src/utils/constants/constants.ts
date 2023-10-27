@@ -1,4 +1,6 @@
 import * as yup from 'yup';
+import {createData} from "../helpers";
+import {IHeadCell} from "../types";
 
 declare module '@mui/material/Button' {
   interface ButtonPropsVariantOverrides {
@@ -47,9 +49,9 @@ export const tableOptions = {
     'По умолчанию',
   ],
   pagination: [
-    'По 10 кандидатов',
-    'По 20 кандидатов',
-    'По 50 кандидатов',
+    {text: 'По 5 кандидатов', value: 5},
+    {text: 'По 10 кандидатов', value: 10},
+    {text: 'По 20 кандидатов', value: 20},
   ],
 }
 
@@ -94,4 +96,102 @@ export const student = {
     "portfolio": "https://github.com/alena",
     "whatsapp": "+79998887744"
   },
-}
+};
+
+export const rows = [
+  createData(1, {
+      name: 'Мария Иванова',
+      profession: 'Python-разработчик',
+      src: 'https://imageup.ru/img106/4591822/dsc03760-2-1-1.jpg'},
+    'Junior',
+    'Москва',
+    ['HTML', 'CSS', 'JavaScript', 'React'],
+    {
+      tg: '@nickname',
+      email: 'email@email.ru',
+    },
+    true ),
+  createData(2, {
+      name: 'Анастасия Иванова',
+      profession: 'C++-разработчик ',
+      src: 'https://imageup.ru/img37/4591831/_ssl-mzpqr8.jpg'},
+    'Junior',
+    'Санкт-Петербург',
+    ['HTML', 'CSS', 'JavaScript', 'React', 'TypeScript'], {
+      tg: '@nickname',
+      email: 'email@email.ru',
+    }, false),
+  createData(3, {
+      name: 'Екатерина Иванова',
+      profession: 'Python-разработчик ',
+      src: 'https://play-lh.googleusercontent.com/IeNJWoKYx1waOhfWF6TiuSiWBLfqLb18lmZYXSgsH1fvb8v1IYiZr5aYWe0Gxu-pVZX3'},
+    'Middle',
+    'Казань',
+    ['HTML', 'CSS', 'React'], {
+      tg: '@nickname',
+      email: 'email@email.ru',
+    }, true),
+  createData(4, {
+      name: 'Полина Иванова',
+      profession: 'Java-разработчик ',
+      src: 'https://play-lh.googleusercontent.com/IeNJWoKYx1waOhfWF6TiuSiWBLfqLb18lmZYXSgsH1fvb8v1IYiZr5aYWe0Gxu-pVZX3'},
+    'Middle',
+    'Саратов',
+    ['HTML', 'CSS'], {
+      tg: '@nickname',
+      email: 'email@email.ru',
+    }, false),
+  createData(5, {
+      name: 'Дарья Иванова',
+      profession: 'Web-разработчик ',
+      src: 'https://play-lh.googleusercontent.com/IeNJWoKYx1waOhfWF6TiuSiWBLfqLb18lmZYXSgsH1fvb8v1IYiZr5aYWe0Gxu-pVZX3'},
+    'Middle',
+    'Санкт-Петербург',
+    ['HTML', 'CSS'], {
+      tg: '@nickname',
+      email: 'email@email.ru',
+    }, false),
+  createData(6, {
+      name: 'Ирина Иванова',
+      profession: 'Web-разработчик ',
+      src: 'https://play-lh.googleusercontent.com/IeNJWoKYx1waOhfWF6TiuSiWBLfqLb18lmZYXSgsH1fvb8v1IYiZr5aYWe0Gxu-pVZX3'},
+    'Middle',
+    'Москва',
+    ['HTML', 'CSS'], {
+      tg: '@nickname',
+      email: 'email@email.ru',
+    }, true),
+];
+
+export const headCells: IHeadCell[] = [
+  {
+    id: 'id',
+    label: 'ID',
+  },
+  {
+    id: 'profile',
+    label: 'Профиль',
+  },
+  {
+    id: 'grade',
+    label: 'Уровень',
+  },
+  {
+    id: 'location',
+    label: 'Локация',
+  },
+  {
+    id: 'skills',
+    label: 'Ключевые навыки',
+  },
+  {
+    id: 'contacts',
+    label: 'Контакты',
+  },
+  {
+    id: 'isLiked',
+    label: '',
+  },
+];
+
+export const newHeadCells = headCells.slice(1);
