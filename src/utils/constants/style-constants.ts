@@ -82,7 +82,23 @@ export const themeInput = createTheme({
             color: 'rgba(121, 121, 129, 1)',
           }
         }
-      }
+      },
+      variants: [
+        {
+          props: { variant: 'gray' },
+          style: {
+            backgroundColor: 'rgba(85, 85, 90, 0.6)',
+            fontWeight: '400',
+            color: 'white',
+            height: '32px',
+            '& .MuiChip-deleteIcon': {
+              color: 'white',
+              fontSize: '18px',
+              fontWeight: '500',
+            }
+          },
+        }
+        ]
     },
 
     MuiMenu: {
@@ -185,7 +201,6 @@ export const themeInput = createTheme({
         root: {
           '&.MuiButton-root': {
             fontSize: '16px',
-            fontWeight: '500',
           }
         }
       },

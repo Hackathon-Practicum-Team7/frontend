@@ -35,6 +35,10 @@
   align-items: center;
 }
 
+.button:hover {
+  opacity: 50%;
+}
+
 .button__icon {
   padding-right: 8px;
 }

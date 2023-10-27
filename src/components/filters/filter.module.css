@@ -32,28 +32,6 @@
   margin: 0;
 }
 
-.delete {
-  display: flex;
-  cursor: pointer;
-}
-
-.delete:hover {
-  opacity: 50%;
-}
-
-.delete__text {
-  font-size: 14px;
-  font-weight: 400;
-  margin: 0;
-}
-
-.delete__icon {
-  width: 16px;
-  height: 16px;
-  margin-right: 4px;
-  margin-top: 1px;
-}
-
 .filter__span {
   color: #FF0200;
 }
