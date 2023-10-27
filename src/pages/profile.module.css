@@ -1,3 +1,75 @@
+.staticContent {
+  margin: 0;
+  padding: 28px 0 0 0;
+  height: 524px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.title {
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 40px;
+  text-align: left;
+  padding-bottom: 102px;
+}
+
+.info {
+  display: flex;
+  gap: 19px;
+}
+
+.shortlist {
+  padding: 22px 0 22px 19px;
+  display: grid;
+  grid-template-columns: 242px 262px 242px 186px 225px;
+}
+
+.cell {
+  border-left-style: solid;
+  border-left-color: #DDE0E4;
+  border-left-width: 2px;
+  padding-left: 19px;
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cellButton {
+  border-left-style: solid;
+  border-left-color: #DDE0E4;
+  border-left-width: 2px;
+  padding-left: 19px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.main {
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.extra {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.buttons {
+  margin: 20px 0 84px 0;
+  display: flex;
+  justify-content: end;
+  gap: 20px;
+}
+
 .content {
   display: grid;
   grid-template-columns: 764px 540px;

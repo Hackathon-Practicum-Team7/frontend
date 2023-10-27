@@ -7,9 +7,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
-  bottom: 0;
+}
+
+.footer_transparent {
+  position: absolute;
   left: 0;
+  bottom: 0;
+  background-color: transparent;
 }
 
 .content {

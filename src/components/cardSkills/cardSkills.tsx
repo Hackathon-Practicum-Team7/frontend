@@ -45,7 +45,8 @@ export const CardSkills: React.FC<Props> = ({ skills }) => {
             lineHeight: '20px',
             fontWeight: '400',
             height: '128px',
-            padding: '0'
+            padding: '0',
+            borderRadius: '12px'
           },
         },
       },
@@ -66,8 +67,8 @@ export const CardSkills: React.FC<Props> = ({ skills }) => {
                   value={skill.level}
                   readOnly={true}
                   max={4}
-                  icon={<Circle fontSize="small" />}
-                  emptyIcon={<CircleOutlined fontSize="small" />}
+                  icon={<Circle sx={{ color: "#797981", fontSize: "12px" }} />}
+                  emptyIcon={<CircleOutlined sx={{ color: "#797981", fontSize: "12px" }} />}
                 />
               </div>
             ))}

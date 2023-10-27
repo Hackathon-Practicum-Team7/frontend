@@ -39,7 +39,8 @@ export const CardAbout: React.FC = () => {
             lineHeight: '20px',
             fontWeight: '400',
             height: '128px',
-            padding: '0'
+            padding: '0',
+            borderRadius: '12px'
           },
         },
       },
