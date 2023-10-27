@@ -9,6 +9,9 @@ import { BreadcrumbsNav } from '../components/breadcrumbs/breadcrumbs';
 import { Avatar } from '@mui/material';
 import { CustomButton } from '../components/custom-button/custom-button';
 import SuitcaseIcon from '../images/suitcase-icon.svg?react';
+import DownloadIcon from '../images/download-icon.svg?react';
+import EmailIcon from '../images/email-icon.svg?react';
+import PaperPlaneIcon from '../images/paper-plane-icon.svg?react';
 import { ContactButton } from '../components/contactButton/ContactButton';
 import { FavoriteButton } from '../components/favoriteButton/favoriteButton';
 
@@ -49,11 +52,11 @@ export const ProfilePage: React.FC = () => {
 
             <div className={styles.cellButton}>
               <ContactButton icon={<SuitcaseIcon />} label="Портфолио" href="https://github.com/elana-tollu"/>
-              <ContactButton icon={<SuitcaseIcon />} label="Резюме" href="https://www.africau.edu/images/default/sample.pdf" />
+              <ContactButton icon={<DownloadIcon />} label="Резюме" href="https://www.africau.edu/images/default/sample.pdf" />
             </div>
             <div className={styles.cellButton}>
-              <ContactButton icon={<SuitcaseIcon />} label="petrova@yandex.ru" onClick={ () => copyToClipboard('petrova@yandex.ru')}/>
-              <ContactButton icon={<SuitcaseIcon />} label="+7-920-876-45-45" onClick={ () => copyToClipboard('+7-920-876-45-45') }/>
+              <ContactButton icon={<EmailIcon />} label="petrova@yandex.ru" onClick={ () => copyToClipboard('petrova@yandex.ru')}/>
+              <ContactButton icon={<PaperPlaneIcon />} label="+7-920-876-45-45" onClick={ () => copyToClipboard('+7-920-876-45-45') }/>
             </div>
           </div>
         </div>
