@@ -1,8 +1,8 @@
 import styles from "../filter.module.css";
 import {ReactElement, useEffect} from "react";
 import {InputWithChip} from "../../input-with-chip/input-with-chip";
-import deleteIcon from '../../../images/delete-icon.svg';
 import * as React from "react";
+import {ClearFilters} from "../../clear-filters/clear-filters";
 
 export const LocationFilter = ({onChange}: {onChange: (event: { target: { value: string[] } }) => void}): ReactElement => {
   const locations = [
@@ -25,15 +25,15 @@ export const LocationFilter = ({onChange}: {onChange: (event: { target: { value:
     <>
       <div className={styles.filter__container}>
         <p className={styles.filter__header}>Местоположение</p>
-        { (selectedLocations.length > 0) && (
-          <div className={styles.delete} onClick={onClearClick}>
-            <img className={styles.delete__icon} src={deleteIcon} alt="Очистить фильтры"/>
-            <p className={styles.delete__text}>Очистить фильтры</p>
-          </div>
-        )
-        }
+        { (selectedLocations.length > 0) && (<ClearFilters onClick={onClearClick}>Очистить фильтр</ClearFilters>) }
       </div>
-      <InputWithChip filterOptions={locations} onClearClick={onClearClick} input={selectedLocations} setInput={setSelectedLocations} />
+      <InputWithChip
+        filterOptions={locations}
+        onClearClick={onClearClick}
+        input={selectedLocations}
+        setInput={setSelectedLocations}
+        placeholderText={'Введите город, область'}
+      />
     </>
   )
 }

@@ -2,7 +2,7 @@ import styles from "../filter.module.css";
 import {CustomButton} from "../../custom-button/custom-button";
 import {ReactElement, useEffect} from "react";
 import * as React from "react";
-import deleteIcon from "../../../images/delete-icon.svg";
+import {ClearFilters} from "../../clear-filters/clear-filters";
 
 type TProfessionFilterProps = {
   onChange: (event: { target: { value: string[] } }) => void,
@@ -47,12 +47,7 @@ export const ProfessionFilter = ({onChange, isStreamChosen, setProfessionChosen}
         <>
           <div className={styles.filter__container}>
             <p className={styles.filter__header}><span className={`${styles.filter__header} ${styles.filter__span}`}>*</span> Специализация</p>
-            {(selectedProfessions && selectedProfessions.length > 0) && (
-              <div className={styles.delete} onClick={onClearClick}>
-                <img className={styles.delete__icon} src={deleteIcon} alt="Очистить фильтры"/>
-                <p className={styles.delete__text}>Очистить фильтры</p>
-              </div>
-            )}
+            {(selectedProfessions && selectedProfessions.length > 0) && (<ClearFilters onClick={onClearClick}>Очистить фильтр</ClearFilters>)}
           </div>
           <div className={styles.professions}>
             { professions.map((profession) => {

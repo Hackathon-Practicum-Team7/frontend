@@ -16,44 +16,16 @@ import styles from './input-with-chip.module.css';
 import {DropdownIcon} from "../dropdown-icon/dropdown-icon";
 import {themeInput} from '../../utils/constants/style-constants';
 
-
-/*<Select
-  SelectDisplayProps={{ style: { padding: '0', height: '22px' } }}
-  inputProps={{ 'aria-label': 'Without label' }}
-  id="demo-multiple-checkbox"
-  multiple
-  displayEmpty
-  value={input}
-  onChange={handleChange}
-  input={<Input disableUnderline={true} onChange={handleInputChange} />}
-  renderValue={() => {
-                 if (selected.length === 0) {
-                   return <em>Placeholder</em>;
-                 }
-    return <span>Выберите навыки</span>;
-  }}
-  MenuProps={MenuProps}
-  IconComponent={() => <DropdownIcon />}
->
-  {names.map((name) => (
-    <MenuItem key={name} value={name} sx={{ height: '36px', padding: '8px 0 8px 12px' }}>
-      <ListItemText primary={name} primaryTypographyProps={{ fontFamily: 'YS-Text', fontSize: '14px' }} />
-      <Checkbox
-        checkedIcon={<CheckRoundedIcon sx={{ width: '24px', height: '18px' }}/>}
-        checked={input.indexOf(name) > -1}
-        icon={<></>}
-      />
-    </MenuItem>
-  ))}
-</Select>*/
-
 type TInputWithChipProps = {
   filterOptions: string[],
   onClearClick?: () => void,
   input: string[] | [],
   setInput: React.Dispatch<React.SetStateAction<string[]>>,
+  placeholderText?: string,
+  width?: number,
+  chipVariant?: 'gray'
 }
-export const InputWithChip = ({ filterOptions, input, setInput }: TInputWithChipProps): ReactElement => {
+export const InputWithChip = ({ filterOptions, input, setInput, placeholderText, width, chipVariant }: TInputWithChipProps): ReactElement => {
   const handleChange = (_event: React.SyntheticEvent, value: string[], _reason: string) => {
     setInput(value);
   };
@@ -65,13 +37,13 @@ export const InputWithChip = ({ filterOptions, input, setInput }: TInputWithChip
 
   return (
     <ThemeProvider theme={themeInput}>
-      <FormControl sx={{ width: 612 }}>
+      <FormControl sx={{ width: width || 612 }}>
         <Autocomplete
           value={input}
           onChange={handleChange}
           multiple
           disableClearable={true}
-          renderInput={(params) => <TextField placeholder="Выберите навыки" {...params} />}
+          renderInput={(params) => <TextField placeholder={placeholderText} {...params} />}
           options={filterOptions}
           popupIcon={<DropdownIcon top={2} right={3} />}
           renderOption={(props, option, { selected }) => (
@@ -94,6 +66,7 @@ export const InputWithChip = ({ filterOptions, input, setInput }: TInputWithChip
             <Chip
               key={value}
               label={value}
+              variant={chipVariant || 'filled'}
               onDelete={(e) => handleDelete(e, value)}
               deleteIcon={<CloseRoundedIcon />}
             />

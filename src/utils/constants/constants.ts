@@ -1,4 +1,3 @@
-import {createTheme} from "@mui/material";
 import * as yup from 'yup';
 
 declare module '@mui/material/Button' {
@@ -7,6 +6,12 @@ declare module '@mui/material/Button' {
     customOutlined: true;
     customFilterActive: true;
     customFilter: true;
+  }
+}
+
+declare module '@mui/material/Chip' {
+  interface ChipPropsVariantOverrides {
+    gray: true;
   }
 }
 
@@ -34,6 +39,17 @@ export const filterOptions = {
     'Middle',
     'Senior',
     'Lead',
+  ],
+}
+
+export const tableOptions = {
+  sorting: [
+    'По умолчанию',
+  ],
+  pagination: [
+    'По 10 кандидатов',
+    'По 20 кандидатов',
+    'По 50 кандидатов',
   ],
 }
 

@@ -1,22 +1,22 @@
 import React, {FunctionComponent} from 'react';
 
-import burgerStyles from './drop-down.module.css';
+import dropDownStyles from './drop-down.module.css';
 
 import {Overlay} from '../overlay/overlay';
 
-import {TBurgerMenu} from '../../utils/types';
+import {TDropDown} from '../../utils/types';
 
 
-export const DropDown: FunctionComponent<TBurgerMenu> = (props) => {
+export const DropDown: FunctionComponent<TDropDown> = (props) => {
   return (
     <>
       {
-        props.menuIsOpen &&
+        props.isOpen &&
         <Overlay onClose={props.onClose}/>
       }
-      <div className={props.menuIsOpen
-        ? `${burgerStyles['menu-body']} ${burgerStyles['menu-body_opened']}`
-        : `${burgerStyles['menu-body']}`}>
+      <div className={props.isOpen
+        ? `${dropDownStyles['drop-down-body']} ${dropDownStyles['drop-down-body_opened']}`
+        : `${dropDownStyles['drop-down-body']}`}>
         {props.children}
       </div>
     </>
