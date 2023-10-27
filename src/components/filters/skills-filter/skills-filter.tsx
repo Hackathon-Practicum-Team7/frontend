@@ -33,7 +33,13 @@ export const SkillsFilter = ({onChange}: {onChange: (event: { target: { value: s
           )
         }
       </div>
-      <InputWithChip filterOptions={skills} onClearClick={onClearClick} input={selectedSkills} setInput={setSelectedSkills} />
+      <InputWithChip
+        filterOptions={skills}
+        onClearClick={onClearClick}
+        input={selectedSkills}
+        setInput={setSelectedSkills}
+        placeholderText={'Выберите навыки'}
+      />
     </>
   )
 }

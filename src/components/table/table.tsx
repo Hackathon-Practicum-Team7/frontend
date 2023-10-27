@@ -11,28 +11,47 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import { visuallyHidden } from '@mui/utils';
+import Avatar from '@mui/material/Avatar';
+import styles from './table.module.css';
+import {Chip, Pagination, ThemeProvider} from "@mui/material";
+import emailIcon from '../../images/email-icon-gray.svg';
+import telegramIcon from '../../images/telegram-icon-gray.svg';
+import checkboxIcon from '../../images/checkbox.svg';
+import inactiveCheckboxIcon from '../../images/checkbox-not-active.svg';
+import {themeInput} from "../../utils/constants/style-constants";
+import {CustomButton} from "../custom-button/custom-button";
+import {SelectInput} from "../select-input/select-input";
+import {tableOptions} from "../../utils/constants/constants";
 
-interface Profile {
+interface IProfile {
   name: string;
   profession: string;
+  src: string;
+}
+
+interface IContacts {
+  tg: string;
+  email: string;
 }
 
 interface IData {
   id: number;
-  profile: Profile;
+  profile: IProfile;
   grade: string;
   location: string;
   skills: string[];
-  contacts: string[];
+  contacts: IContacts;
+  isLiked: boolean;
 }
 
 function createData(
   id: number,
-  profile: Profile,
+  profile: IProfile,
   grade: string,
   location: string,
   skills: string[],
-  contacts: string[],
+  contacts: IContacts,
+  isLiked: boolean,
 ): IData {
   return {
     id,
@@ -41,20 +60,73 @@ function createData(
     location,
     skills,
     contacts,
+    isLiked,
   };
 }
 
-// import {student as studentExample} from "../../utils/constants";
-// function studentToData(student): IData {
-//   return {
-//     student
-//   };
-// }
-
 const rows = [
-  createData(1, { name: 'Мария Иванова', profession: 'Python-разработчик'},
-    'Junior', 'Москва', ['HTML', 'CSS'], ['bla']),
-  createData(2, { name: 'Анастасия Иванова', profession: 'C++-разработчик'}, 'Middle', 'Санкт-Петербург', ['HTML', 'CSS'], ['bla']),
+  createData(1, {
+      name: 'Мария Иванова',
+      profession: 'Python-разработчик',
+      src: 'https://imageup.ru/img106/4591822/dsc03760-2-1-1.jpg'},
+    'Junior',
+    'Москва',
+    ['HTML', 'CSS', 'JavaScript'],
+    {
+      tg: '@nickname',
+      email: 'email@email.ru',
+    },
+     true ),
+  createData(2, {
+    name: 'Анастасия Иванова',
+    profession: 'C++-разработчик ',
+    src: 'https://imageup.ru/img37/4591831/_ssl-mzpqr8.jpg'},
+    'Middle',
+    'Санкт-Петербург',
+    ['HTML', 'CSS'], {
+      tg: '@nickname',
+      email: 'email@email.ru',
+    }, false),
+  createData(3, {
+      name: 'Екатерина Иванова',
+      profession: 'Python-разработчик ',
+      src: 'https://play-lh.googleusercontent.com/IeNJWoKYx1waOhfWF6TiuSiWBLfqLb18lmZYXSgsH1fvb8v1IYiZr5aYWe0Gxu-pVZX3'},
+    'Middle',
+    'Казань',
+    ['HTML', 'CSS', 'React'], {
+      tg: '@nickname',
+      email: 'email@email.ru',
+    }, true),
+  createData(4, {
+      name: 'Полина Иванова',
+      profession: 'Java-разработчик ',
+      src: 'https://play-lh.googleusercontent.com/IeNJWoKYx1waOhfWF6TiuSiWBLfqLb18lmZYXSgsH1fvb8v1IYiZr5aYWe0Gxu-pVZX3'},
+    'Middle',
+    'Саратов',
+    ['HTML', 'CSS'], {
+      tg: '@nickname',
+      email: 'email@email.ru',
+    }, false),
+  createData(5, {
+      name: 'Дарья Иванова',
+      profession: 'Web-разработчик ',
+      src: 'https://play-lh.googleusercontent.com/IeNJWoKYx1waOhfWF6TiuSiWBLfqLb18lmZYXSgsH1fvb8v1IYiZr5aYWe0Gxu-pVZX3'},
+    'Middle',
+    'Санкт-Петербург',
+    ['HTML', 'CSS'], {
+      tg: '@nickname',
+      email: 'email@email.ru',
+    }, false),
+  createData(6, {
+      name: 'Ирина Иванова',
+      profession: 'Web-разработчик ',
+      src: 'https://play-lh.googleusercontent.com/IeNJWoKYx1waOhfWF6TiuSiWBLfqLb18lmZYXSgsH1fvb8v1IYiZr5aYWe0Gxu-pVZX3'},
+    'Middle',
+    'Москва',
+    ['HTML', 'CSS'], {
+      tg: '@nickname',
+      email: 'email@email.ru',
+    }, true),
 ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -80,50 +152,42 @@ function getComparator<Key extends keyof IData>(
 }
 
 interface HeadCell {
-  disablePadding: boolean;
   id: keyof IData;
   label: string;
-  numeric: boolean;
 }
 
-const headCells: readonly HeadCell[] = [
+const headCells: HeadCell[] = [
   {
     id: 'id',
-    numeric: false,
-    disablePadding: true,
     label: 'ID',
   },
   {
     id: 'profile',
-    numeric: false,
-    disablePadding: true,
     label: 'Профиль',
   },
   {
     id: 'grade',
-    numeric: false,
-    disablePadding: false,
     label: 'Уровень',
   },
   {
     id: 'location',
-    numeric: false,
-    disablePadding: false,
     label: 'Локация',
   },
   {
     id: 'skills',
-    numeric: false,
-    disablePadding: false,
     label: 'Ключевые навыки',
   },
   {
     id: 'contacts',
-    numeric: false,
-    disablePadding: false,
     label: 'Контакты',
   },
+  {
+    id: 'isLiked',
+    label: '',
+  },
 ];
+
+const newHeadCells = headCells.slice(1);
 
 interface EnhancedTableProps {
   numSelected: number;
@@ -133,6 +197,11 @@ interface EnhancedTableProps {
   orderBy: string;
   rowCount: number;
 }
+
+const CheckboxIcon = <img src={checkboxIcon} alt={'Чекбокс'} className={styles.checkbox} />;
+const InactiveCheckBoxIcon = <img src={inactiveCheckboxIcon} alt={'Чекбокс'} className={styles.checkbox}/>;
+const InactiveLikeIcon = () => (<button className={styles.like_inactive}/>);
+const ActiveLikeIcon = () => ( <button className={styles.like_active}/>);
 
 function EnhancedTableHead(props: EnhancedTableProps) {
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
@@ -145,7 +214,16 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
+        <TableCell
+          key={headCells[0].id}
+          align={'center'}
+          padding={'normal'}
+          sortDirection={orderBy === headCells[0].id ? order : false}
+          width='72px'
+          >
+          {headCells[0].label}
+        </TableCell>
+        <TableCell padding="none" align={'center'} width='44px'>
           <Checkbox
             color="primary"
             indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -154,13 +232,17 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             inputProps={{
               'aria-label': 'select all desserts',
             }}
+            checkedIcon={CheckboxIcon}
+            icon={InactiveCheckBoxIcon}
+            indeterminateIcon={InactiveCheckBoxIcon}
+            sx={{ width: '20px', height: '20px' }}
           />
         </TableCell>
-        {headCells.map((headCell) => (
+        {newHeadCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
+            align={'left'}
+            padding={'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
@@ -250,12 +332,26 @@ export default function EnhancedTable() {
     [order, orderBy, page, rowsPerPage],
   );
 
+
   return (
+    <ThemeProvider theme={themeInput}>
+      <div className={styles.table__top}>
+        <SelectInput filterOptions={tableOptions.sorting} width={300}/>
+        <SelectInput filterOptions={tableOptions.pagination} width={220}/>
+      </div>
     <Box sx={{ width: '100%', minHeight: 400 }}>
       <Paper sx={{ width: '100%' }}>
         <TableContainer>
           <Table
-            sx={{ minWidth: 750 }}
+            sx={{
+              minWidth: 750,
+              '& .MuiTableCell-sizeMedium': {
+                padding: '12px 24px',
+              },
+              '& .MuiTableCell-head': {
+                paddingBottom: '16px',
+              },
+            }}
             aria-labelledby="tableTitle"
             size={'medium'}
           >
@@ -267,6 +363,7 @@ export default function EnhancedTable() {
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
             />
+            <div style={{height: '24px'}}></div>
             <TableBody>
               {visibleRows.map((row, index) => {
                 const isItemSelected = isSelected(row.id);
@@ -281,33 +378,75 @@ export default function EnhancedTable() {
                     tabIndex={-1}
                     key={row.id}
                     selected={isItemSelected}
-                    sx={{ cursor: 'pointer' }}
+                    sx={{ cursor: 'pointer', minHeight: '68px', maxHeight: '84px' }}
                   >
-                    <TableCell padding="checkbox">
+                    <TableCell
+                      align={'center'}
+                      component="th"
+                      id={labelId}
+                      scope="row"
+                      padding="none"
+                      width='72px'
+                      >
+                        {row.id}
+                      </TableCell>
+
+                    <TableCell padding="none" width='44px' align={'center'}>
                       <Checkbox
                         color="primary"
                         checked={isItemSelected}
                         inputProps={{
                           'aria-labelledby': labelId,
                         }}
+                        checkedIcon={CheckboxIcon}
+                        icon={InactiveCheckBoxIcon}
                       />
                     </TableCell>
-                    <TableCell
-                      component="th"
-                      id={labelId}
-                      scope="row"
-                      padding="none"
-                    >
-                      {row.id}
+
+                    <TableCell align="left" width='282px'>
+                      <div className={styles.profile}>
+                        <div className={styles.profile__avatar}>
+                          <Avatar src={row.profile.src} alt={row.profile.name} sx={{ width: '36px', height: '36px'}}></Avatar>
+                        </div>
+                        <div>
+                          <p className={styles.profile__profession}>{row.profile.profession}</p>
+                          <p className={styles.profile__name}>{row.profile.name}</p>
+                        </div>
+                      </div>
                     </TableCell>
-                    <TableCell align="left">
-                      <p>{row.profile.profession}</p>
-                      <p>{row.profile.name}</p>
+                    <TableCell align="left" width='136px'>{row.grade}</TableCell>
+                    <TableCell align="left" width='192px'>{row.location}</TableCell>
+                    <TableCell align="left" width='328px'>
+                      <div className={styles.chips}>
+                        {row.skills.map(skill => {
+                          return (
+                            <Chip
+                              key={skill}
+                              label={skill}
+                              sx={{ height: '28px', fontWeight: '400'}}
+                            />
+                          )
+                        })}
+                      </div>
                     </TableCell>
-                    <TableCell align="left">{row.grade}</TableCell>
-                    <TableCell align="left">{row.location}</TableCell>
-                    <TableCell align="left">{row.skills}</TableCell>
-                    <TableCell align="left">{row.contacts}</TableCell>
+                    <TableCell align="left" width='212px'>
+                      <div className={styles.contacts}>
+                        <div className={styles.contact}>
+                          <img src={telegramIcon} alt={'Телеграм'} />
+                          <p className={styles.contact__text}>{row.contacts.tg}</p>
+                        </div>
+                        <div className={styles.contact}>
+                          <img src={emailIcon} alt={'Электронная почта'} />
+                          <p className={styles.contact__text}>{row.contacts.email}</p>
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell align="left" width='58px'>
+                      {row.isLiked ?
+                        (<ActiveLikeIcon />)
+                        : (<InactiveLikeIcon />)
+                      }
+                    </TableCell>
                   </TableRow>
                 );
               })}
@@ -323,16 +462,36 @@ export default function EnhancedTable() {
             </TableBody>
           </Table>
         </TableContainer>
+        <div className={styles.table__bottom}>
+          <p className={styles.selected}>
+            Выбрано элементов: {2}
+          </p>
+          <div className={styles.table__buttons}>
+            <CustomButton customType={"customContained"}>Добавить в избранное</CustomButton>
+            <CustomButton customType={"customContained"}>Экспортировать</CustomButton>
+          </div>
+        </div>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
-          component="div"
+          // component={'div'}
+          component={() => {
+            return (
+              <>
+                <Pagination
+                  count={10}
+                  variant="outlined"
+                />
+              </>)}}
           count={rows.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
+          labelRowsPerPage={''}
+          labelDisplayedRows={() => null}
         />
       </Paper>
     </Box>
+    </ThemeProvider>
   );
 }

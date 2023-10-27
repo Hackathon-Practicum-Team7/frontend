@@ -33,7 +33,13 @@ export const LocationFilter = ({onChange}: {onChange: (event: { target: { value:
         )
         }
       </div>
-      <InputWithChip filterOptions={locations} onClearClick={onClearClick} input={selectedLocations} setInput={setSelectedLocations} />
+      <InputWithChip
+        filterOptions={locations}
+        onClearClick={onClearClick}
+        input={selectedLocations}
+        setInput={setSelectedLocations}
+        placeholderText={'Введите город, область'}
+      />
     </>
   )
 }

@@ -21,14 +21,17 @@ const MenuProps = {
 
 type TSelectInputProps = {
   filterOptions: string[],
-  onChange: (event: { target: { value: string[] } }) => void,
+  onChange?: (event: { target: { value: string[] } }) => void,
+  width?: number,
 }
 
-export const SelectInput = ({ filterOptions, onChange }: TSelectInputProps): ReactElement => {
-  const [selectedInput, setSelectedInput] = React.useState<string[]>(['Не имеет значения']);
+export const SelectInput = ({ filterOptions, onChange, width }: TSelectInputProps): ReactElement => {
+  const [selectedInput, setSelectedInput] = React.useState<string[]>([filterOptions[0]]);
 
   useEffect(() => {
-    onChange({target: {value: selectedInput}});
+    if (onChange) {
+      onChange({target: {value: selectedInput}});
+    }
   }, [selectedInput]);
 
   const handleChange = (event: SelectChangeEvent<typeof selectedInput>) => {
@@ -43,7 +46,7 @@ export const SelectInput = ({ filterOptions, onChange }: TSelectInputProps): Rea
 
     return (
       <ThemeProvider theme={themeInput}>
-        <FormControl sx={{ width: 612 }}>
+        <FormControl sx={{ width: width || 612}}>
           <Select
             SelectDisplayProps={{ style: { padding: '0', height: '22px' } }}
             inputProps={{ 'aria-label': 'Without label' }}
