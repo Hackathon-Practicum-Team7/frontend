@@ -60,11 +60,11 @@ export const CardSkills: React.FC<Props> = ({ skills }) => {
         <CardContent>
           <div className={styles.content}>
             {skills.map(skill => (
-              <div className={styles.skill}>
+              <div className={styles.skill} key={skill.id}>
                 <p className={styles.skill}>{skill.title}</p>
                 <Rating
                   name="simple-controlled"
-                  value={skill.level}
+                  value={skill.score}
                   readOnly={true}
                   max={4}
                   icon={<Circle sx={{ color: "#797981", fontSize: "12px" }} />}

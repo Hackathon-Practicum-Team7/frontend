@@ -2,27 +2,32 @@ import { Skill } from "./Skill";
 
 export const skillsData: Skill[] = [
   {
+    id: 1,
     title: 'Маркетинговая аналитика',
-    level: 2
+    score: 2
   },
   {
+    id: 2,
     title: 'UI',
-    level: 1
+    score: 1
   },
   {
+    id: 3,
     title: 'Adobe Photoshop',
-    level: 4
+    score: 4
   },
   {
+    id: 4,
     title: 'UX-исследования',
-    level: 3
+    score: 3
   },
-  {
+  { id: 5,
     title: 'Figma',
-    level: 2
+    score: 2
   },
   {
+    id: 6,
     title: 'Material design',
-    level: 1
+    score: 1
   },
 ]

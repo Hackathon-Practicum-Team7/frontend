@@ -1,0 +1,9 @@
+.cellButton {
+  border-left-style: solid;
+  border-left-color: #DDE0E4;
+  border-left-width: 2px;
+  padding-left: 19px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
