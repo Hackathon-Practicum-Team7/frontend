@@ -22,8 +22,10 @@ type TInputWithChipProps = {
   input: string[] | [],
   setInput: React.Dispatch<React.SetStateAction<string[]>>,
   placeholderText?: string,
+  width?: number,
+  chipVariant?: 'gray'
 }
-export const InputWithChip = ({ filterOptions, input, setInput, placeholderText }: TInputWithChipProps): ReactElement => {
+export const InputWithChip = ({ filterOptions, input, setInput, placeholderText, width, chipVariant }: TInputWithChipProps): ReactElement => {
   const handleChange = (_event: React.SyntheticEvent, value: string[], _reason: string) => {
     setInput(value);
   };
@@ -35,7 +37,7 @@ export const InputWithChip = ({ filterOptions, input, setInput, placeholderText 
 
   return (
     <ThemeProvider theme={themeInput}>
-      <FormControl sx={{ width: 612 }}>
+      <FormControl sx={{ width: width || 612 }}>
         <Autocomplete
           value={input}
           onChange={handleChange}
@@ -64,6 +66,7 @@ export const InputWithChip = ({ filterOptions, input, setInput, placeholderText 
             <Chip
               key={value}
               label={value}
+              variant={chipVariant || 'filled'}
               onDelete={(e) => handleDelete(e, value)}
               deleteIcon={<CloseRoundedIcon />}
             />

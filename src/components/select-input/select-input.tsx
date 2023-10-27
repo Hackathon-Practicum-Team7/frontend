@@ -23,9 +23,10 @@ type TSelectInputProps = {
   filterOptions: string[],
   onChange?: (event: { target: { value: string[] } }) => void,
   width?: number,
+  isMulti?: boolean,
 }
 
-export const SelectInput = ({ filterOptions, onChange, width }: TSelectInputProps): ReactElement => {
+export const SelectInput = ({ filterOptions, onChange, width, isMulti }: TSelectInputProps): ReactElement => {
   const [selectedInput, setSelectedInput] = React.useState<string[]>([filterOptions[0]]);
 
   useEffect(() => {
@@ -51,7 +52,7 @@ export const SelectInput = ({ filterOptions, onChange, width }: TSelectInputProp
             SelectDisplayProps={{ style: { padding: '0', height: '22px' } }}
             inputProps={{ 'aria-label': 'Without label' }}
             id="demo-multiple-checkbox"
-            multiple
+            multiple={isMulti || (isMulti === undefined)}
             displayEmpty
             value={selectedInput}
             onChange={handleChange}

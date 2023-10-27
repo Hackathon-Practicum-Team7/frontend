@@ -9,6 +9,12 @@ declare module '@mui/material/Button' {
   }
 }
 
+declare module '@mui/material/Chip' {
+  interface ChipPropsVariantOverrides {
+    gray: true;
+  }
+}
+
 export const filterOptions = {
   workingConditions: [
     'Не имеет значения',
