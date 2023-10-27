@@ -10,11 +10,14 @@ import { Avatar } from '@mui/material';
 import { CustomButton } from '../components/custom-button/custom-button';
 import SuitcaseIcon from '../images/suitcase-icon.svg?react';
 import { ContactButton } from '../components/contactButton/ContactButton';
+import { FavoriteButton } from '../components/favoriteButton/favoriteButton';
 
 export const ProfilePage: React.FC = () => {
   const copyToClipboard = async (text: string) => {
     await navigator.clipboard.writeText(text);
   }
+
+  const isFavorite = false;
 
   return (
     <div>
@@ -56,7 +59,7 @@ export const ProfilePage: React.FC = () => {
         </div>
 
         <div className={styles.buttons}>
-          <CustomButton width={'50px'} children={'...'} customType={'customOutlined'}></CustomButton>
+          <FavoriteButton studentId={3} />
           <CustomButton width={'266px'} children={'Пригласить на собеседование'} customType={'customOutlined'}></CustomButton>
         </div>
       </div>
