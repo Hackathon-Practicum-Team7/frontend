@@ -60,6 +60,9 @@ export const themeInput = createTheme({
           },
           "&.Mui-focused": {
             borderColor: '#DDE0E4',
+          },
+          '&.Mui-disabled': {
+            borderColor: '#DDE0E4',
           }
         },
       }
