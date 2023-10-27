@@ -5,9 +5,9 @@ import ListItemText from '@mui/material/ListItemText';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import {FormControl, Input, ThemeProvider} from "@mui/material";
-import {theme} from "../../utils/constants";
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import {DropdownIcon} from "../dropdown-icon/dropdown-icon";
+import {themeInput} from '../../utils/constants/style-constants';
 
 const MenuProps = {
   PaperProps: {
@@ -42,7 +42,7 @@ export const SelectInput = ({ filterOptions, onChange }: TSelectInputProps): Rea
   };
 
     return (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={themeInput}>
         <FormControl sx={{ width: 612 }}>
           <Select
             SelectDisplayProps={{ style: { padding: '0', height: '22px' } }}

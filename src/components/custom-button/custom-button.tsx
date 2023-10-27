@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button';
 import {ThemeProvider} from "@mui/material";
 import {ReactElement} from "react";
-import {theme} from "../../utils/constants";
+import {themeInput} from '../../utils/constants/style-constants';
 
 type TCustomButtonProps = {
   children: string,
@@ -57,10 +57,8 @@ export const CustomButton = ( { children, width, customType, extraStyles, onClic
     },
   };
 
-
-
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={themeInput}>
       <Button
         variant={customType}
         sx={ (extraStyles === 'filterButton') ? customStyles.filterButton : customStyles.button }
