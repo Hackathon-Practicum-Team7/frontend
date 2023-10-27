@@ -302,8 +302,8 @@ export const customLoginStyles = {
     fontStyle: 'normal',
   },
   'text_heading': {
-    fontFamily: `'YS-Display', ` + `'Arial', ` + 'sans-serif',
     marginBottom: '4px',
+    fontFamily: `'YS-Display', ` + `'Arial', ` + 'sans-serif',
     fontWeight: '500',
     fontSize: '24px',
     lineHeight: '32px',

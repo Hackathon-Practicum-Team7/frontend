@@ -18,6 +18,7 @@ export interface IFormInput {
 }
 
 export type TDropDown = {
+  type: 'menu' | 'filters',
   isOpen: boolean,
   children: React.ReactNode,
   onClose: () => void,
@@ -51,4 +52,18 @@ export interface IHeadCell {
   id: keyof IData;
   label: string;
   sortable?: boolean;
+}
+
+export enum MenuItemName {
+  MY_VACANCIES = "Мои вакансии",
+  FIND_CANDIDATE = "Найти кандидата",
+  FAVORITES = "Избранное",
+  CHAT = "Чат",
+  PROFILE_INFO = "Инфо профиля",
+  HELP = "Помощь",
+  LOGOUT = "Выйти",
+}
+
+export type TMenuItem = {
+  itemName: string,
 }

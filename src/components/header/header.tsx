@@ -3,11 +3,13 @@ import {Avatar, Button, ThemeProvider} from '@mui/material';
 
 import styles from './header.module.css';
 import overlayStyles from '../overlay/overlay.module.css';
+import avatarImage from '../../images/user-image.png';
 
 import {themeHeader} from '../../utils/constants/style-constants';
 
 import {DropDown} from '../drop-down/drop-down';
 import {BurgerMenuIcon} from '../burger-menu-icon/burger-menu-icon';
+import {Navigation} from '../navigation/navigation';
 
 export const Header: React.FC = () => {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
@@ -32,10 +34,8 @@ export const Header: React.FC = () => {
       <div className={styles.leftBar}>
         <BurgerMenuIcon onClick={handleShowMenu} isOpen={menuIsOpen} isActive={isBurgerButtonActive}/>
 
-        <DropDown onClose={handleShowMenu} isOpen={menuIsOpen}>
-          <div>
-
-          </div>
+        <DropDown type="menu" onClose={handleShowMenu} isOpen={menuIsOpen}>
+          <Navigation/>
         </DropDown>
 
 
@@ -51,7 +51,7 @@ export const Header: React.FC = () => {
             <p>Добавить вакансию</p>
           </Button>
         </ThemeProvider>
-        <Avatar src="/broken-image.jpg"/>
+        <Avatar src={avatarImage} alt="Аватар пользователя" sx={{ width: 50, height: 50 }}/>
       </div>
     </header>
   )
