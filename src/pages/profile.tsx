@@ -32,7 +32,7 @@ export const ProfilePage: React.FC = () => {
         <div className={styles.info}>
           <Avatar
             alt="Фото кандидата"
-            src="/static/images/avatar/1.jpg"
+            src="https://yt3.ggpht.com/ytc/AMLnZu_PczQwsAx-yjBvH7KsR9vpjSy-0Zn_gYpFqTqGEw=s900-c-k-c0x00ffffff-no-rj"
             sx={{ width: 148, height: 148 }}
           />
 
