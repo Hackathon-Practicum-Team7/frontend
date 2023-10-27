@@ -1,30 +1,43 @@
+import React, {useEffect, useState} from 'react';
+import {Avatar, Button, ThemeProvider} from '@mui/material';
+
 import styles from './header.module.css';
-import { Avatar, Button, IconButton, ThemeProvider, createTheme } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import overlayStyles from '../overlay/overlay.module.css';
+
+import {themeHeader} from '../../utils/constants/style-constants';
+
+import {DropDown} from '../drop-down/drop-down';
+import {BurgerMenuIcon} from '../burger-menu-icon/burger-menu-icon';
 
 export const Header: React.FC = () => {
-  const theme = createTheme({
-    components: {
-      MuiButton: {
-        styleOverrides: {
-          root: {
-            backgroundColor: '#5A9BFF',
-            color: '#FFF',
-            textTransform: 'none',
-            fontSize: '16px',
-            fontWeight: '500'
-          },
-        },
-      },
-    },
-  });
+  const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
+  const [isBurgerButtonActive, setIsBurgerButtonActive] = useState<boolean>(false)
+
+  const handleShowMenu = () => {
+    setMenuIsOpen(!menuIsOpen);
+  }
+
+  useEffect(() => {
+    if (menuIsOpen) {
+      setIsBurgerButtonActive(true);
+      document.body.classList.add(overlayStyles['body-overlay']);
+    } else {
+      setIsBurgerButtonActive(false);
+      document.body.classList.remove(overlayStyles['body-overlay']);
+    }
+  }, [menuIsOpen])
 
   return (
     <header className={styles.header}>
       <div className={styles.leftBar}>
-        <IconButton aria-label='menuIcon' color='inherit' className={styles.iconButton}>
-          <MenuIcon fontSize="large" />
-        </IconButton>
+        <BurgerMenuIcon onClick={handleShowMenu} isOpen={menuIsOpen} isActive={isBurgerButtonActive}/>
+
+        <DropDown onClose={handleShowMenu} menuIsOpen={menuIsOpen}>
+          <div>
+
+          </div>
+        </DropDown>
+
 
         <div className={styles.content}>
           <p className={styles.logo}>Карьерный Трекер</p>
@@ -33,12 +46,12 @@ export const Header: React.FC = () => {
       </div>
 
       <div className={styles.rightBar}>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={themeHeader}>
           <Button className={styles.button} variant='contained'>
             <p>Добавить вакансию</p>
           </Button>
         </ThemeProvider>
-        <Avatar src="/broken-image.jpg" />
+        <Avatar src="/broken-image.jpg"/>
       </div>
     </header>
   )

@@ -2,27 +2,17 @@ import styles from "./home.module.css";
 import {ReactElement, useState} from "react";
 import {CustomButton} from "../../components/custom-button/custom-button";
 import {SelectInput} from "../../components/select-input/select-input";
-import {filterOptions} from "../../utils/constants";
+import {filterOptions} from "../../utils/constants/constants";
 import {SkillsFilter} from "../../components/filters/skills-filter/skills-filter";
 import { useForm, Controller } from "react-hook-form";
 import {LocationFilter} from "../../components/filters/location-filter/location-filter";
 import {ProfessionStreamFilter} from "../../components/filters/profession-stream-filter/profession-stream-filter";
 import {ProfessionFilter} from "../../components/filters/profession-filter/profession-filter";
-
-interface IFormInput {
-  professionStream: string;
-  professions: string[];
-  skills: string[];
-  locations: string[];
-  workingConditions: string[];
-  employmentType: string[];
-  hasPortfolio: string[];
-  grade: string[];
-}
+import {IFormInput} from "../../utils/types";
 
 export const HomePage = (): ReactElement => {
   const { control, handleSubmit } = useForm<IFormInput>();
-  const onSubmit = (data: IFormInput) => {
+  const onSubmit = (data: IFormInput | undefined) => {
     console.log(JSON.stringify(data));
   };
   const [ isStreamChosen, setStreamChosen ] = useState<boolean>(false);

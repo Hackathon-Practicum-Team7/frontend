@@ -1,7 +1,6 @@
 import React, {FunctionComponent} from 'react';
 import {
-  FormControl, FormHelperText,
-  Input,
+  FormHelperText,
   Link,
   TextField,
   Typography
@@ -12,7 +11,8 @@ import {yupResolver} from '@hookform/resolvers/yup';
 
 import loginStyles from './login.module.css';
 
-import {authValidationSchema, customLoginStyles} from '../../utils/constants';
+import {authValidationSchema} from '../../utils/constants/constants';
+import {customLoginStyles} from '../../utils/constants/style-constants';
 
 import {CustomButton} from '../../components/custom-button/custom-button';
 

@@ -10,11 +10,12 @@ import {
   TextField,
   ThemeProvider,
 } from "@mui/material";
-import {theme} from "../../utils/constants";
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import styles from './input-with-chip.module.css';
 import {DropdownIcon} from "../dropdown-icon/dropdown-icon";
+import {themeInput} from '../../utils/constants/style-constants';
+
 
 /*<Select
   SelectDisplayProps={{ style: { padding: '0', height: '22px' } }}
@@ -63,7 +64,7 @@ export const InputWithChip = ({ filterOptions, input, setInput }: TInputWithChip
   }
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={themeInput}>
       <FormControl sx={{ width: 612 }}>
         <Autocomplete
           value={input}
