@@ -32,7 +32,7 @@ export const Header: React.FC = () => {
       <div className={styles.leftBar}>
         <BurgerMenuIcon onClick={handleShowMenu} isOpen={menuIsOpen} isActive={isBurgerButtonActive}/>
 
-        <DropDown onClose={handleShowMenu} menuIsOpen={menuIsOpen}>
+        <DropDown onClose={handleShowMenu} isOpen={menuIsOpen}>
           <div>
 
           </div>

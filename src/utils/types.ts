@@ -16,8 +16,8 @@ export interface IFormInput {
   grade: string[];
 }
 
-export type TBurgerMenu = {
+export type TDropDown = {
+  isOpen: boolean,
+  children: React.ReactNode,
   onClose: () => void,
-  menuIsOpen: boolean,
-  children: React.ReactNode
 }
