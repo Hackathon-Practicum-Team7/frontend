@@ -1,4 +1,3 @@
-import {createTheme} from "@mui/material";
 import * as yup from 'yup';
 
 declare module '@mui/material/Button' {
@@ -34,6 +33,17 @@ export const filterOptions = {
     'Middle',
     'Senior',
     'Lead',
+  ],
+}
+
+export const tableOptions = {
+  sorting: [
+    'По умолчанию',
+  ],
+  pagination: [
+    'По 10 кандидатов',
+    'По 20 кандидатов',
+    'По 50 кандидатов',
   ],
 }
 

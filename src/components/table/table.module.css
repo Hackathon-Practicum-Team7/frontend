@@ -2,7 +2,15 @@
   display: flex;
   gap: 14px;
 }
-
+.profile__avatar {
+  width: 44px;
+  height: 44px;
+  background-image: url('src/images/avatar-progress-25.svg');
+  border-radius: 10000px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .profile__profession {
   font-size: 14px;
   font-weight: 500;
@@ -34,4 +42,55 @@
 .contact__text {
   font-size: 13px;
   margin: 0;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px
+}
+
+.like_inactive {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background-image: url('src/images/like-not-active.svg');
+  background-color: transparent;
+  border: 0;
+  background-repeat: no-repeat;
+}
+
+.like_active {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background-image: url('src/images/like-active.svg');
+  background-color: transparent;
+  border: 0;
+  background-repeat: no-repeat;
+}
+
+.table__bottom {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 72px;
+  align-items: center;
+}
+
+.selected {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.table__buttons {
+  display: flex;
+  gap: 20px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.table__top {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 44px;
 }

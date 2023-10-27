@@ -40,46 +40,6 @@ export const themeInput = createTheme({
     ].join(', '),
   },
   components: {
-    /*MuiCssBaseline: {
-      styleOverrides: `
-        @font-face {
-          font-family: 'YS-Text';
-          src:
-            url(${YSTextRegularWoff2}) format('woff2'),
-            url(${YSTextRegularWoff}) format('woff'),
-            url(${YSTextRegularTruetype}) format('truetype');
-          font-weight: 400;
-        }
-
-        @font-face {
-          font-family: 'YS-Display';
-          src:
-            url(./fonts/YS-Display-Medium.woff2) format('woff2'),
-            url(./fonts/YS-Display-Medium.woff) format('woff'),
-            url(./fonts/YS-Display-Medium.ttf) format('truetype');
-          font-weight: 500;
-        }
-
-        @font-face {
-          font-family: 'YS-Text';
-          src:
-            url(./fonts/YS-Text-Regular.woff2) format('woff2'),
-            url(./fonts/YS-Text-Regular.woff) format('woff'),
-            url(./fonts/YS-Text-Regular.ttf) format('truetype');
-          font-weight: 400;
-        }
-
-        @font-face {
-          font-family: 'YS-Text';
-          src:
-            url(./fonts/YS-Text-Medium.woff2) format('woff2'),
-            url(./fonts/YS-Text-Medium.woff) format('woff'),
-            url(./fonts/YS-Text-Medium.ttf) format('truetype');
-          font-weight: 500;
-        }
-      `,
-    },*/
-
     MuiInput: {
       styleOverrides: {
         root: {
@@ -200,11 +160,65 @@ export const themeInput = createTheme({
           fontFamily: 'YS-Text',
           fontSize: 14,
           color: '#1A1B22',
-          fontWeight: '400'
+          fontWeight: '400',
+          borderBottom: '1px solid rgba(221, 224, 228, 1)',
         },
         head: {
-          fontWeight: '500'
+          fontWeight: '500',
+          borderBottom: '1px solid #B5B5B7',
         }
+      }
+    },
+
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          border: 0,
+          borderRadius: 0,
+          boxShadow: 'none',
+        }
+      }
+    },
+
+    MuiButtonBase: {
+      styleOverrides: {
+        root: {
+          '&.MuiButton-root': {
+            fontSize: '16px',
+            fontWeight: '500',
+          }
+        }
+      },
+    },
+
+    MuiPagination: {
+      styleOverrides: {
+        root: {
+          paddingTop: '126px',
+        },
+      }
+    },
+
+    MuiPaginationItem: {
+      styleOverrides: {
+        root: {
+          margin: '0 2px',
+          borderColor: '#B5B5B7',
+          borderRadius: '2px',
+          ':hover': {
+            backgroundColor: '#1D6BF3',
+            color: 'white',
+            borderColor: 'transparent',
+          },
+          "&.Mui-selected": {
+            borderColor: 'transparent',
+            backgroundColor: '#5A9BFF',
+            color: 'white',
+            ':hover': {
+              backgroundColor: '#1D6BF3',
+            }
+          }
+        },
       }
     },
 
@@ -216,6 +230,8 @@ export const themeInput = createTheme({
             backgroundColor: '#5A9BFF',
             border: '1px solid transparent',
             color: 'white',
+            fontSize: '16px',
+            fontWeight: '500',
             "&.Mui-disabled": {
               backgroundColor: '#B5B5B7',
               color: 'white',
@@ -227,6 +243,8 @@ export const themeInput = createTheme({
           style: {
             border: '1px solid #1D6BF3',
             color: '#1D6BF3',
+            fontSize: '16px',
+            fontWeight: '500',
             "&.Mui-disabled": {
               borderColor: '#B5B5B7',
               color: '#B5B5B7',
