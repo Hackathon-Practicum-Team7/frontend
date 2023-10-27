@@ -11,28 +11,42 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import { visuallyHidden } from '@mui/utils';
+import Avatar from '@mui/material/Avatar';
+import styles from './table.module.css';
+import {Chip, ThemeProvider} from "@mui/material";
+import {theme} from "../../utils/constants";
+import emailIcon from '../../images/email-icon-gray.svg';
+import telegramIcon from '../../images/telegram-icon-gray.svg';
+import checkboxIcon from '../../images/checkbox.svg';
+import inactiveCheckboxIcon from '../../images/checkbox-not-active.svg';
 
-interface Profile {
+interface IProfile {
   name: string;
   profession: string;
+  src: string;
+}
+
+interface IContacts {
+  tg: string;
+  email: string;
 }
 
 interface IData {
   id: number;
-  profile: Profile;
+  profile: IProfile;
   grade: string;
   location: string;
   skills: string[];
-  contacts: string[];
+  contacts: IContacts;
 }
 
 function createData(
   id: number,
-  profile: Profile,
+  profile: IProfile,
   grade: string,
   location: string,
   skills: string[],
-  contacts: string[],
+  contacts: IContacts,
 ): IData {
   return {
     id,
@@ -44,17 +58,28 @@ function createData(
   };
 }
 
-// import {student as studentExample} from "../../utils/constants";
-// function studentToData(student): IData {
-//   return {
-//     student
-//   };
-// }
-
 const rows = [
-  createData(1, { name: 'Мария Иванова', profession: 'Python-разработчик'},
-    'Junior', 'Москва', ['HTML', 'CSS'], ['bla']),
-  createData(2, { name: 'Анастасия Иванова', profession: 'C++-разработчик'}, 'Middle', 'Санкт-Петербург', ['HTML', 'CSS'], ['bla']),
+  createData(1, {
+      name: 'Мария Иванова',
+      profession: 'Python-разработчик',
+      src: 'https://play-lh.googleusercontent.com/IeNJWoKYx1waOhfWF6TiuSiWBLfqLb18lmZYXSgsH1fvb8v1IYiZr5aYWe0Gxu-pVZX3'},
+    'Junior',
+    'Москва',
+    ['HTML', 'CSS'],
+    {
+      tg: '@nickname',
+      email: 'email@email.ru',
+    }),
+  createData(2, {
+    name: 'Анастасия Иванова',
+    profession: 'C++-разработчик',
+    src: 'https://play-lh.googleusercontent.com/IeNJWoKYx1waOhfWF6TiuSiWBLfqLb18lmZYXSgsH1fvb8v1IYiZr5aYWe0Gxu-pVZX3'},
+    'Middle',
+    'Санкт-Петербург',
+    ['HTML', 'CSS'], {
+      tg: '@nickname',
+      email: 'email@email.ru',
+    }),
 ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -80,7 +105,6 @@ function getComparator<Key extends keyof IData>(
 }
 
 interface HeadCell {
-  disablePadding: boolean;
   id: keyof IData;
   label: string;
   numeric: boolean;
@@ -90,37 +114,31 @@ const headCells: readonly HeadCell[] = [
   {
     id: 'id',
     numeric: false,
-    disablePadding: true,
     label: 'ID',
   },
   {
     id: 'profile',
     numeric: false,
-    disablePadding: true,
     label: 'Профиль',
   },
   {
     id: 'grade',
     numeric: false,
-    disablePadding: false,
     label: 'Уровень',
   },
   {
     id: 'location',
     numeric: false,
-    disablePadding: false,
     label: 'Локация',
   },
   {
     id: 'skills',
     numeric: false,
-    disablePadding: false,
     label: 'Ключевые навыки',
   },
   {
     id: 'contacts',
     numeric: false,
-    disablePadding: false,
     label: 'Контакты',
   },
 ];
@@ -134,6 +152,8 @@ interface EnhancedTableProps {
   rowCount: number;
 }
 
+const CheckboxIcon = <img src={checkboxIcon} alt={'Чекбокс'} />;
+const InactiveCheckBoxIcon = <img src={inactiveCheckboxIcon} alt={'Чекбокс'} />;
 function EnhancedTableHead(props: EnhancedTableProps) {
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
     props;
@@ -154,13 +174,16 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             inputProps={{
               'aria-label': 'select all desserts',
             }}
+            checkedIcon={CheckboxIcon}
+            icon={InactiveCheckBoxIcon}
+            sx={{ width: '20px', height: '20px' }}
           />
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
+            align={'left'}
+            padding={'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
@@ -250,7 +273,9 @@ export default function EnhancedTable() {
     [order, orderBy, page, rowsPerPage],
   );
 
+
   return (
+    <ThemeProvider theme={theme}>
     <Box sx={{ width: '100%', minHeight: 400 }}>
       <Paper sx={{ width: '100%' }}>
         <TableContainer>
@@ -290,9 +315,13 @@ export default function EnhancedTable() {
                         inputProps={{
                           'aria-labelledby': labelId,
                         }}
+                        checkedIcon={CheckboxIcon}
+                        icon={InactiveCheckBoxIcon}
+                        sx={{ width: '20px', height: '20px' }}
                       />
                     </TableCell>
                     <TableCell
+                      align={'left'}
                       component="th"
                       id={labelId}
                       scope="row"
@@ -301,13 +330,41 @@ export default function EnhancedTable() {
                       {row.id}
                     </TableCell>
                     <TableCell align="left">
-                      <p>{row.profile.profession}</p>
-                      <p>{row.profile.name}</p>
+                      <div className={styles.profile}>
+                        <Avatar src={row.profile.src} alt={row.profile.name}></Avatar>
+                        <div>
+                          <p className={styles.profile__profession}>{row.profile.profession}</p>
+                          <p className={styles.profile__name}>{row.profile.name}</p>
+                        </div>
+                      </div>
                     </TableCell>
                     <TableCell align="left">{row.grade}</TableCell>
                     <TableCell align="left">{row.location}</TableCell>
-                    <TableCell align="left">{row.skills}</TableCell>
-                    <TableCell align="left">{row.contacts}</TableCell>
+                    <TableCell align="left">
+                      <div className={styles.chips}>
+                        {row.skills.map(skill => {
+                          return (
+                            <Chip
+                              key={skill}
+                              label={skill}
+                              sx={{ height: '28px', fontWeight: '400'}}
+                            />
+                          )
+                        })}
+                      </div>
+                    </TableCell>
+                    <TableCell align="left">
+                      <div className={styles.contacts}>
+                        <div className={styles.contact}>
+                          <img src={telegramIcon} alt={'Телеграм'} />
+                          <p className={styles.contact__text}>{row.contacts.tg}</p>
+                        </div>
+                        <div className={styles.contact}>
+                          <img src={emailIcon} alt={'Электронная почта'} />
+                          <p className={styles.contact__text}>{row.contacts.email}</p>
+                        </div>
+                      </div>
+                    </TableCell>
                   </TableRow>
                 );
               })}
@@ -334,5 +391,6 @@ export default function EnhancedTable() {
         />
       </Paper>
     </Box>
+    </ThemeProvider>
   );
 }

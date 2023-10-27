@@ -32,7 +32,54 @@ export const themeFooter = createTheme({
 });
 
 export const themeInput = createTheme({
+  typography: {
+    fontFamily: [
+      'YS-Text',
+      'Arial',
+      'sans-serif',
+    ].join(', '),
+  },
   components: {
+    /*MuiCssBaseline: {
+      styleOverrides: `
+        @font-face {
+          font-family: 'YS-Text';
+          src:
+            url(${YSTextRegularWoff2}) format('woff2'),
+            url(${YSTextRegularWoff}) format('woff'),
+            url(${YSTextRegularTruetype}) format('truetype');
+          font-weight: 400;
+        }
+
+        @font-face {
+          font-family: 'YS-Display';
+          src:
+            url(./fonts/YS-Display-Medium.woff2) format('woff2'),
+            url(./fonts/YS-Display-Medium.woff) format('woff'),
+            url(./fonts/YS-Display-Medium.ttf) format('truetype');
+          font-weight: 500;
+        }
+
+        @font-face {
+          font-family: 'YS-Text';
+          src:
+            url(./fonts/YS-Text-Regular.woff2) format('woff2'),
+            url(./fonts/YS-Text-Regular.woff) format('woff'),
+            url(./fonts/YS-Text-Regular.ttf) format('truetype');
+          font-weight: 400;
+        }
+
+        @font-face {
+          font-family: 'YS-Text';
+          src:
+            url(./fonts/YS-Text-Medium.woff2) format('woff2'),
+            url(./fonts/YS-Text-Medium.woff) format('woff'),
+            url(./fonts/YS-Text-Medium.ttf) format('truetype');
+          font-weight: 500;
+        }
+      `,
+    },*/
+
     MuiInput: {
       styleOverrides: {
         root: {
@@ -144,6 +191,20 @@ export const themeInput = createTheme({
         paper: {
           borderRadius: '0 0 4px 4px !important'
         },
+      }
+    },
+
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'YS-Text',
+          fontSize: 14,
+          color: '#1A1B22',
+          fontWeight: '400'
+        },
+        head: {
+          fontWeight: '500'
+        }
       }
     },
 
