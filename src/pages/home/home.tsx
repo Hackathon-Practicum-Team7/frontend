@@ -1,5 +1,5 @@
 import styles from "./home.module.css";
-import {ReactElement} from "react";
+import {ReactElement, useMemo} from "react";
 import {CustomButton} from "../../components/custom-button/custom-button";
 import {SelectInput} from "../../components/select-input/select-input";
 import {filterOptions} from "../../utils/constants/constants";
@@ -9,6 +9,7 @@ import {LocationFilter} from "../../components/filters/location-filter/location-
 import {ProfessionStreamFilter} from "../../components/filters/profession-stream-filter/profession-stream-filter";
 import {ProfessionFilter} from "../../components/filters/profession-filter/profession-filter";
 import {IFormInput} from "../../utils/types";
+import {useSelector} from "../../services/hooks/use-selector";
 
 export const HomePage = (): ReactElement => {
   const { control, handleSubmit, reset, watch } = useForm<IFormInput>();
@@ -20,6 +21,16 @@ export const HomePage = (): ReactElement => {
 
   const isStreamChosen = (professionStream !== '');
   const isSubmitButtonEnabled = (professionStream !== '') && (professions.length > 0);
+
+  const filters = useSelector(state => state.getFiltersState);
+  const professionByStreams = useMemo(() => {
+    return filters.professionStreams.reduce((professionsMap, professionStream) => {
+      professionsMap.set(professionStream.title, professionStream.professions.map(profession => profession.title));
+      return professionsMap;
+    }, new Map<string, string[]>());
+  }, [filters]);
+
+  const professionOptions = useMemo(() => professionByStreams.get(professionStream) || [], [professionStream]);
 
   return (
     <section className={styles.section}>
@@ -47,6 +58,7 @@ export const HomePage = (): ReactElement => {
                   onChange={field.onChange}
                   value={field.value}
                   isStreamChosen={isStreamChosen}
+                  professions={professionOptions}
                 />
               );
             }}

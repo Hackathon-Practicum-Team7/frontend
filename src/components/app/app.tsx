@@ -5,7 +5,7 @@ import {ReactElement, useEffect} from "react";
 import {Header} from "../header/header";
 import {Footer} from "../footer/footer";
 import {useDispatch} from "../../services/hooks/use-dispatch";
-import {getCities} from "../../services/async-thunk/get-filters";
+import {getCities, getProfessionSkills, getSkills} from "../../services/async-thunk/get-filters";
 
 function App(): ReactElement {
   const isLoginRoute = window.location.pathname === '/login';
@@ -13,6 +13,8 @@ function App(): ReactElement {
 
   const init = async () => {
     await dispatch(getCities());
+    await dispatch(getSkills());
+    await dispatch(getProfessionSkills());
   };
 
   useEffect(() => {

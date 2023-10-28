@@ -1,7 +1,8 @@
 import styles from "../filter.module.css";
 import {CustomButton} from "../../custom-button/custom-button";
-import {ReactElement} from "react";
+import {ReactElement, useMemo} from "react";
 import {ClearFilters} from "../../clear-filters/clear-filters";
+import {useSelector} from "../../../services/hooks/use-selector";
 
 type TProfessionStreamFilterProps = {
   onChange: (event: { target: { value: string } }) => void,
@@ -9,13 +10,8 @@ type TProfessionStreamFilterProps = {
 }
 
 export const ProfessionStreamFilter = ({onChange, value}: TProfessionStreamFilterProps): ReactElement => {
-  const professionStreams = [
-    'Программирование',
-    'Дизайн',
-    'Маркетинг',
-    'Анализ данных',
-    'Менеджмент',
-  ];
+  const filters = useSelector(state => state.getFiltersState);
+  const professionStreams = useMemo(() => filters.professionStreams.map(filter => filter.title), [filters]);
 
   const selectedProfessionStream = value;
   const setSelectedProfessionStream = (newValue: string) => {

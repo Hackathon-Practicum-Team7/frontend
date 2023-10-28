@@ -23,3 +23,45 @@ export const getCities = (): AppThunk => {
       })
   }
 }
+
+export const getSkills = (): AppThunk => {
+  return function (dispatch: AppDispatch) {
+    dispatch(filterActions.getSkillsLoading());
+    return fetch(
+      `${baseUrl}/skills`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      .then(res => getResponseData(res))
+      .then((res) => {
+        dispatch(filterActions.getSkillsSuccess(res));
+      })
+      .catch((err) => {
+        console.log(err.message);
+        dispatch(filterActions.getSkillsFailed());
+      })
+  }
+}
+
+export const getProfessionSkills = (): AppThunk => {
+  return function (dispatch: AppDispatch) {
+    dispatch(filterActions.getProfessionStreamLoading());
+    return fetch(
+      `${baseUrl}/professions`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      .then(res => getResponseData(res))
+      .then((res) => {
+        dispatch(filterActions.getProfessionStreamSuccess(res));
+      })
+      .catch((err) => {
+        console.log(err.message);
+        dispatch(filterActions.getProfessionStreamFailed());
+      })
+  }
+}

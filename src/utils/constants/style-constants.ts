@@ -265,6 +265,7 @@ export const themeInput = createTheme({
             color: '#1D6BF3',
             fontSize: '16px',
             fontWeight: '500',
+            backgroundColor: 'transparent',
             "&.Mui-disabled": {
               borderColor: '#B5B5B7',
               color: '#B5B5B7',

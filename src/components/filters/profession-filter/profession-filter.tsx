@@ -6,22 +6,11 @@ import {ClearFilters} from "../../clear-filters/clear-filters";
 type TProfessionFilterProps = {
   onChange: (event: { target: { value: string[] } }) => void,
   isStreamChosen: boolean,
-  // setProfessionChosen: (value: boolean) => void,
-  value: string[];
+  value: string[],
+  professions: string[]
 }
 
-export const ProfessionFilter = ({onChange, isStreamChosen, value}: TProfessionFilterProps): ReactElement => {
-  const professions = [
-    'Разработчик 1',
-    'Разработчик 2',
-    'Разработчик 3',
-    'Разработчик 4',
-  ];
-  // const [selectedProfessions, setSelectedProfessions] = React.useState<string[]>([]);
-
-  // useEffect(() => {
-  //   onChange({target: {value: selectedProfessions}});
-  // }, [selectedProfessions]);
+export const ProfessionFilter = ({onChange, isStreamChosen, value, professions}: TProfessionFilterProps): ReactElement => {
   const selectedProfessions = value;
   const setSelectedProfessions = (newValue: string[]) => {
     onChange({target: {value: newValue}});
