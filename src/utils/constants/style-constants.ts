@@ -50,6 +50,7 @@ export const themeInput = createTheme({
           fontWeight: '400',
           border: '1px solid #797981',
           borderRadius: '4px',
+          backgroundColor: 'white',
           ':after': {
             border: '0',
             transition: 'none',
@@ -146,6 +147,7 @@ export const themeInput = createTheme({
           border: '1px solid #797981',
           borderRadius: '4px',
           outline: 0,
+          backgroundColor: 'white',
           "&.Mui-focused": {
             outline: 0,
             borderColor: '#DDE0E4',

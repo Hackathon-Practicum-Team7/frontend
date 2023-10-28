@@ -20,7 +20,7 @@ type TInputWithChipProps = {
   filterOptions: string[],
   onClearClick?: () => void,
   input: string[] | [],
-  setInput: React.Dispatch<React.SetStateAction<string[]>>,
+  setInput: (newInput: string[]) => void,
   placeholderText?: string,
   width?: number | string,
   chipVariant?: 'gray'
@@ -32,7 +32,7 @@ export const InputWithChip = ({ filterOptions, input, setInput, placeholderText,
 
   const handleDelete = (e: React.MouseEvent, value: string) => {
     e.preventDefault();
-    setInput((current) => current.filter(item => item != value));
+    input.filter(item => item != value);
   }
 
   return (
@@ -62,7 +62,7 @@ export const InputWithChip = ({ filterOptions, input, setInput, placeholderText,
       </FormControl>
       { (input.length > 0) && (
         <div className={styles.container}>
-          {input.map((value) => (
+          {input.slice(0, 6).map((value) => (
             <Chip
               key={value}
               label={value}
@@ -71,6 +71,24 @@ export const InputWithChip = ({ filterOptions, input, setInput, placeholderText,
               deleteIcon={<CloseRoundedIcon />}
             />
           ))}
+          { (input.length > 6) && (
+            <Chip
+              label={'Показать все'}
+              variant={'outlined'}
+              sx={{
+                fontWeight: '400',
+                backgroundColor: 'transparent',
+                color: '#797981',
+                borderColor: 'rgba(90, 155, 255, 1)',
+                cursor: 'pointer',
+                ':hover': {
+                  backgroundColor: '#1D6BF3',
+                  color: 'white',
+                  borderColor: 'transparent',
+                }
+              }}
+            />
+          )}
         </div>
       )}
     </ThemeProvider>

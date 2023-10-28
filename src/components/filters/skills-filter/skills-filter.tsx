@@ -1,25 +1,35 @@
 import styles from "../filter.module.css";
-import {ReactElement, useEffect} from "react";
+import {ReactElement} from "react";
 import {InputWithChip} from "../../input-with-chip/input-with-chip";
-import * as React from "react";
 import {ClearFilters} from "../../clear-filters/clear-filters";
 
-export const SkillsFilter = ({onChange}: {onChange: (event: { target: { value: string[] } }) => void}): ReactElement => {
+export const SkillsFilter = ({onChange, value}: {onChange: (event: { target: { value: string[] } }) => void, value: string[]}): ReactElement => {
   const skills = [
-    'HTML',
-    'CSS',
-    'Figma',
+    'Маркетинговая аналитика',
+    'Unit-экономика',
+    'Email-маркетинг',
     'JavaScript',
-    'TypeScript',
+    'Performance маркетинг',
     'Adobe Photoshop',
-  ];
-  const [selectedSkills, setSelectedSkills] = React.useState<string[]>([]);
+    'SQL',
+    'PySpark',
+    'Python',
+    'Keras',
+    'Catboost',
+    'Scikit-learn',
+    'Pytorch',
+    'UX',
+    'CSS',
+    'HTML'
+];
+
+  const selectedSkills = value;
+  const setSelectedSkills = (newValue: string[]) => {
+    onChange({target: {value: newValue}});
+  }
   function onClearClick() {
     setSelectedSkills([])
   }
-  useEffect(() => {
-    onChange({target: {value: selectedSkills}});
-  }, [selectedSkills]);
 
   return (
     <>

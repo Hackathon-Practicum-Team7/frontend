@@ -12,8 +12,8 @@ export interface IFormInput {
   skills: string[];
   locations: string[];
   workingConditions: string[];
-  employmentType: string[];
-  hasPortfolio: string[];
+  employmentTypes: string[];
+  hasPortfolio: string;
   grade: string[];
 }
 

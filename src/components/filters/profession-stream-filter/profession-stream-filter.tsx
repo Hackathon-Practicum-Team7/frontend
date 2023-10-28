@@ -1,15 +1,14 @@
 import styles from "../filter.module.css";
 import {CustomButton} from "../../custom-button/custom-button";
-import {ReactElement, useEffect} from "react";
-import * as React from "react";
+import {ReactElement} from "react";
 import {ClearFilters} from "../../clear-filters/clear-filters";
 
 type TProfessionStreamFilterProps = {
   onChange: (event: { target: { value: string } }) => void,
-  setStreamChosen: (value: boolean) => void,
+  value: string;
 }
 
-export const ProfessionStreamFilter = ({onChange, setStreamChosen}: TProfessionStreamFilterProps): ReactElement => {
+export const ProfessionStreamFilter = ({onChange, value}: TProfessionStreamFilterProps): ReactElement => {
   const professionStreams = [
     'Программирование',
     'Дизайн',
@@ -17,23 +16,21 @@ export const ProfessionStreamFilter = ({onChange, setStreamChosen}: TProfessionS
     'Анализ данных',
     'Менеджмент',
   ];
-  const [selectedProfessionStream, setSelectedProfessionStream] = React.useState<string>('');
 
-  useEffect(() => {
-    onChange({target: {value: selectedProfessionStream}});
-  }, [selectedProfessionStream]);
+  const selectedProfessionStream = value;
+  const setSelectedProfessionStream = (newValue: string) => {
+    onChange({target: {value: newValue}});
+  }
+
   function onClearClick() {
     setSelectedProfessionStream('');
-    setStreamChosen(false);
   }
 
   function handleClick(value: string) {
     if (selectedProfessionStream === value) {
       setSelectedProfessionStream('');
-      setStreamChosen(false);
     } else {
       setSelectedProfessionStream(value);
-      setStreamChosen(true);
     }
   }
 
