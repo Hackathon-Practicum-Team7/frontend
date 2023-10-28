@@ -292,6 +292,20 @@ export const themeInput = createTheme({
             border: '1px solid #ACCCFF',
           },
         },
+        {
+          props: { variant: 'customOutlinedFilter'},
+          style: {
+            border: '1px solid #fff',
+            color: '#fff',
+            fontSize: '16px',
+            fontWeight: '500',
+            backgroundColor: 'transparent',
+            "&.Mui-disabled": {
+              borderColor: '#B5B5B7',
+              color: '#B5B5B7',
+            }
+          },
+        },
       ],
     },
   },
