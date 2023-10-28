@@ -35,6 +35,15 @@
   align-items: center;
 }
 
+.button:disabled {
+  color: #B5B5B7;
+  cursor: auto;
+}
+
+.button:disabled:hover {
+  opacity: 100%;
+}
+
 .button:hover {
   opacity: 50%;
 }

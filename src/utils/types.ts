@@ -31,7 +31,7 @@ export interface IProfile {
 }
 
 export interface IContacts {
-  tg: string;
+  phone: string;
   email: string;
 }
 

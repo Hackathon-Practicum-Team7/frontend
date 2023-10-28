@@ -13,7 +13,7 @@ import Avatar from '@mui/material/Avatar';
 import styles from './table.module.css';
 import {Pagination, ThemeProvider} from "@mui/material";
 import emailIcon from '../../images/email-icon-gray.svg';
-import telegramIcon from '../../images/telegram-icon-gray.svg';
+import phoneIcon from '../../images/phone-icon-gray.svg';
 import checkboxIcon from '../../images/checkbox.svg';
 import inactiveCheckboxIcon from '../../images/checkbox-not-active.svg';
 import {themeInput} from "../../utils/constants/style-constants";
@@ -33,8 +33,11 @@ const InactiveCheckBoxIcon = <img src={inactiveCheckboxIcon} alt={'Чекбок�
 const InactiveLikeIcon = () => (<button className={styles.like_inactive}/>);
 const ActiveLikeIcon = () => ( <button className={styles.like_active}/>);
 
+type TEnhancedTableProps = {
+  areCandidatesFound: boolean,
+}
 
-export default function EnhancedTable() {
+export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProps) {
   const [order, setOrder] = useState<TOrder>('desc');
   const [orderBy, setOrderBy] = useState<keyof IData>('profile');
   const [selected, setSelected] = useState<readonly number[]>([]);
@@ -47,7 +50,6 @@ export default function EnhancedTable() {
     .map((row, index) => ({...row, id: index})),
     [rows]
   );
-  const [ areCandidatesFound, _setCandidatesFound ] = useState<boolean>(true);
 
   const handleRequestSort = (
     _event: React.MouseEvent<unknown>,
@@ -212,8 +214,8 @@ export default function EnhancedTable() {
                         <TableCell align="left" width='212px'>
                           <div className={styles.contacts}>
                             <div className={styles.contact}>
-                              <img src={telegramIcon} alt={'Телеграм'} />
-                              <p className={styles.contact__text}>{row.contacts.tg}</p>
+                              <img src={phoneIcon} alt={'Телефон'} />
+                              <p className={styles.contact__text}>{row.contacts.phone}</p>
                             </div>
                             <div className={styles.contact}>
                               <img src={emailIcon} alt={'Электронная почта'} />
