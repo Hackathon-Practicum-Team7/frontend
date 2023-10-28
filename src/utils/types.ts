@@ -83,3 +83,19 @@ export type TMenuItem = {
   itemName: string,
   onClick: () => void,
 }
+
+export enum MenuItemName {
+  MY_VACANCIES = "Мои вакансии",
+  FIND_CANDIDATE = "Найти кандидата",
+  FAVORITES = "Избранное",
+  CHAT = "Чат",
+  PROFILE_INFO = "Инфо профиля",
+  HELP = "Помощь",
+  LOGOUT = "Выйти",
+  RESET_FILTERS = "Сбросить все фильтры",
+}
+
+export type TMenuItem = {
+  itemName: string,
+  onClick: () => void,
+}
