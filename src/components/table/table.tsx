@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState} from 'react';
+import { useMemo, useState} from 'react';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -24,7 +24,7 @@ import downloadIcon from '../../images/download-white.svg';
 import ResultsNotFound from "../results-not-found/results-not-found";
 import {IData, TOrder} from "../../utils/types";
 import EnhancedTableHead from "../enhanced-table-head/enhanced-table-head";
-import {getComparator} from "../../utils/helpers";
+import {getComparator, profileScoreComparator} from "../../utils/helpers";
 import SkillsTableChips from "../skills-table-chips/skills-table-chips";
 
 
@@ -35,12 +35,18 @@ const ActiveLikeIcon = () => ( <button className={styles.like_active}/>);
 
 
 export default function EnhancedTable() {
-  const [order, setOrder] = useState<TOrder>('asc');
-  const [orderBy, setOrderBy] = useState<keyof IData>('grade');
+  const [order, setOrder] = useState<TOrder>('desc');
+  const [orderBy, setOrderBy] = useState<keyof IData>('profile');
   const [selected, setSelected] = useState<readonly number[]>([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const numberOfPages = Math.ceil(rows.length/rowsPerPage);
+  const refinedRows = useMemo(() => rows
+    .slice()
+    .sort(profileScoreComparator)
+    .map((row, index) => ({...row, id: index})),
+    [rows]
+  );
   const [ areCandidatesFound, _setCandidatesFound ] = useState<boolean>(true);
 
   const handleRequestSort = (
@@ -54,7 +60,7 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.id);
+      const newSelected = refinedRows.map((n) => n.id);
       setSelected(newSelected);
       return;
     }
@@ -94,15 +100,15 @@ export default function EnhancedTable() {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - refinedRows.length) : 0;
 
   const visibleRows = React.useMemo(
     () =>
-      rows.slice().sort(getComparator(order, orderBy)).slice(
+      refinedRows.slice().sort(getComparator(order, orderBy)).slice(
         page * rowsPerPage,
         page * rowsPerPage + rowsPerPage,
       ),
-    [order, orderBy, page, rowsPerPage],
+    [refinedRows, order, orderBy, page, rowsPerPage],
   );
 
 
@@ -139,7 +145,7 @@ export default function EnhancedTable() {
                 orderBy={orderBy}
                 onSelectAllClick={handleSelectAllClick}
                 onRequestSort={handleRequestSort}
-                rowCount={rows.length}
+                rowCount={refinedRows.length}
               />
               { !areCandidatesFound ? (
                 <TableCell colSpan={8} sx={{ padding: 0, borderBottom: 0}}>
@@ -266,7 +272,7 @@ export default function EnhancedTable() {
                         onChange={handleChangePage}
                       />
                     </>)}}
-                count={rows.length}
+                count={refinedRows.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}

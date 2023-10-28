@@ -1,4 +1,5 @@
 import React from 'react';
+import {TGrade} from "./constants/constants";
 
 export type TAuthForm = {
   email: string,
@@ -26,6 +27,7 @@ export interface IProfile {
   name: string;
   profession: string;
   src: string;
+  score: number;
 }
 
 export interface IContacts {
@@ -36,7 +38,7 @@ export interface IContacts {
 export interface IData {
   id: number;
   profile: IProfile;
-  grade: string;
+  grade: TGrade;
   location: string;
   skills: string[];
   contacts: IContacts;
@@ -48,4 +50,5 @@ export type TComparator = (a: IData, b: IData) => number;
 export interface IHeadCell {
   id: keyof IData;
   label: string;
+  sortable?: boolean;
 }
