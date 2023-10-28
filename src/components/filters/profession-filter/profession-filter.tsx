@@ -1,43 +1,42 @@
 import styles from "../filter.module.css";
 import {CustomButton} from "../../custom-button/custom-button";
-import {ReactElement, useEffect} from "react";
-import * as React from "react";
+import {ReactElement} from "react";
 import {ClearFilters} from "../../clear-filters/clear-filters";
 
 type TProfessionFilterProps = {
   onChange: (event: { target: { value: string[] } }) => void,
   isStreamChosen: boolean,
-  setProfessionChosen: (value: boolean) => void,
+  // setProfessionChosen: (value: boolean) => void,
+  value: string[];
 }
 
-export const ProfessionFilter = ({onChange, isStreamChosen, setProfessionChosen}: TProfessionFilterProps): ReactElement => {
+export const ProfessionFilter = ({onChange, isStreamChosen, value}: TProfessionFilterProps): ReactElement => {
   const professions = [
     'Разработчик 1',
     'Разработчик 2',
     'Разработчик 3',
     'Разработчик 4',
   ];
-  const [selectedProfessions, setSelectedProfessions] = React.useState<string[]>([]);
-  useEffect(() => {
-    onChange({target: {value: selectedProfessions}});
-  }, [selectedProfessions]);
+  // const [selectedProfessions, setSelectedProfessions] = React.useState<string[]>([]);
+
+  // useEffect(() => {
+  //   onChange({target: {value: selectedProfessions}});
+  // }, [selectedProfessions]);
+  const selectedProfessions = value;
+  const setSelectedProfessions = (newValue: string[]) => {
+    onChange({target: {value: newValue}});
+  }
+
   function onClearClick() {
     setSelectedProfessions([]);
-    setProfessionChosen(false);
   }
 
   function handleClick(value: string) {
     if (selectedProfessions.includes(value)) {
       const newValueArr = selectedProfessions.filter(profession =>  profession !== value);
       setSelectedProfessions(newValueArr);
-      if (newValueArr.length > 0) {
-        setProfessionChosen(true);
-      } else {
-        setProfessionChosen(false);
-      }
     } else {
-      setSelectedProfessions(current => [...current, value]);
-      setProfessionChosen(true);
+      setSelectedProfessions([...selectedProfessions, value]);
     }
   }
 

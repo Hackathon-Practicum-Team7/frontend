@@ -1,5 +1,4 @@
-import * as React from 'react';
-import {ReactElement, useEffect} from "react";
+import {ReactElement} from "react";
 import MenuItem from '@mui/material/MenuItem';
 import ListItemText from '@mui/material/ListItemText';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
@@ -22,19 +21,20 @@ const MenuProps = {
 type TSelectInputProps = {
   filterOptions: string[],
   onChange?: (event: { target: { value: string[] } }) => void,
+  value?: string[] | string,
   width?: number | string,
   isMulti?: boolean,
   disabled?: boolean
 }
 
-export const SelectInput = ({ filterOptions, onChange, width, isMulti, disabled }: TSelectInputProps): ReactElement => {
-  const [selectedInput, setSelectedInput] = React.useState<string[]>([filterOptions[0]]);
+export const SelectInput = ({ filterOptions, onChange, width, isMulti, disabled, value }: TSelectInputProps): ReactElement => {
 
-  useEffect(() => {
+  const selectedInput = (value && value.length > 0) ? value : [filterOptions[0]];
+  const setSelectedInput = (newValue: string[]) => {
     if (onChange) {
-      onChange({target: {value: selectedInput}});
+      onChange({target: {value: newValue}});
     }
-  }, [selectedInput]);
+  }
 
   const handleChange = (event: SelectChangeEvent<typeof selectedInput>) => {
     const {
@@ -60,9 +60,7 @@ export const SelectInput = ({ filterOptions, onChange, width, isMulti, disabled 
             onChange={handleChange}
             input={<Input disableUnderline={true} />}
             renderValue={(selected) => {
-              /* if (selected.length === 0) {
-                 return <em>Placeholder</em>;
-               }*/
+              if (typeof selected === 'string') return selected;
               return selected.join(', ');
             }}
             MenuProps={MenuProps}

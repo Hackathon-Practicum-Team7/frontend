@@ -38,6 +38,8 @@ type TEnhancedTableProps = {
 }
 
 export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProps) {
+  const paginationOptions = tableOptions.pagination.map(option => option.text);
+  const [pageOption, setPageOption] = useState<string>(paginationOptions[0]);
   const [order, setOrder] = useState<TOrder>('desc');
   const [orderBy, setOrderBy] = useState<keyof IData>('profile');
   const [selected, setSelected] = useState<readonly number[]>([]);
@@ -47,7 +49,7 @@ export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProp
   const refinedRows = useMemo(() => rows
     .slice()
     .sort(profileScoreComparator)
-    .map((row, index) => ({...row, id: index})),
+    .map((row, index) => ({...row, id: index + 1})),
     [rows]
   );
 
@@ -94,6 +96,7 @@ export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProp
   const handleChangeRowsPerPage = (event: { target: { value: string[] } }) => {
     const newValue = event.target.value[0];
     const option = tableOptions.pagination.find(option => option.text === newValue) || tableOptions.pagination[0];
+    setPageOption(newValue);
     setRowsPerPage(option.value);
     setPage(0);
   };
@@ -117,12 +120,12 @@ export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProp
   return (
     <ThemeProvider theme={themeInput}>
       <div className={styles.table__top}>
-        <SelectInput filterOptions={tableOptions.sorting} width={300} disabled={!areCandidatesFound} />
-        <SelectInput filterOptions={tableOptions.pagination.map(option => option.text)}
+        <SelectInput filterOptions={paginationOptions}
                      isMulti={false}
-                     width={220}
+                     width={300}
                      onChange={handleChangeRowsPerPage}
                      disabled={!areCandidatesFound}
+                     value={pageOption}
         />
       </div>
       <Box sx={{ width: '100%', minHeight: 400 }}>

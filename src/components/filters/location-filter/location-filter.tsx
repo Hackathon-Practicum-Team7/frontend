@@ -1,10 +1,9 @@
 import styles from "../filter.module.css";
-import {ReactElement, useEffect} from "react";
+import {ReactElement} from "react";
 import {InputWithChip} from "../../input-with-chip/input-with-chip";
-import * as React from "react";
 import {ClearFilters} from "../../clear-filters/clear-filters";
 
-export const LocationFilter = ({onChange}: {onChange: (event: { target: { value: string[] } }) => void}): ReactElement => {
+export const LocationFilter = ({onChange, value}: {onChange: (event: { target: { value: string[] } }) => void, value: string[]}): ReactElement => {
   const locations = [
     'Москва',
     'Санкт-Петербург',
@@ -13,13 +12,14 @@ export const LocationFilter = ({onChange}: {onChange: (event: { target: { value:
     'Ярославль',
     'Орел',
   ];
-  const [selectedLocations, setSelectedLocations] = React.useState<string[]>([]);
+
+  const selectedLocations = value;
+  const setSelectedLocations = (newValue: string[]) => {
+    onChange({target: {value: newValue}});
+  }
   function onClearClick() {
     setSelectedLocations([])
   }
-  useEffect(() => {
-    onChange({target: {value: selectedLocations}});
-  }, [selectedLocations]);
 
   return (
     <>
