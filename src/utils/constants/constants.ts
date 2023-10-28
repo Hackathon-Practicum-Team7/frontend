@@ -108,7 +108,7 @@ export const rows = [
     'Москва',
     ['HTML', 'CSS', 'JavaScript', 'React'],
     {
-      tg: '@nickname',
+      phone: '+7 (999) 000-00-00',
       email: 'email@email.ru',
     },
     true ),
@@ -120,7 +120,7 @@ export const rows = [
     'Junior',
     'Санкт-Петербург',
     ['HTML', 'CSS', 'JavaScript', 'React', 'TypeScript'], {
-      tg: '@nickname',
+      phone: '+7 (999) 000-00-00',
       email: 'email@email.ru',
     }, false),
   createData(3, {
@@ -131,7 +131,7 @@ export const rows = [
     'Middle',
     'Казань',
     ['HTML', 'CSS', 'React'], {
-      tg: '@nickname',
+      phone: '+7 (999) 000-00-00',
       email: 'email@email.ru',
     }, true),
   createData(4, {
@@ -142,7 +142,7 @@ export const rows = [
     'Middle',
     'Саратов',
     ['HTML', 'CSS'], {
-      tg: '@nickname',
+      phone: '+7 (999) 000-00-00',
       email: 'email@email.ru',
     }, false),
   createData(5, {
@@ -153,7 +153,7 @@ export const rows = [
     'Senior',
     'Санкт-Петербург',
     ['HTML', 'CSS'], {
-      tg: '@nickname',
+      phone: '+7 (999) 000-00-00',
       email: 'email@email.ru',
     }, false),
   createData(6, {
@@ -164,7 +164,7 @@ export const rows = [
     'Lead',
     'Москва',
     ['HTML', 'CSS'], {
-      tg: '@nickname',
+      phone: '+7 (999) 000-00-00',
       email: 'email@email.ru',
     }, true),
 ];

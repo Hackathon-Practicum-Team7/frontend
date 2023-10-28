@@ -1,9 +1,14 @@
 import styles from "./table-header.module.css";
 import {ReactElement} from "react";
 import editIcon from '../../images/edit-icon.svg';
-import settingsIcon from '../../images/settings-icon.svg'
+import editIconDisabled from '../../images/edit-icon-gray.svg';
+import settingsIcon from '../../images/settings-icon.svg';
+import settingsIconDisabled from '../../images/settings-icon-gray.svg';
 
-export const TableHeader = (): ReactElement => {
+type TTableHeaderProps = {
+  areCandidatesFound: boolean,
+}
+export const TableHeader = ({ areCandidatesFound }: TTableHeaderProps): ReactElement => {
 
   return (
       <div className={styles.header}>
@@ -12,12 +17,12 @@ export const TableHeader = (): ReactElement => {
           <span className={styles.subheader__text}>100 профилей найдено</span>
         </div>
         <div className={styles.buttons}>
-          <button className={styles.button}>
-            <img src={editIcon} className={styles.button__icon} alt={'Отобразить список'} />
+          <button className={styles.button} disabled={!areCandidatesFound}>
+            <img src={areCandidatesFound && editIcon || editIconDisabled} className={styles.button__icon} alt={'Отобразить список'} />
             Отображение списка
           </button>
-          <button className={styles.button}>
-            <img src={settingsIcon} className={styles.button__icon} alt={'Отобразить список'} />
+          <button className={styles.button} disabled={!areCandidatesFound}>
+            <img src={areCandidatesFound && settingsIcon || settingsIconDisabled} className={styles.button__icon} alt={'Отобразить список'} />
             Фильтры
           </button>
         </div>
