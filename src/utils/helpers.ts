@@ -1,7 +1,6 @@
 import {IContacts, IData, IProfile, TComparator, TOrder} from "./types";
 import {gradeOrder, TGrade} from "./constants/constants";
 
-
 export function createData(
   id: number,
   profile: IProfile,
@@ -67,4 +66,13 @@ export function getComparator<Key extends keyof IData>(
   return order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
+}
+
+export const getResponseData = (res: Response) => {
+  if (!res.ok) {
+    return res.text().then(text => {
+      throw new Error(`Ошибка: ${text}`)
+    })
+  }
+  return res.json();
 }

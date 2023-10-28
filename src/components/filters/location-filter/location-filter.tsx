@@ -1,17 +1,12 @@
 import styles from "../filter.module.css";
-import {ReactElement} from "react";
+import {ReactElement, useMemo} from "react";
 import {InputWithChip} from "../../input-with-chip/input-with-chip";
 import {ClearFilters} from "../../clear-filters/clear-filters";
+import {useSelector} from "../../../services/hooks/use-selector";
 
 export const LocationFilter = ({onChange, value}: {onChange: (event: { target: { value: string[] } }) => void, value: string[]}): ReactElement => {
-  const locations = [
-    'Москва',
-    'Санкт-Петербург',
-    'Казань',
-    'Пермь',
-    'Ярославль',
-    'Орел',
-  ];
+  const filters = useSelector(state => state.getFiltersState);
+  const cities = useMemo(() => filters.cities.map(filter => filter.title), [filters]);
 
   const selectedLocations = value;
   const setSelectedLocations = (newValue: string[]) => {
@@ -28,7 +23,7 @@ export const LocationFilter = ({onChange, value}: {onChange: (event: { target: {
         { (selectedLocations.length > 0) && (<ClearFilters onClick={onClearClick}>Очистить фильтр</ClearFilters>) }
       </div>
       <InputWithChip
-        filterOptions={locations}
+        filterOptions={cities}
         onClearClick={onClearClick}
         input={selectedLocations}
         setInput={setSelectedLocations}
