@@ -22,7 +22,7 @@ type TInputWithChipProps = {
   input: string[] | [],
   setInput: React.Dispatch<React.SetStateAction<string[]>>,
   placeholderText?: string,
-  width?: number,
+  width?: number | string,
   chipVariant?: 'gray'
 }
 export const InputWithChip = ({ filterOptions, input, setInput, placeholderText, width, chipVariant }: TInputWithChipProps): ReactElement => {

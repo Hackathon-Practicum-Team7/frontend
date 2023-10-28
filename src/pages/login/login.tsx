@@ -1,4 +1,4 @@
-import React, {FunctionComponent} from 'react';
+import {FunctionComponent} from 'react';
 import {
   FormHelperText,
   Link,
@@ -50,9 +50,8 @@ export const Login: FunctionComponent = () => {
             </Typography>
             <div>
               <TextField variant="standard"
-                         name="email"
                          type="email"
-                         {...register("email")}
+                         {...register('email')}
                          placeholder="Почта"
                          fullWidth
                          error={!!errors.email}
@@ -70,7 +69,6 @@ export const Login: FunctionComponent = () => {
             </div>
             <div>
               <TextField variant="standard"
-                         name="password"
                          type="password"
                          {...register("password")}
                          placeholder="Пароль"
