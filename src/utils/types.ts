@@ -59,8 +59,10 @@ export enum MenuItemName {
   PROFILE_INFO = "Инфо профиля",
   HELP = "Помощь",
   LOGOUT = "Выйти",
+  RESET_FILTERS = "Сбросить все фильтры",
 }
 
 export type TMenuItem = {
   itemName: string,
+  onClick: () => void,
 }
