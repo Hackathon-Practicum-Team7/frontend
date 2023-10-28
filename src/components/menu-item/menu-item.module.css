@@ -22,6 +22,8 @@
 }
 
 .item-button_delete-filters {
+  align-self: flex-end;
+  margin-top: 24px;
   font-size: 14px;
 }
 

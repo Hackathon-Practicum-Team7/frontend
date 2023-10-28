@@ -18,8 +18,8 @@
 }
 
 .drop-down-body_filters {
-  right: -30%;
-  width: 30%;
+  right: -28%;
+  width: 28%;
   transition: right .3s ease 0s;
 }
 
@@ -31,7 +31,7 @@
   all: unset;
   position: absolute;
   top: 38px;
-  right: 40px;
+  right: 60px;
   width: 20px;
   height: 20px;
   background: url(../../images/cross-icon.svg) center center no-repeat;

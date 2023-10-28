@@ -18,6 +18,14 @@ declare module '@mui/material/Chip' {
 }
 
 export const filterOptions = {
+  profession: [
+    'Выберите из списка',
+    'Программирование',
+    'Дизайн',
+    'Маркетинг',
+    'Анализ данных',
+    'Менеджмент'
+  ],
   workingConditions: [
     'Не имеет значения',
     'Офис',
@@ -42,6 +50,7 @@ export const filterOptions = {
     'Senior',
     'Lead',
   ],
+
 }
 
 export const tableOptions = {
