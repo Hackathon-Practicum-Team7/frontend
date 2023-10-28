@@ -36,7 +36,7 @@ export const ProfilePage: React.FC = () => {
   return (
     <div>
       <div className={styles.staticContent}>
-        <BreadcrumbsNav></BreadcrumbsNav>
+        <BreadcrumbsNav parentPages={[{route: '/results', title: 'Список кандидатов'}]} currentPage="Профиль кандидата" />
         <h1 className={styles.title}>Профиль кандидата</h1>
 
         <div className={styles.info}>

@@ -3,7 +3,11 @@
   display: flex;
   flex-direction: column;
   text-align: left;
-  padding: 64px 58px 40px 58px;
+  padding: 28px 58px 40px 58px;
   box-sizing: border-box;
   justify-content: space-between;
+}
+
+.breadcrumbs {
+  margin-bottom: 24px;
 }

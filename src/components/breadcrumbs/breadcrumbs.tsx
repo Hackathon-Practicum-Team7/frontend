@@ -1,7 +1,15 @@
 import { Breadcrumbs, Link, ThemeProvider, Typography, createTheme } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
-export const BreadcrumbsNav: React.FC = () => {
+interface Props {
+  parentPages: {
+    route: string,
+    title: string
+  }[]
+  currentPage: string
+}
+
+export const BreadcrumbsNav: React.FC<Props> = ({parentPages, currentPage}) => {
   const theme = createTheme({
     components: {
       MuiLink: {
@@ -26,14 +34,19 @@ export const BreadcrumbsNav: React.FC = () => {
           to="/">
           Поиск
         </Link>
-        <Link
+
+        {parentPages.length > 0 && parentPages.map( page => (
+          <Link
           underline="hover"
           color="#1A1B22"
           component={NavLink}
-          to="/results">
-          Список кандидатов
+          to={page.route}>
+          {page.title}
         </Link>
-        <Typography color="#1A1B22">Профиль кандидата</Typography>
+        ))}
+
+
+        <Typography color="#1A1B22">{currentPage}</Typography>
       </Breadcrumbs>
     </ThemeProvider>
   )
