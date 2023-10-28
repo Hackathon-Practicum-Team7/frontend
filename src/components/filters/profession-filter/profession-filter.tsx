@@ -33,7 +33,7 @@ export const ProfessionFilter = ({onChange, isStreamChosen, value}: TProfessionF
 
   function handleClick(value: string) {
     if (selectedProfessions.includes(value)) {
-      const newValueArr = selectedProfessions.filter(profession =>  profession !== value);
+      const newValueArr = selectedProfessions.filter(profession => profession !== value);
       setSelectedProfessions(newValueArr);
     } else {
       setSelectedProfessions([...selectedProfessions, value]);
@@ -42,14 +42,16 @@ export const ProfessionFilter = ({onChange, isStreamChosen, value}: TProfessionF
 
   return (
     <div className={styles.filter}>
-      { isStreamChosen ? (
+      {isStreamChosen ? (
         <>
           <div className={styles.filter__container}>
-            <p className={styles.filter__header}><span className={`${styles.filter__header} ${styles.filter__span}`}>*</span> Специализация</p>
-            {(selectedProfessions && selectedProfessions.length > 0) && (<ClearFilters onClick={onClearClick}>Очистить фильтр</ClearFilters>)}
+            <p className={styles.filter__header}><span
+              className={`${styles.filter__header} ${styles.filter__span}`}>*</span> Специализация</p>
+            {(selectedProfessions && selectedProfessions.length > 0) && (
+              <ClearFilters color="gray" onClick={onClearClick}>Очистить фильтр</ClearFilters>)}
           </div>
           <div className={styles.professions}>
-            { professions.map((profession) => {
+            {professions.map((profession) => {
               return (
                 <CustomButton
                   key={profession}
@@ -64,12 +66,12 @@ export const ProfessionFilter = ({onChange, isStreamChosen, value}: TProfessionF
             }
           </div>
         </>
-        ) : (
-          <>
-            <p className={`${styles.filter__header} ${styles.filter__header_inactive}`}>Специализация</p>
-            <p className={styles.text_inactive}>Вам нужно выбрать направление</p>
-          </>
-        )}
+      ) : (
+        <>
+          <p className={`${styles.filter__header} ${styles.filter__header_inactive}`}>Специализация</p>
+          <p className={styles.text_inactive}>Вам нужно выбрать направление</p>
+        </>
+      )}
     </div>
   )
 }

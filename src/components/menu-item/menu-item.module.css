@@ -21,22 +21,10 @@
   opacity: 70%;
 }
 
-.item-button_delete-filters {
-  align-self: flex-end;
-  margin-top: 24px;
-  font-size: 14px;
-}
-
 .item-button__icon {
   margin-right: 12px;
   width: 24px;
   height: 24px;
   object-fit: cover;
   object-position: left;
-}
-
-.item-button__icon_delete-filters {
-  margin-right: 4px;
-  width: 16px;
-  height: 16px;
 }

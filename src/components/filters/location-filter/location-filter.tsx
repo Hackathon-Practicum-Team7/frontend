@@ -25,7 +25,7 @@ export const LocationFilter = ({onChange, value}: {onChange: (event: { target: {
     <>
       <div className={styles.filter__container}>
         <p className={styles.filter__header}>Местоположение</p>
-        { (selectedLocations.length > 0) && (<ClearFilters onClick={onClearClick}>Очистить фильтр</ClearFilters>) }
+        { (selectedLocations.length > 0) && (<ClearFilters color="gray" onClick={onClearClick}>Очистить фильтр</ClearFilters>) }
       </div>
       <InputWithChip
         filterOptions={locations}

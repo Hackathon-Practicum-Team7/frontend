@@ -26,6 +26,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  margin-bottom: 24px;
 }
 
 .text {
@@ -53,6 +54,10 @@
   flex-direction: column;
   gap: 24px;
   padding: 28px 40px 56px;
+}
+
+.filters__clear-filters-wrap {
+  align-self: flex-end;
 }
 
 .decor {
