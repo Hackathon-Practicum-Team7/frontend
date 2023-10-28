@@ -12,10 +12,17 @@
 }
 
 .delete__text {
-  color: #1A1B22;
   font-size: 14px;
   font-weight: 400;
   margin: 0;
+}
+
+.delete__text_gray {
+  color: #1A1B22;
+}
+
+.delete__text_white {
+  color: #fff;
 }
 
 .delete__icon {

@@ -3,7 +3,7 @@
   height: 90px;
   padding: 0 40px;
   color: #FFFFFF;
-  background-color:#1A1B22;
+  background-color: #1A1B22;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -27,6 +27,7 @@
 .logo {
   font-size: 24px;
   font-weight: 700;
+  z-index: 6;
 }
 
 .text {

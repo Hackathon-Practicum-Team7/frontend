@@ -8,7 +8,7 @@ import { skillsData } from '../components/cardSkills/skillsData';
 import { BreadcrumbsNav } from '../components/breadcrumbs/breadcrumbs';
 import { Avatar, Badge, ThemeProvider, createTheme } from '@mui/material';
 import { CustomButton } from '../components/custom-button/custom-button';
-import SuitcaseIcon from '../images/suitcase-icon.svg?react';
+import SuitcaseIcon from '../images/suitcase-icon-black.svg?react';
 import DownloadIcon from '../images/download-icon.svg?react';
 import EmailIcon from '../images/email-icon.svg?react';
 import PaperPlaneIcon from '../images/paper-plane-icon.svg?react';

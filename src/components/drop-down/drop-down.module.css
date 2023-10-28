@@ -1,16 +1,45 @@
 .drop-down-body {
   position: fixed;
   top: 0;
-  left: -24%;
-  width: 24%;
   height: 100%;
   background-color: #1a1b22;
-  transition: left .3s ease 0s;
   z-index: 4;
   overflow: auto;
 }
 
-.drop-down-body_opened {
+.drop-down-body_menu {
+  left: -24%;
+  width: 24%;
+  transition: left .3s ease 0s;
+}
+
+.drop-down-body_menu-opened {
   left: 0;
 }
 
+.drop-down-body_filters {
+  right: -28%;
+  width: 28%;
+  transition: right .3s ease 0s;
+}
+
+.drop-down-body_filters-opened {
+  right: 0;
+}
+
+.drop-down-body__close-icon {
+  all: unset;
+  position: absolute;
+  top: 38px;
+  right: 60px;
+  width: 20px;
+  height: 20px;
+  background: url(../../images/cross-icon.svg) center center no-repeat;
+  background-size: contain;
+  z-index: 5;
+  transition-duration: 0.2s; /* скорость наступления эффекта hover */
+}
+
+.drop-down-body__close-icon:hover {
+  transform: rotate(100grad);
+}

@@ -1,0 +1,30 @@
+.item {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item-button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  font-family: 'YS-Text', 'Arial', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity .2s ease;
+}
+
+.item-button:hover {
+  opacity: 70%;
+}
+
+.item-button__icon {
+  margin-right: 12px;
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+  object-position: left;
+}
