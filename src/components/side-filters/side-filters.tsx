@@ -205,7 +205,7 @@ export const SideFilters: FunctionComponent = () => {
                           onClick={() => console.log('hi')} type="submit">
               Применить фильтры
             </CustomButton>
-            <CustomButton width="100%" customType="customFilter" extraStyles="filterButton"
+            <CustomButton width="100%" customType="customOutlinedFilter" extraStyles="filterButton"
                           onClick={() => console.log('hi')} type="submit">
               Создать вакансию на основе фильтров
             </CustomButton>
