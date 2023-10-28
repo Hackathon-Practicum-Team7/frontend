@@ -122,7 +122,7 @@ export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProp
       <div className={styles.table__top}>
         <SelectInput filterOptions={paginationOptions}
                      isMulti={false}
-                     width={300}
+                     width={316}
                      onChange={handleChangeRowsPerPage}
                      disabled={!areCandidatesFound}
                      value={pageOption}

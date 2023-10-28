@@ -17,6 +17,8 @@ declare module '@mui/material/Chip' {
   }
 }
 
+export const baseUrl = 'https://seventeam-hakaton.sytes.net/api/v1';
+
 export const filterOptions = {
   workingConditions: [
     'Не имеет значения',
