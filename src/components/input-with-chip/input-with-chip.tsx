@@ -32,7 +32,7 @@ export const InputWithChip = ({ filterOptions, input, setInput, placeholderText,
 
   const handleDelete = (e: React.MouseEvent, value: string) => {
     e.preventDefault();
-    input.filter(item => item != value);
+    setInput(input.filter(item => item !== value));
   }
 
   return (

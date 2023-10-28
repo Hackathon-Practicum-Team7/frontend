@@ -1,27 +1,12 @@
 import styles from "../filter.module.css";
-import {ReactElement} from "react";
+import {ReactElement, useMemo} from "react";
 import {InputWithChip} from "../../input-with-chip/input-with-chip";
 import {ClearFilters} from "../../clear-filters/clear-filters";
+import {useSelector} from "../../../services/hooks/use-selector";
 
 export const SkillsFilter = ({onChange, value}: {onChange: (event: { target: { value: string[] } }) => void, value: string[]}): ReactElement => {
-  const skills = [
-    'Маркетинговая аналитика',
-    'Unit-экономика',
-    'Email-маркетинг',
-    'JavaScript',
-    'Performance маркетинг',
-    'Adobe Photoshop',
-    'SQL',
-    'PySpark',
-    'Python',
-    'Keras',
-    'Catboost',
-    'Scikit-learn',
-    'Pytorch',
-    'UX',
-    'CSS',
-    'HTML'
-];
+  const filters = useSelector(state => state.getFiltersState);
+  const skills = useMemo(() => filters.skills.map(filter => filter.title), [filters]);
 
   const selectedSkills = value;
   const setSelectedSkills = (newValue: string[]) => {
