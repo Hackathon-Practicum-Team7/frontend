@@ -67,25 +67,7 @@ export const CardExperience: React.FC = () => {
               <p className={styles.description}>Конкурентный анализ рынка, анализ ЦА, JTBD, разработка внутренней дизайн-системы, проведение бизнес-интервью с пользователями, построение User Flow.
               </p>
             </div>
-
-            <div className={styles.item}>
-              <p className={styles.title}>Продуктовый дизайнер</p>
-              <p className={styles.company}>Интеллектуальные динамические системы</p>
-              <p className={styles.time}>Октябрь 2020 — по настоящее время</p>
-              <p className={styles.description}>Веду и завершаю крупные разделы продукта, внедряя новые функции и защищая гипотезы. Взаимодействие, как с разработкой, менеджментом, аналитиками, так и с бизнесом. Пересмотр слабых моментов продукта, как в визуальном, так и в функциональном плане. Разработка продукта, базирующегося на legacy движке.
-              </p>
-            </div>
-
-            <div className={styles.item}>
-              <p className={styles.title}>Дизайнер интерфейсов</p>
-              <p className={styles.company}>ООО "ГлобалТрак Информационные Технологии"</p>
-              <p className={styles.time}>Ноябрь 2017 — Сентябрь 2020</p>
-              <p className={styles.description}>Конкурентный анализ рынка, анализ ЦА, JTBD, разработка внутренней дизайн-системы, проведение бизнес-интервью с пользователями, построение User Flow.
-              </p>
-            </div>
-
-            </div>
-
+          </div>
 
         </CardContent>
       </Card>

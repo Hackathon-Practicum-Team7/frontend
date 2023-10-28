@@ -6,7 +6,7 @@ import { CardExperience } from '../components/cardExperience/cardExperience';
 import { CardEducation } from '../components/cardEducation/cardEducation';
 import { skillsData } from '../components/cardSkills/skillsData';
 import { BreadcrumbsNav } from '../components/breadcrumbs/breadcrumbs';
-import { Avatar } from '@mui/material';
+import { Avatar, Badge, ThemeProvider, createTheme } from '@mui/material';
 import { CustomButton } from '../components/custom-button/custom-button';
 import SuitcaseIcon from '../images/suitcase-icon.svg?react';
 import DownloadIcon from '../images/download-icon.svg?react';
@@ -20,21 +20,40 @@ export const ProfilePage: React.FC = () => {
     await navigator.clipboard.writeText(text);
   }
 
-  const isFavorite = false;
+  const theme = createTheme({
+    components: {
+      MuiBadge: {
+        styleOverrides: {
+          badge: {
+            bottom: '8px',
+            right: '8px'
+          }
+        }
+      },
+    },
+  });
 
   return (
     <div>
       <div className={styles.staticContent}>
         <BreadcrumbsNav></BreadcrumbsNav>
-
         <h1 className={styles.title}>Профиль кандидата</h1>
 
         <div className={styles.info}>
-          <Avatar
-            alt="Фото кандидата"
-            src="https://yt3.ggpht.com/ytc/AMLnZu_PczQwsAx-yjBvH7KsR9vpjSy-0Zn_gYpFqTqGEw=s900-c-k-c0x00ffffff-no-rj"
-            sx={{ width: 148, height: 148 }}
-          />
+        <ThemeProvider theme={theme}>
+          <Badge
+            overlap="circular"
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            badgeContent={
+              <FavoriteButton studentId={3} isBadge={true}/>
+            }>
+            <Avatar
+              alt="Фото кандидата"
+              src="https://yt3.ggpht.com/ytc/AMLnZu_PczQwsAx-yjBvH7KsR9vpjSy-0Zn_gYpFqTqGEw=s900-c-k-c0x00ffffff-no-rj"
+              sx={{ width: 148, height: 148 }}
+            />
+          </Badge>
+        </ThemeProvider>
 
           <div className={styles.shortlist}>
             <div className={styles.cell}>

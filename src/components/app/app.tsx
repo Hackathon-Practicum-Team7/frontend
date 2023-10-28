@@ -18,7 +18,8 @@ function App(): ReactElement {
       <main className="main"
             style={{
               width: `${isLoginRoute && '100%'}`,
-              background: `${!isLoginRoute && 'none'}`
+              background: `${!isLoginRoute && 'none'}`,
+              flexGrow: '1'
             }}>
         <RoutesComponent/>
       </main>

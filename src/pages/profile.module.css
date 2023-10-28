@@ -21,7 +21,7 @@
 }
 
 .shortlist {
-  padding: 22px 0 22px 19px;
+  padding: 22px 0;
   display: grid;
   grid-template-columns: 242px 262px 242px 186px 225px;
 }
@@ -75,5 +75,6 @@
   grid-template-columns: 764px 540px;
   grid-template-rows: 188px auto;
   gap: 20px 32px;
+  /* overflow: scroll; */
 }
 

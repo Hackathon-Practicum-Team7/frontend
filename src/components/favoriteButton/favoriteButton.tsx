@@ -4,9 +4,10 @@ import { FavoriteOutlined, FavoriteBorderOutlined } from '@mui/icons-material';
 
 type Props = {
   studentId: number
+  isBadge?: boolean
 }
 
-export const FavoriteButton: React.FC <Props> = ({ studentId }) => {
+export const FavoriteButton: React.FC <Props> = ({ studentId, isBadge = false }) => {
   const [favorites, saveFavorites] = useLocalStorage<number[]>("favorites", []);
   const isFavorite = favorites.indexOf(studentId) >= 0;
 
@@ -24,7 +25,38 @@ export const FavoriteButton: React.FC <Props> = ({ studentId }) => {
   const outList = <IconButton onClick={ addToFavorites }><FavoriteBorderOutlined /></IconButton>
 
 
-  const theme = createTheme({
+  const themeBadge = createTheme({
+    components: {
+      MuiSvgIcon: {
+        styleOverrides: {
+          root: {
+            width: '35px',
+            height: '35px'
+          }
+        }
+      },
+      MuiIconButton: {
+        styleOverrides: {
+          root: {
+            borderRadius: '6px',
+            border: '1px solid transparent',
+            color: "#1D6BF3",
+            padding: '0',
+            margin: '0',
+            '&:hover': {
+              backgroundColor: 'unset',
+              color: '#1D6BF3',
+              border: '1px solid transparent',
+            },
+          },
+        },
+      },
+    },
+  });
+
+
+
+  const themeButton = createTheme({
     components: {
       MuiIconButton: {
         styleOverrides: {
@@ -46,6 +78,8 @@ export const FavoriteButton: React.FC <Props> = ({ studentId }) => {
       },
     },
   });
+
+  const theme = isBadge ? themeBadge : themeButton;
 
   return (
     <ThemeProvider theme={theme}>
