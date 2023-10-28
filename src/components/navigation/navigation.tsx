@@ -7,6 +7,13 @@ import avatarImage from '../../images/user-image.png';
 import {MenuItem} from '../menu-item/menu-item';
 
 export const Navigation: FunctionComponent = () => {
+  // const navigate = useNavigate();
+  // const handleClickFindCandidates = () => {
+  //   navigate('/');
+  // }
+
+  // TODO: подключить навигацию на главную к Найти кандидата (NavLink?)
+
   return (
     <nav className={navStyles.menu}>
       <div>
@@ -20,19 +27,19 @@ export const Navigation: FunctionComponent = () => {
           </div>
         </button>
         <ul className={`${navStyles.list} ${navStyles['list_outer']}`}>
-          <MenuItem itemName="Мои вакансии"/>
+          <MenuItem itemName="Мои вакансии" onClick={() => console.log('hi there!')}/>
           <li className={navStyles['decor-item']}/>
           <ul className={navStyles.list}>
-            <MenuItem itemName="Найти кандидата"/>
-            <MenuItem itemName="Избранное"/>
-            <MenuItem itemName="Чат"/>
+            <MenuItem itemName="Найти кандидата" onClick={() => console.log('hi there!')}/>
+            <MenuItem itemName="Избранное" onClick={() => console.log('hi there!')}/>
+            <MenuItem itemName="Чат" onClick={() => console.log('hi there!')}/>
           </ul>
         </ul>
       </div>
       <ul className={navStyles.list}>
-        <MenuItem itemName="Инфо профиля"/>
-        <MenuItem itemName="Помощь"/>
-        <MenuItem itemName="Выйти"/>
+        <MenuItem itemName="Инфо профиля" onClick={() => console.log('hi there!')}/>
+        <MenuItem itemName="Помощь" onClick={() => console.log('hi there!')}/>
+        <MenuItem itemName="Выйти" onClick={() => console.log('hi there!')}/>
       </ul>
 
     </nav>

@@ -1,0 +1,39 @@
+.filters {
+  box-sizing: border-box;
+  padding: 32px 40px 56px;
+}
+
+.filters__header {
+  position: fixed;
+  top: 0;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+}
+
+.filters__header-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.filters__heading-wrap {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 32px 40px 0 0;
+}
+
+.text {
+  margin: 0;
+  color: #fff;
+}
+
+.text_header {
+  font-family: 'YS-Display', 'Arial', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 32px;
+}

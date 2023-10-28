@@ -8,7 +8,7 @@
   all: unset;
   display: flex;
   align-items: center;
-  font-family: 'YS-Display', 'Arial', sans-serif;
+  font-family: 'YS-Text', 'Arial', sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
@@ -21,10 +21,20 @@
   opacity: 70%;
 }
 
+.item-button_delete-filters {
+  font-size: 14px;
+}
+
 .item-button__icon {
   margin-right: 12px;
   width: 24px;
   height: 24px;
-  object-fit: unset;
+  object-fit: cover;
   object-position: left;
+}
+
+.item-button__icon_delete-filters {
+  margin-right: 4px;
+  width: 16px;
+  height: 16px;
 }

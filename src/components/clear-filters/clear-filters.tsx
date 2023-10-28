@@ -1,6 +1,6 @@
 import styles from "./clear-filters.module.css";
 import {ReactElement, } from "react";
-import deleteIcon from '../../images/delete-icon.svg';
+import deleteIcon from '../../images/delete-icon-gray.svg';
 
 type TClearFiltersProps = {
   onClick: () => void,
