@@ -107,3 +107,8 @@ export type TGetStudentsQueryParams = {
   skills?: string | string[],
   workingConditions?: string | string[],
 }
+
+export type TDownloadExcelSliceState = {
+  downloadExcelLoading: boolean,
+  downloadExcelError: boolean,
+}

@@ -38,10 +38,10 @@ export default function EnhancedTableHead(props: EnhancedTableProps) {
       <TableRow>
         <TableCell
           key={headCells[0].id}
-          align={'center'}
+          align={'left'}
           padding={'normal'}
           sortDirection={orderBy === headCells[0].id ? order : false}
-          width='72px'
+          width='40px'
         >
           {headCells[0].label}
         </TableCell>
