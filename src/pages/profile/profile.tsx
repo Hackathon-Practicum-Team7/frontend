@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './profile.module.css';
 import { CardAbout } from '../../components/card-about/card-about';
 import { CardSkills } from '../../components/card-skills/card-skills';
@@ -14,8 +14,25 @@ import EmailIcon from '../../images/email-icon.svg?react';
 import PaperPlaneIcon from '../../images/paper-plane-icon.svg?react';
 import { ContactButton } from '../../components/contact-button/contact-button';
 import { FavoriteButton } from '../../components/favorite-button/favorite-button';
+import { useParams } from 'react-router-dom';
+import { useDispatch } from '../../services/hooks/use-dispatch';
+import { loadProfile } from '../../services/async-thunk/load-profile';
+import { useSelector } from '../../services/hooks/use-selector';
 
 export const ProfilePage: React.FC = () => {
+  const { studentId } = useParams();
+  const dispatch = useDispatch();
+
+  const {profile, profileLoading} = useSelector(state => state.loadProfileState);
+
+  useEffect( () => {
+    dispatch(loadProfile(studentId!));
+  }, [studentId]);
+
+  if (profileLoading || !profile) {
+    return <></>
+  }
+
   const copyToClipboard = async (text: string) => {
     await navigator.clipboard.writeText(text);
   }
@@ -29,37 +46,37 @@ export const ProfilePage: React.FC = () => {
         <div className={styles.info}>
           <Avatar
               alt="Фото кандидата"
-              src="https://yt3.ggpht.com/ytc/AMLnZu_PczQwsAx-yjBvH7KsR9vpjSy-0Zn_gYpFqTqGEw=s900-c-k-c0x00ffffff-no-rj"
+              src={profile.avatar}
               sx={{ width: 148, height: 148 }}
             />
 
           <div className={styles.shortlist}>
             <div className={styles.cell}>
-              <p className={styles.main}>Петрова Ольга</p>
-              <p className={styles.extra}>Санкт-Петербург</p>
+              <p className={styles.main}>{profile.name} {profile.surname}</p>
+              <p className={styles.extra}>{profile.city}</p>
             </div>
             <div className={styles.cell}>
-              <p className={styles.main}>Дизайнер интерфейсов</p>
-              <p className={styles.extra}>Middle </p>
+              <p className={styles.main}>{profile.profession}</p>
+              <p className={styles.extra}>{profile.grade}</p>
             </div>
             <div className={styles.cell}>
-              <p className={styles.main}>Частичная занятость</p>
-              <p className={styles.extra}>Гибрид</p>
+              <p className={styles.main}>{profile.employment_types[0]}</p>
+              <p className={styles.extra}>{profile.working_condition[0]}</p>
             </div>
 
             <div className={styles.cellButton}>
-              <ContactButton icon={<SuitcaseIcon />} label="Портфолио" href="https://github.com/elana-tollu"/>
-              <ContactButton icon={<DownloadIcon />} label="Резюме" href="https://www.africau.edu/images/default/sample.pdf" />
+              <ContactButton icon={<SuitcaseIcon />} label="Портфолио" href={profile.contact.portfolio}/>
+              <ContactButton icon={<DownloadIcon />} label="Резюме" href={profile.resume} />
             </div>
             <div className={styles.cellButton}>
-              <ContactButton icon={<EmailIcon />} label="petrova@yandex.ru" onClick={ () => copyToClipboard('petrova@yandex.ru')}/>
-              <ContactButton icon={<PaperPlaneIcon />} label="+7-920-876-45-45" onClick={ () => copyToClipboard('+7-920-876-45-45') }/>
+              <ContactButton icon={<EmailIcon />} label={profile.contact.email} onClick={ () => copyToClipboard(profile.contact.email)}/>
+              <ContactButton icon={<PaperPlaneIcon />} label={profile.contact.phone} onClick={ () => copyToClipboard(profile.contact.phone) }/>
             </div>
           </div>
         </div>
 
         <div className={styles.buttons}>
-          <FavoriteButton studentId={3} />
+          <FavoriteButton studentId={studentId!} />
           <CustomButton width={'266px'} children={'Пригласить на собеседование'} customType={'customOutlined'}></CustomButton>
         </div>
       </div>
@@ -67,7 +84,7 @@ export const ProfilePage: React.FC = () => {
       <div className={styles.content}>
         <CardAbout></CardAbout>
 
-        <CardSkills skills={skillsData}></CardSkills>
+        <CardSkills skills={profile.skills}></CardSkills>
 
         <CardExperience></CardExperience>
 

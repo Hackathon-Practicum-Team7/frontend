@@ -1,7 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 import {TError, TTokens, TUserData, TUserDataSliceState} from '../slices-types';
-import {act} from 'react-dom/test-utils';
 import {TUserDataActions} from '../action-types';
 
 export const userDataSlice = createSlice({
@@ -52,7 +51,7 @@ export const userDataSlice = createSlice({
         ...state,
         isLading: false,
         isError: true,
-        error: {message: action.payload}
+        error: {message: action.payload.message || ''}
       }
     },
   }

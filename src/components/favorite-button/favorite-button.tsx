@@ -3,12 +3,12 @@ import { useLocalStorage } from "@uidotdev/usehooks";
 import { FavoriteOutlined, FavoriteBorderOutlined } from '@mui/icons-material';
 
 type Props = {
-  studentId: number
+  studentId: string
   isBadge?: boolean
 }
 
 export const FavoriteButton: React.FC <Props> = ({ studentId, isBadge = false }) => {
-  const [favorites, saveFavorites] = useLocalStorage<number[]>("favorites", []);
+  const [favorites, saveFavorites] = useLocalStorage<string[]>("favorites", []);
   const isFavorite = favorites.indexOf(studentId) >= 0;
 
   const removeFromFavorites = () => {

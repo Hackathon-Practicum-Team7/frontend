@@ -1,5 +1,5 @@
 import {ActionCreatorWithoutPayload, ActionCreatorWithPayload} from '@reduxjs/toolkit';
-import {TCity, TError, TProfessionStream, TSkill, TTokens, TUserData} from './slices-types';
+import {TCity, TError, TProfessionStream, TProfileData, TSkill, TTokens, TUserData} from './slices-types';
 
 export type TFiltersActions = {
   getCitiesSuccess: ActionCreatorWithPayload<TCity[]>,
@@ -24,6 +24,12 @@ export type TInputValuesActions = {
   setInputValues: ActionCreatorWithPayload<{ email: string, password: string }>,
   clearPassword: ActionCreatorWithoutPayload<string>,
   clearInputValuesState: ActionCreatorWithoutPayload<string>,
+}
+
+export type TProfileActions = {
+    loadProfileLoading: ActionCreatorWithoutPayload<string>,
+    loadProfileSuccess: ActionCreatorWithPayload<TProfileData>,
+    loadProfileFailed: ActionCreatorWithoutPayload<string>,
 }
 
 export type TApplicationActions =

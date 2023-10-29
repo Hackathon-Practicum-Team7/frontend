@@ -67,3 +67,57 @@ export type TInputValuesState = {
   email: string,
   password: string | undefined,
 }
+
+export type TProfileSliceState = {
+  profileLoading: boolean,
+  profileError: boolean,
+  profile: TProfileData | null,
+}
+
+export type TProfileData = {
+  id: string,
+  name: string,
+  surname: string,
+  city: string,
+  profession: string,
+  grade: string,
+  employment_types: string[],
+  working_condition: string[],
+  contact: {
+    id: number,
+    email: string,
+    phone: string,
+    portfolio: string
+  },
+  avatar: string,
+  experience: number,
+  jobs: TJob[],
+  educations: TEducation[],
+  about: string,
+  skills: TSkillProfile[],
+  resume: string,
+  is_favorited: boolean
+}
+
+export type TJob = {
+  id: number,
+  started_at: string,
+  finished_at: string,
+  organisation: string,
+  position: string,
+  about: string
+}
+
+export type TEducation = {
+  id: number,
+  started_at: string,
+  finished_at: string,
+  institute: string,
+  speciality: string
+}
+
+export type TSkillProfile = {
+  id: number,
+  title: string,
+  score: number
+}

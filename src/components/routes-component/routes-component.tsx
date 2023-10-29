@@ -12,7 +12,7 @@ export default function RoutesComponent(): ReactElement {
       <Route path='/login' element={<Login/>}/>
       <Route path='/' element={<HomePage/>}/>
       <Route path='/results' element={<ResultsPage />} />
-      <Route path='/profile/:id' element={<ProfilePage />} />
+      <Route path='/profile/:studentId' element={<ProfilePage />} />
       <Route path='*' element={<></>} />
     </Routes>
   );
