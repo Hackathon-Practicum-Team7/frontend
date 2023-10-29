@@ -1,14 +1,14 @@
 import {AppDispatch, AppThunk} from "../slices-types";
 import {baseUrl} from "../../utils/constants/constants";
 import {getCookie, getResponseData} from "../../utils/helpers";
-import {favouriteStudentsActions} from "../slices/favourite";
+import {favoriteStudentsActions} from "../slices/favorite";
 
 export const postFavourite = (ids: string[]): AppThunk => {
   return function (dispatch: AppDispatch) {
-    dispatch(favouriteStudentsActions.postFavouriteLoading());
+    dispatch(favoriteStudentsActions.postFavoriteLoading());
     const token = getCookie('accessToken');
     return fetch(
-      `${baseUrl}/students/favourite`, {
+      `${baseUrl}/students/favorite`, {
         method: 'POST',
         headers: {
           Authorization: `JWT ${token}`,
@@ -20,21 +20,21 @@ export const postFavourite = (ids: string[]): AppThunk => {
       })
       .then(res => getResponseData(res))
       .then(() => {
-        dispatch(favouriteStudentsActions.postFavouriteSuccess());
+        dispatch(favoriteStudentsActions.postFavoriteSuccess());
       })
       .catch((err) => {
         console.log(err.message);
-        dispatch(favouriteStudentsActions.postFavouriteFailed());
+        dispatch(favoriteStudentsActions.postFavoriteFailed());
       })
   }
 }
 
-export const deleteFavourite = (ids: string[]): AppThunk => {
+export const deleteFavorite = (ids: string[]): AppThunk => {
   return function (dispatch: AppDispatch) {
-    dispatch(favouriteStudentsActions.deleteFavouriteLoading());
+    dispatch(favoriteStudentsActions.deleteFavoriteLoading());
     const token = getCookie('accessToken');
     return fetch(
-      `${baseUrl}/students/favourite`, {
+      `${baseUrl}/students/favorite`, {
         method: 'DELETE',
         headers: {
           Authorization: `JWT ${token}`,
@@ -46,11 +46,11 @@ export const deleteFavourite = (ids: string[]): AppThunk => {
       })
       .then(res => getResponseData(res))
       .then(() => {
-        dispatch(favouriteStudentsActions.deleteFavouriteSuccess());
+        dispatch(favoriteStudentsActions.deleteFavoriteSuccess());
       })
       .catch((err) => {
         console.log(err.message);
-        dispatch(favouriteStudentsActions.deleteFavouriteFailed());
+        dispatch(favoriteStudentsActions.deleteFavoriteFailed());
       })
   }
 }

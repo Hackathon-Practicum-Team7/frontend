@@ -168,9 +168,9 @@ export type TDownloadExcelSliceState = {
   downloadExcelError: boolean,
 }
 
-export type TFavouriteStudentsSliceState = {
-  postFavouriteLoading: boolean,
-  postFavouriteError: boolean,
-  deleteFavouriteLoading: boolean,
-  deleteFavouriteError: boolean,
+export type TFavoriteStudentsSliceState = {
+  postFavoriteLoading: boolean,
+  postFavoriteError: boolean,
+  deleteFavoriteLoading: boolean,
+  deleteFavoriteError: boolean,
 }

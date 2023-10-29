@@ -45,13 +45,13 @@ export type TDownloadExcelActions = {
   downloadExcelFailed: ActionCreatorWithoutPayload<string>,
 }
 
-export type TFavouriteStudentsActions = {
-  postFavouriteSuccess: ActionCreatorWithoutPayload<string>,
-  postFavouriteLoading: ActionCreatorWithoutPayload<string>,
-  postFavouriteFailed: ActionCreatorWithoutPayload<string>,
-  deleteFavouriteSuccess: ActionCreatorWithoutPayload<string>,
-  deleteFavouriteLoading: ActionCreatorWithoutPayload<string>,
-  deleteFavouriteFailed: ActionCreatorWithoutPayload<string>,
+export type TFavoriteStudentsActions = {
+  postFavoriteSuccess: ActionCreatorWithoutPayload<string>,
+  postFavoriteLoading: ActionCreatorWithoutPayload<string>,
+  postFavoriteFailed: ActionCreatorWithoutPayload<string>,
+  deleteFavoriteSuccess: ActionCreatorWithoutPayload<string>,
+  deleteFavoriteLoading: ActionCreatorWithoutPayload<string>,
+  deleteFavoriteFailed: ActionCreatorWithoutPayload<string>,
 }
 
 export type TApplicationActions =
@@ -60,4 +60,4 @@ export type TApplicationActions =
   | TInputValuesActions
   | TStudentsActions
   | TDownloadExcelActions
-  | TFavouriteStudentsActions
+  | TFavoriteStudentsActions
