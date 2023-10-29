@@ -1,8 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {redirect} from 'react-router-dom';
 
-import {TError, TTokens, TUserData, TUserDataSliceState} from '../slices-types';
-import {act} from 'react-dom/test-utils';
+import {TError, TUserData, TUserDataSliceState} from '../slices-types';
 import {TUserDataActions} from '../action-types';
 
 export const userDataSlice = createSlice({
@@ -13,8 +11,6 @@ export const userDataSlice = createSlice({
       name: '',
       avatar: ''
     },
-    accessToken: null,
-    refreshToken: null,
     isAuthorized: false,
     isError: false,
     error: {message: ''}
@@ -24,15 +20,6 @@ export const userDataSlice = createSlice({
       return {
         ...state,
         isUserLoading: true,
-        isError: false
-      }
-    },
-    setTokens: (state, action: PayloadAction<TTokens>) => {
-      return {
-        ...state,
-        isUserLoading: false,
-        accessToken: action.payload.access,
-        refreshToken: action.payload.refresh,
         isError: false
       }
     },
@@ -71,7 +58,6 @@ export default userDataSlice.reducer
 
 export const {
   getUserDataLoading,
-  setTokens,
   setIsAuthorized,
   getUserData,
   getUserDataFailed
@@ -79,7 +65,6 @@ export const {
 
 export const userDataActions: TUserDataActions = {
   getUserDataLoading: getUserDataLoading,
-  setTokens: setTokens,
   setIsAuthorized: setIsAuthorized,
   getUserData: getUserData,
   getUserDataFailed: getUserDataFailed
