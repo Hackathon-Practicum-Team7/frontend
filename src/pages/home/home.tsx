@@ -1,5 +1,5 @@
 import styles from "./home.module.css";
-import {ReactElement, useState} from "react";
+import {ReactElement, useMemo} from "react";
 import {CustomButton} from "../../components/custom-button/custom-button";
 import {SelectInput} from "../../components/select-input/select-input";
 import {filterOptions} from "../../utils/constants/constants";
@@ -9,16 +9,28 @@ import {LocationFilter} from "../../components/filters/location-filter/location-
 import {ProfessionStreamFilter} from "../../components/filters/profession-stream-filter/profession-stream-filter";
 import {ProfessionFilter} from "../../components/filters/profession-filter/profession-filter";
 import {IFormInput} from "../../utils/types";
+import {useSelector} from "../../services/hooks/use-selector";
 
 export const HomePage = (): ReactElement => {
-  const { control, handleSubmit } = useForm<IFormInput>();
+  const { control, handleSubmit, reset, watch } = useForm<IFormInput>();
   const onSubmit = (data: IFormInput | undefined) => {
     console.log(JSON.stringify(data));
   };
-  const [ isStreamChosen, setStreamChosen ] = useState<boolean>(false);
-  const [ isProfessionChosen, setProfessionChosen ] = useState<boolean>(false);
+  const professionStream = watch("professionStream", "");
+  const professions = watch("professions", []);
 
-  const isSubmitButtonEnabled = isStreamChosen && isProfessionChosen;
+  const isStreamChosen = (professionStream !== '');
+  const isSubmitButtonEnabled = (professionStream !== '') && (professions.length > 0);
+
+  const filters = useSelector(state => state.getFiltersState);
+  const professionByStreams = useMemo(() => {
+    return filters.professionStreams.reduce((professionsMap, professionStream) => {
+      professionsMap.set(professionStream.title, professionStream.professions.map(profession => profession.title));
+      return professionsMap;
+    }, new Map<string, string[]>());
+  }, [filters]);
+
+  const professionOptions = useMemo(() => professionByStreams.get(professionStream) || [], [professionStream]);
 
   return (
     <section className={styles.section}>
@@ -31,7 +43,7 @@ export const HomePage = (): ReactElement => {
               return (
                 <ProfessionStreamFilter
                 onChange={field.onChange}
-                setStreamChosen={setStreamChosen}
+                value={field.value}
                 />
               );
             }}
@@ -44,8 +56,9 @@ export const HomePage = (): ReactElement => {
               return (
                 <ProfessionFilter
                   onChange={field.onChange}
+                  value={field.value}
                   isStreamChosen={isStreamChosen}
-                  setProfessionChosen={setProfessionChosen}
+                  professions={professionOptions}
                 />
               );
             }}
@@ -56,7 +69,7 @@ export const HomePage = (): ReactElement => {
           <div className={styles.filter}>
             <Controller
               render={({ field }) => {
-                return <SkillsFilter onChange={field.onChange} />;
+                return <SkillsFilter onChange={field.onChange} value={field.value}/>;
               }}
               name="skills"
               control={control}
@@ -66,7 +79,7 @@ export const HomePage = (): ReactElement => {
           <div className={styles.filter}>
             <Controller
               render={({ field }) => {
-                return <LocationFilter onChange={field.onChange} />;
+                return <LocationFilter onChange={field.onChange} value={field.value}/>;
               }}
               name="locations"
               control={control}
@@ -77,7 +90,7 @@ export const HomePage = (): ReactElement => {
             <p className={styles.filter__header}>Условия работы</p>
             <Controller
               render={({ field }) => {
-                return <SelectInput filterOptions={filterOptions.workingConditions} onChange={field.onChange}/>;
+                return <SelectInput filterOptions={filterOptions.workingConditions} onChange={field.onChange} value={field.value}/>;
               }}
               name="workingConditions"
               control={control}
@@ -88,9 +101,9 @@ export const HomePage = (): ReactElement => {
             <p className={styles.filter__header}>Тип занятости</p>
             <Controller
               render={({ field }) => {
-                return <SelectInput filterOptions={filterOptions.employmentTypes} onChange={field.onChange}/>;
+                return <SelectInput filterOptions={filterOptions.employmentTypes} onChange={field.onChange} value={field.value}/>;
               }}
-              name="workingConditions"
+              name="employmentTypes"
               control={control}
               defaultValue={[]}
             />
@@ -99,20 +112,20 @@ export const HomePage = (): ReactElement => {
             <p className={styles.filter__header}>Портфолио</p>
             <Controller
               render={({ field }) => {
-                return <SelectInput filterOptions={filterOptions.hasPortfolio} onChange={field.onChange}/>;
+                return <SelectInput filterOptions={filterOptions.hasPortfolio} onChange={field.onChange} value={field.value} isMulti={false}/>;
               }}
-              name="workingConditions"
+              name="hasPortfolio"
               control={control}
-              defaultValue={[]}
+              defaultValue={''}
             />
           </div>
           <div className={styles.filter}>
             <p className={styles.filter__header}>Квалификация</p>
             <Controller
               render={({ field }) => {
-                return <SelectInput filterOptions={filterOptions.grade} onChange={field.onChange}/>;
+                return <SelectInput filterOptions={filterOptions.grade} onChange={field.onChange} value={field.value}/>;
               }}
-              name="workingConditions"
+              name="grade"
               control={control}
               defaultValue={[]}
             />
@@ -120,7 +133,7 @@ export const HomePage = (): ReactElement => {
         </div>
         <div className={styles.buttons__container}>
           <CustomButton customType='customContained' type='submit' disabled={!isSubmitButtonEnabled}>Найти</CustomButton>
-          <CustomButton customType='customOutlined' type='reset'>Сбросить все</CustomButton>
+          <CustomButton customType='customOutlined' type='button' onClick={reset}>Сбросить все</CustomButton>
         </div>
       </form>
     </section>

@@ -17,7 +17,17 @@ declare module '@mui/material/Chip' {
   }
 }
 
+export const baseUrl = 'https://seventeam-hakaton.sytes.net/api/v1';
+
 export const filterOptions = {
+  profession: [
+    'Выберите из списка',
+    'Программирование',
+    'Дизайн',
+    'Маркетинг',
+    'Анализ данных',
+    'Менеджмент'
+  ],
   workingConditions: [
     'Не имеет значения',
     'Офис',
@@ -42,6 +52,7 @@ export const filterOptions = {
     'Senior',
     'Lead',
   ],
+
 }
 
 export const tableOptions = {
@@ -102,63 +113,69 @@ export const rows = [
   createData(1, {
       name: 'Мария Иванова',
       profession: 'Python-разработчик',
+      score: 100,
       src: 'https://imageup.ru/img106/4591822/dsc03760-2-1-1.jpg'},
     'Junior',
     'Москва',
     ['HTML', 'CSS', 'JavaScript', 'React'],
     {
-      tg: '@nickname',
+      phone: '+7 (999) 000-00-00',
       email: 'email@email.ru',
     },
     true ),
   createData(2, {
       name: 'Анастасия Иванова',
       profession: 'C++-разработчик ',
+      score:100,
       src: 'https://imageup.ru/img37/4591831/_ssl-mzpqr8.jpg'},
     'Junior',
     'Санкт-Петербург',
     ['HTML', 'CSS', 'JavaScript', 'React', 'TypeScript'], {
-      tg: '@nickname',
+      phone: '+7 (999) 000-00-00',
       email: 'email@email.ru',
     }, false),
   createData(3, {
       name: 'Екатерина Иванова',
       profession: 'Python-разработчик ',
+      score: 75,
       src: 'https://play-lh.googleusercontent.com/IeNJWoKYx1waOhfWF6TiuSiWBLfqLb18lmZYXSgsH1fvb8v1IYiZr5aYWe0Gxu-pVZX3'},
     'Middle',
     'Казань',
     ['HTML', 'CSS', 'React'], {
-      tg: '@nickname',
+      phone: '+7 (999) 000-00-00',
       email: 'email@email.ru',
     }, true),
   createData(4, {
       name: 'Полина Иванова',
       profession: 'Java-разработчик ',
+      score: 50,
       src: 'https://play-lh.googleusercontent.com/IeNJWoKYx1waOhfWF6TiuSiWBLfqLb18lmZYXSgsH1fvb8v1IYiZr5aYWe0Gxu-pVZX3'},
     'Middle',
     'Саратов',
     ['HTML', 'CSS'], {
-      tg: '@nickname',
+      phone: '+7 (999) 000-00-00',
       email: 'email@email.ru',
     }, false),
   createData(5, {
       name: 'Дарья Иванова',
       profession: 'Web-разработчик ',
+      score: 25,
       src: 'https://play-lh.googleusercontent.com/IeNJWoKYx1waOhfWF6TiuSiWBLfqLb18lmZYXSgsH1fvb8v1IYiZr5aYWe0Gxu-pVZX3'},
-    'Middle',
+    'Senior',
     'Санкт-Петербург',
     ['HTML', 'CSS'], {
-      tg: '@nickname',
+      phone: '+7 (999) 000-00-00',
       email: 'email@email.ru',
     }, false),
   createData(6, {
       name: 'Ирина Иванова',
       profession: 'Web-разработчик ',
+      score: 0,
       src: 'https://play-lh.googleusercontent.com/IeNJWoKYx1waOhfWF6TiuSiWBLfqLb18lmZYXSgsH1fvb8v1IYiZr5aYWe0Gxu-pVZX3'},
-    'Middle',
+    'Lead',
     'Москва',
     ['HTML', 'CSS'], {
-      tg: '@nickname',
+      phone: '+7 (999) 000-00-00',
       email: 'email@email.ru',
     }, true),
 ];
@@ -171,14 +188,17 @@ export const headCells: IHeadCell[] = [
   {
     id: 'profile',
     label: 'Профиль',
+    sortable: true,
   },
   {
     id: 'grade',
     label: 'Уровень',
+    sortable: true,
   },
   {
     id: 'location',
     label: 'Локация',
+    sortable: true,
   },
   {
     id: 'skills',
@@ -193,5 +213,13 @@ export const headCells: IHeadCell[] = [
     label: '',
   },
 ];
+
+export type TGrade = 'Junior' | 'Middle' | 'Senior' | 'Lead';
+export const gradeOrder = new Map<TGrade, number>([
+  ['Junior', 0],
+  ['Middle', 1],
+  ['Senior', 2],
+  ['Lead', 3],
+]);
 
 export const newHeadCells = headCells.slice(1);

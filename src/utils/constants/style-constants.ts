@@ -50,6 +50,7 @@ export const themeInput = createTheme({
           fontWeight: '400',
           border: '1px solid #797981',
           borderRadius: '4px',
+          backgroundColor: 'white',
           ':after': {
             border: '0',
             transition: 'none',
@@ -146,6 +147,7 @@ export const themeInput = createTheme({
           border: '1px solid #797981',
           borderRadius: '4px',
           outline: 0,
+          backgroundColor: 'white',
           "&.Mui-focused": {
             outline: 0,
             borderColor: '#DDE0E4',
@@ -263,6 +265,7 @@ export const themeInput = createTheme({
             color: '#1D6BF3',
             fontSize: '16px',
             fontWeight: '500',
+            backgroundColor: 'transparent',
             "&.Mui-disabled": {
               borderColor: '#B5B5B7',
               color: '#B5B5B7',
@@ -289,6 +292,20 @@ export const themeInput = createTheme({
             border: '1px solid #ACCCFF',
           },
         },
+        {
+          props: { variant: 'customOutlinedFilter'},
+          style: {
+            border: '1px solid #fff',
+            color: '#fff',
+            fontSize: '16px',
+            fontWeight: '500',
+            backgroundColor: 'transparent',
+            "&.Mui-disabled": {
+              borderColor: '#B5B5B7',
+              color: '#B5B5B7',
+            }
+          },
+        },
       ],
     },
   },
@@ -300,8 +317,8 @@ export const customLoginStyles = {
     fontStyle: 'normal',
   },
   'text_heading': {
-    fontFamily: `'YS-Display', ` + `'Arial', ` + 'sans-serif',
     marginBottom: '4px',
+    fontFamily: `'YS-Display', ` + `'Arial', ` + 'sans-serif',
     fontWeight: '500',
     fontSize: '24px',
     lineHeight: '32px',

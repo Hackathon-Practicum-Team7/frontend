@@ -1,0 +1,77 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 120px 40px 64px;
+  height: 100%;
+}
+
+.menu__profile-button {
+  all: unset;
+  display: block;
+  box-sizing: border-box;
+  margin-bottom: 32px;
+  padding: 16px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.menu__profile-button:hover .text {
+  color: #1d6bf3;
+}
+
+.menu__profile-button-wrap {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  width: 100%;
+}
+
+.menu__text-wrap {
+
+}
+
+.text {
+  margin: 0;
+  transition: color .3s ease;
+}
+
+.text_primary {
+  margin-bottom: 8px;
+  font-family: 'YS-Display', 'Arial', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000;
+}
+
+.text_secondary {
+  font-family: 'YS-Text', 'Arial', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: #797981;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.list_outer {
+  gap: 32px;
+}
+
+.decor-item {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #f9fafb;
+}

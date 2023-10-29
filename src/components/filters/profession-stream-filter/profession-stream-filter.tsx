@@ -1,39 +1,32 @@
 import styles from "../filter.module.css";
 import {CustomButton} from "../../custom-button/custom-button";
-import {ReactElement, useEffect} from "react";
-import * as React from "react";
+import {ReactElement, useMemo} from "react";
 import {ClearFilters} from "../../clear-filters/clear-filters";
+import {useSelector} from "../../../services/hooks/use-selector";
 
 type TProfessionStreamFilterProps = {
   onChange: (event: { target: { value: string } }) => void,
-  setStreamChosen: (value: boolean) => void,
+  value: string;
 }
 
-export const ProfessionStreamFilter = ({onChange, setStreamChosen}: TProfessionStreamFilterProps): ReactElement => {
-  const professionStreams = [
-    'Программирование',
-    'Дизайн',
-    'Маркетинг',
-    'Анализ данных',
-    'Менеджмент',
-  ];
-  const [selectedProfessionStream, setSelectedProfessionStream] = React.useState<string>('');
+export const ProfessionStreamFilter = ({onChange, value}: TProfessionStreamFilterProps): ReactElement => {
+  const filters = useSelector(state => state.getFiltersState);
+  const professionStreams = useMemo(() => filters.professionStreams.map(filter => filter.title), [filters]);
 
-  useEffect(() => {
-    onChange({target: {value: selectedProfessionStream}});
-  }, [selectedProfessionStream]);
+  const selectedProfessionStream = value;
+  const setSelectedProfessionStream = (newValue: string) => {
+    onChange({target: {value: newValue}});
+  }
+
   function onClearClick() {
     setSelectedProfessionStream('');
-    setStreamChosen(false);
   }
 
   function handleClick(value: string) {
     if (selectedProfessionStream === value) {
       setSelectedProfessionStream('');
-      setStreamChosen(false);
     } else {
       setSelectedProfessionStream(value);
-      setStreamChosen(true);
     }
   }
 
@@ -41,7 +34,7 @@ export const ProfessionStreamFilter = ({onChange, setStreamChosen}: TProfessionS
     <div className={styles.filter}>
       <div className={styles.filter__container}>
         <p className={styles.filter__header}><span className={`${styles.filter__header} ${styles.filter__span}`}>*</span> Направление</p>
-        {(selectedProfessionStream) && (<ClearFilters onClick={onClearClick}>Очистить фильтр</ClearFilters>) }
+        {(selectedProfessionStream) && (<ClearFilters color="gray" onClick={onClearClick}>Очистить фильтр</ClearFilters>) }
       </div>
       <div className={styles.professions}>
         { professionStreams.map((stream) => {

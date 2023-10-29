@@ -1,8 +1,7 @@
 .login-page {
   position: relative;
   min-width: 100%;
-  /*height: calc(100vh - 90px); !* высота футера 90px *!*/
-  height: 100vh; /* высота футера 90px */
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;

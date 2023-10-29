@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState} from 'react';
+import { useMemo, useState} from 'react';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -13,7 +13,7 @@ import Avatar from '@mui/material/Avatar';
 import styles from './table.module.css';
 import {Pagination, ThemeProvider} from "@mui/material";
 import emailIcon from '../../images/email-icon-gray.svg';
-import telegramIcon from '../../images/telegram-icon-gray.svg';
+import phoneIcon from '../../images/phone-icon-gray.svg';
 import checkboxIcon from '../../images/checkbox.svg';
 import inactiveCheckboxIcon from '../../images/checkbox-not-active.svg';
 import {themeInput} from "../../utils/constants/style-constants";
@@ -24,7 +24,7 @@ import downloadIcon from '../../images/download-white.svg';
 import ResultsNotFound from "../results-not-found/results-not-found";
 import {IData, TOrder} from "../../utils/types";
 import EnhancedTableHead from "../enhanced-table-head/enhanced-table-head";
-import {getComparator} from "../../utils/helpers";
+import {getComparator, profileScoreComparator} from "../../utils/helpers";
 import SkillsTableChips from "../skills-table-chips/skills-table-chips";
 
 
@@ -33,15 +33,25 @@ const InactiveCheckBoxIcon = <img src={inactiveCheckboxIcon} alt={'Чекбок�
 const InactiveLikeIcon = () => (<button className={styles.like_inactive}/>);
 const ActiveLikeIcon = () => ( <button className={styles.like_active}/>);
 
+type TEnhancedTableProps = {
+  areCandidatesFound: boolean,
+}
 
-export default function EnhancedTable() {
-  const [order, setOrder] = useState<TOrder>('asc');
-  const [orderBy, setOrderBy] = useState<keyof IData>('grade');
+export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProps) {
+  const paginationOptions = tableOptions.pagination.map(option => option.text);
+  const [pageOption, setPageOption] = useState<string>(paginationOptions[0]);
+  const [order, setOrder] = useState<TOrder>('desc');
+  const [orderBy, setOrderBy] = useState<keyof IData>('profile');
   const [selected, setSelected] = useState<readonly number[]>([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const numberOfPages = Math.ceil(rows.length/rowsPerPage);
-  const [ areCandidatesFound, _setCandidatesFound ] = useState<boolean>(true);
+  const refinedRows = useMemo(() => rows
+    .slice()
+    .sort(profileScoreComparator)
+    .map((row, index) => ({...row, id: index + 1})),
+    [rows]
+  );
 
   const handleRequestSort = (
     _event: React.MouseEvent<unknown>,
@@ -54,7 +64,7 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.id);
+      const newSelected = refinedRows.map((n) => n.id);
       setSelected(newSelected);
       return;
     }
@@ -86,6 +96,7 @@ export default function EnhancedTable() {
   const handleChangeRowsPerPage = (event: { target: { value: string[] } }) => {
     const newValue = event.target.value[0];
     const option = tableOptions.pagination.find(option => option.text === newValue) || tableOptions.pagination[0];
+    setPageOption(newValue);
     setRowsPerPage(option.value);
     setPage(0);
   };
@@ -94,27 +105,27 @@ export default function EnhancedTable() {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - refinedRows.length) : 0;
 
   const visibleRows = React.useMemo(
     () =>
-      rows.slice().sort(getComparator(order, orderBy)).slice(
+      refinedRows.slice().sort(getComparator(order, orderBy)).slice(
         page * rowsPerPage,
         page * rowsPerPage + rowsPerPage,
       ),
-    [order, orderBy, page, rowsPerPage],
+    [refinedRows, order, orderBy, page, rowsPerPage],
   );
 
 
   return (
     <ThemeProvider theme={themeInput}>
       <div className={styles.table__top}>
-        <SelectInput filterOptions={tableOptions.sorting} width={300} disabled={!areCandidatesFound} />
-        <SelectInput filterOptions={tableOptions.pagination.map(option => option.text)}
+        <SelectInput filterOptions={paginationOptions}
                      isMulti={false}
-                     width={220}
+                     width={316}
                      onChange={handleChangeRowsPerPage}
                      disabled={!areCandidatesFound}
+                     value={pageOption}
         />
       </div>
       <Box sx={{ width: '100%', minHeight: 400 }}>
@@ -139,7 +150,7 @@ export default function EnhancedTable() {
                 orderBy={orderBy}
                 onSelectAllClick={handleSelectAllClick}
                 onRequestSort={handleRequestSort}
-                rowCount={rows.length}
+                rowCount={refinedRows.length}
               />
               { !areCandidatesFound ? (
                 <TableCell colSpan={8} sx={{ padding: 0, borderBottom: 0}}>
@@ -206,8 +217,8 @@ export default function EnhancedTable() {
                         <TableCell align="left" width='212px'>
                           <div className={styles.contacts}>
                             <div className={styles.contact}>
-                              <img src={telegramIcon} alt={'Телеграм'} />
-                              <p className={styles.contact__text}>{row.contacts.tg}</p>
+                              <img src={phoneIcon} alt={'Телефон'} />
+                              <p className={styles.contact__text}>{row.contacts.phone}</p>
                             </div>
                             <div className={styles.contact}>
                               <img src={emailIcon} alt={'Электронная почта'} />
@@ -266,7 +277,7 @@ export default function EnhancedTable() {
                         onChange={handleChangePage}
                       />
                     </>)}}
-                count={rows.length}
+                count={refinedRows.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}
