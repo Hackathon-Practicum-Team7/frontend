@@ -38,8 +38,19 @@ export type TDownloadExcelActions = {
   downloadExcelFailed: ActionCreatorWithoutPayload<string>,
 }
 
+export type TFavouriteStudentsActions = {
+  postFavouriteSuccess: ActionCreatorWithoutPayload<string>,
+  postFavouriteLoading: ActionCreatorWithoutPayload<string>,
+  postFavouriteFailed: ActionCreatorWithoutPayload<string>,
+  deleteFavouriteSuccess: ActionCreatorWithoutPayload<string>,
+  deleteFavouriteLoading: ActionCreatorWithoutPayload<string>,
+  deleteFavouriteFailed: ActionCreatorWithoutPayload<string>,
+}
+
 export type TApplicationActions =
   TFiltersActions
   | TUserDataActions
   | TInputValuesActions
   | TStudentsActions
+  | TDownloadExcelActions
+  | TFavouriteStudentsActions

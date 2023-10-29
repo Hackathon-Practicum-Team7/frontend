@@ -30,12 +30,13 @@ import {TTableStudent} from "../../services/slices-types";
 import {useNavigate} from "react-router-dom";
 import {postDownloadExcel} from "../../services/async-thunk/download-excel";
 import {useDispatch} from "../../services/hooks/use-dispatch";
+import {postFavourite} from "../../services/async-thunk/favourite";
 
 
 const CheckboxIcon = <img src={checkboxIcon} alt={'Чекбокс'} className={styles.checkbox} />;
 const InactiveCheckBoxIcon = <img src={inactiveCheckboxIcon} alt={'Чекбокс'} className={styles.checkbox}/>;
-const InactiveLikeIcon = () => (<button className={styles.like_inactive}/>);
-const ActiveLikeIcon = () => ( <button className={styles.like_active}/>);
+const InactiveLikeIcon = ({onClick}: {onClick: (event: Event, ids: string[]) => void}) => (<button className={styles.like_inactive} onClick={onClick}/>);
+const ActiveLikeIcon = ({onClick}: {onClick: (event: Event, ids: string[]) => void}) => ( <button className={styles.like_active} onClick={onClick}/>);
 type TStyle = { backgroundImage: string };
 const scoreMap: Record<string, TStyle> = {
   '0': { backgroundImage: 'url("src/images/avatar-progress-25.svg")' },
@@ -164,8 +165,10 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
     dispatch(postDownloadExcel(selected));
   }
 
-  function onLikeClick() {
-
+  function onLikeClick(event: Event, ids) {
+    event.preventDefault();
+    event.stopPropagation();
+    dispatch(postFavourite(ids))
   }
 
   return (
@@ -278,8 +281,8 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
                         </TableCell>
                         <TableCell align="right" width='58px' sx={{ paddingRight: '4px !important'}}>
                           {row.isLiked ?
-                            (<ActiveLikeIcon />)
-                            : (<InactiveLikeIcon />)
+                            (<ActiveLikeIcon onClick={(event) => onLikeClick(event, [...row.hash])}/>)
+                            : (<InactiveLikeIcon onClick={(event) => onLikeClick(event, [...row.hash])}/>)
                           }
                         </TableCell>
                       </TableRow>
