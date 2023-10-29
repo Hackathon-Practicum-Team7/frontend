@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button';
 import {ThemeProvider} from "@mui/material";
-import {ReactElement} from "react";
+import {MouseEventHandler, ReactElement} from "react";
 import {themeInput} from '../../utils/constants/style-constants';
 
 type TCustomButtonProps = {
@@ -8,7 +8,7 @@ type TCustomButtonProps = {
   width?: string | number,
   customType: 'customContained' | 'customOutlined' | 'customFilterActive' | 'customFilter',
   extraStyles?: 'button' | 'filterButton',
-  onClick?: () => void,
+  onClick?: MouseEventHandler<HTMLButtonElement>,
   type?: 'submit' | 'button' | 'reset',
   disabled?: boolean,
 }

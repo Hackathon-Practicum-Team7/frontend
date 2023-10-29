@@ -149,7 +149,7 @@ export const HomePage = (): ReactElement => {
         </div>
         <div className={styles.buttons__container}>
           <CustomButton customType='customContained' type='submit' disabled={!isSubmitButtonEnabled}>Найти</CustomButton>
-          <CustomButton customType='customOutlined' type='button' onClick={reset}>Сбросить все</CustomButton>
+          <CustomButton customType='customOutlined' type='button' onClick={() => reset()}>Сбросить все</CustomButton>
         </div>
       </form>
     </section>
