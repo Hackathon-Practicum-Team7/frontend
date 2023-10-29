@@ -74,6 +74,7 @@ export type TTableSkill = {
 }
 
 export type TTableStudent = {
+  is_favourited: boolean;
   id: string,
   avatar: string,
   profession: string,
