@@ -1,41 +1,38 @@
-import { Button, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import styles from './modalSkills.module.css';
 import { ContactButton } from '../contactButton/ContactButton';
 import { SkillsFilter } from '../filters/skills-filter/skills-filter';
+import ReactDOM from 'react-dom';
+import { Overlay } from '../overlay/overlay';
 
-export const ModalSkills: React.FC = () => {
+const modalRoot = document.querySelector('#modal')!;
 
-  return (
-    <section className={styles.section}>
+interface Props  {
+  value: string[]
+  onChange: (value: string[]) => void
+  onClose: () => void
+}
 
-      <div className={styles.modal}>
-        <div className={styles.titleArea}>
-          <h1 className={styles.title}>Полный список</h1>
-          <IconButton  sx={{ width: "36px", height: "36px" }}>
-            <CloseIcon sx={{ color: "#1A1B22", fontSize: "32px" }} />
-          </IconButton>
+export const ModalSkills: React.FC<Props> = ({ value, onChange, onClose }) => {
+
+  const modalContent = (
+    <Overlay onClose={onClose}>
+      <section className={styles.section}>
+
+        <div className={styles.modal}>
+          <div className={styles.titleArea}>
+            <h1 className={styles.title}>Полный список</h1>
+            <IconButton onClick={onClose} sx={{ width: "36px", height: "36px" }}>
+              <CloseIcon sx={{ color: "#1A1B22", fontSize: "32px" }} />
+            </IconButton>
+          </div>
+
+          <SkillsFilter onChange={(event) => onChange(event.target.value)} value={value}></SkillsFilter>
         </div>
-
-        <div className={styles.titleArea}>
-          <p className={styles.subTitle}>Профессиональные навыки</p>
-          <ContactButton icon={<CloseIcon/>} label={'Очистить фильтры'}></ContactButton>
-        </div>
-
-
-       <SkillsFilter onChange={function (event: { target: { value: string[]; }; }): void {
-          throw new Error('Function not implemented.');
-        } }></SkillsFilter>
-
-        <div>
-        <Button variant="outlined" endIcon={<CloseIcon />}>
-        Delete
-      </Button>
-
-        </div>
-
-      </div>
-    </section>
-
+      </section>
+    </Overlay>
   )
+
+  return ReactDOM.createPortal (modalContent, modalRoot);
 }

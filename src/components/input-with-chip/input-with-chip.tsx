@@ -23,9 +23,11 @@ type TInputWithChipProps = {
   setInput: (newInput: string[]) => void,
   placeholderText?: string,
   width?: number | string,
-  chipVariant?: 'gray'
+  chipVariant?: 'gray',
+  withShowAll?: boolean,
+  onShowAll?: () => void
 }
-export const InputWithChip = ({ filterOptions, input, setInput, placeholderText, width, chipVariant }: TInputWithChipProps): ReactElement => {
+export const InputWithChip = ({ filterOptions, input, setInput, placeholderText, width, chipVariant, withShowAll = true, onShowAll }: TInputWithChipProps): ReactElement => {
   const handleChange = (_event: React.SyntheticEvent, value: string[], _reason: string) => {
     setInput(value);
   };
@@ -34,6 +36,8 @@ export const InputWithChip = ({ filterOptions, input, setInput, placeholderText,
     e.preventDefault();
     setInput(input.filter(item => item !== value));
   }
+
+  const chips = withShowAll ? input.slice(0, 6) : input;
 
   return (
     <ThemeProvider theme={themeInput}>
@@ -62,7 +66,7 @@ export const InputWithChip = ({ filterOptions, input, setInput, placeholderText,
       </FormControl>
       { (input.length > 0) && (
         <div className={styles.container}>
-          {input.slice(0, 6).map((value) => (
+          {chips.map((value) => (
             <Chip
               key={value}
               label={value}
@@ -71,8 +75,9 @@ export const InputWithChip = ({ filterOptions, input, setInput, placeholderText,
               deleteIcon={<CloseRoundedIcon />}
             />
           ))}
-          { (input.length > 6) && (
+          { (input.length > 6 && withShowAll) && (
             <Chip
+              onClick={onShowAll}
               label={'Показать все'}
               variant={'outlined'}
               sx={{

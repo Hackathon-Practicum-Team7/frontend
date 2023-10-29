@@ -14,7 +14,13 @@ export default function RoutesComponent(): ReactElement {
       <Route path='/' element={<HomePage/>}/>
       <Route path='/results' element={<ResultsPage />} />
       <Route path='/profile/:id' element={<ProfilePage />} />
-      <Route path='/skills' element={<ModalSkills />} />
+      <Route path='/skills' element={
+        <ModalSkills
+          value={[]}
+          onChange={(event: { target: { value: string[]; }; }) => {console.log('skills', event.target.value)}}
+          onClose={() => {console.log('close')}}
+        />
+      }/>
       <Route path='*' element={<></>} />
     </Routes>
   );
