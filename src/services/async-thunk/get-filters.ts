@@ -1,6 +1,6 @@
 import {filterActions} from "../slices/get-filters";
 import {baseUrl} from "../../utils/constants/constants";
-import {AppDispatch, AppThunk} from "../store-types";
+import {AppDispatch, AppThunk} from "../slices-types";
 import {getResponseData} from "../../utils/helpers";
 
 export const getCities = (): AppThunk => {

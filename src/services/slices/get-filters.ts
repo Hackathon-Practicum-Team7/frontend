@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {TCity, TFiltersActions, TGetFiltersSliceState, TProfessionStream, TSkill} from "../store-types";
+import {TCity, TFiltersActions, TGetFiltersSliceState, TProfessionStream, TSkill} from "../slices-types";
 
 export const getFiltersSlice = createSlice({
   name: 'getFilters',
