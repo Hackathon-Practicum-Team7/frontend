@@ -52,10 +52,10 @@ export const Login: FunctionComponent = () => {
     dispatch(login(inputValuesState.email, inputValuesState.password));
   };
 
-  useEffect(() => {
-    console.log('accessStore:', userDataState.accessToken)
-    console.log('refreshStore:', userDataState.refreshToken)
-  }, [userDataState])
+  // useEffect(() => {
+  //   console.log('accessStore:', userDataState.accessToken)
+  //   console.log('refreshStore:', userDataState.refreshToken)
+  // }, [userDataState])
 
   return (
     <section className={loginStyles['login-page']}>

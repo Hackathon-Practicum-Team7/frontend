@@ -5,8 +5,10 @@ import navStyles from './navigation.module.css';
 import avatarImage from '../../images/user-image.png';
 
 import {MenuItem} from '../menu-item/menu-item';
+import {Link} from 'react-router-dom';
+import {deleteCookie} from '../../utils/helpers';
 
-export const Navigation: FunctionComponent = () => {
+export const Navigation: FunctionComponent<{onClosePerRedirect: () => void}> = (props) => {
   // const navigate = useNavigate();
   // const handleClickFindCandidates = () => {
   //   navigate('/');
@@ -30,7 +32,7 @@ export const Navigation: FunctionComponent = () => {
           <MenuItem itemName="Мои вакансии" onClick={() => console.log('hi there!')}/>
           <li className={navStyles['decor-item']}/>
           <ul className={navStyles.list}>
-            <MenuItem itemName="Найти кандидата" onClick={() => console.log('hi there!')}/>
+            <MenuItem itemName="Найти кандидата" path="/" onClick={props.onClosePerRedirect}/>
             <MenuItem itemName="Избранное" onClick={() => console.log('hi there!')}/>
             <MenuItem itemName="Чат" onClick={() => console.log('hi there!')}/>
           </ul>
@@ -39,7 +41,13 @@ export const Navigation: FunctionComponent = () => {
       <ul className={navStyles.list}>
         <MenuItem itemName="Инфо профиля" onClick={() => console.log('hi there!')}/>
         <MenuItem itemName="Помощь" onClick={() => console.log('hi there!')}/>
-        <MenuItem itemName="Выйти" onClick={() => console.log('hi there!')}/>
+
+        {/*TODO: не работает нормально редирект на /login*/}
+        <MenuItem itemName="Выйти" path="/login" onClick={() => {
+          deleteCookie('accessToken');
+          deleteCookie('refreshToken');
+          props.onClosePerRedirect();
+        }}/>
       </ul>
 
     </nav>
