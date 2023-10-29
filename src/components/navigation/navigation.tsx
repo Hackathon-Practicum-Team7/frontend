@@ -1,20 +1,25 @@
 import React, {FunctionComponent} from 'react';
 import {Avatar} from '@mui/material';
+import {useNavigate, Navigate} from 'react-router-dom';
 
 import navStyles from './navigation.module.css';
 import avatarImage from '../../images/user-image.png';
 
 import {MenuItem} from '../menu-item/menu-item';
-import {Link} from 'react-router-dom';
 import {deleteCookie} from '../../utils/helpers';
+import {userDataActions} from '../../services/slices/user-data';
+import {useDispatch} from '../../services/hooks/use-dispatch';
+import {useSelector} from '../../services/hooks/use-selector';
 
 export const Navigation: FunctionComponent<{onClosePerRedirect: () => void}> = (props) => {
-  // const navigate = useNavigate();
-  // const handleClickFindCandidates = () => {
-  //   navigate('/');
-  // }
+  const userDataState = useSelector(state => state.userDataState)
+  const navigate = useNavigate();
+  const handleClickExit = () => {
+    if (!userDataState.isAuthorized)
+    return <Navigate to="/" replace/>
+  }
 
-  // TODO: подключить навигацию на главную к Найти кандидата (NavLink?)
+  const dispatch = useDispatch();
 
   return (
     <nav className={navStyles.menu}>
@@ -46,7 +51,10 @@ export const Navigation: FunctionComponent<{onClosePerRedirect: () => void}> = (
         <MenuItem itemName="Выйти" path="/login" onClick={() => {
           deleteCookie('accessToken');
           deleteCookie('refreshToken');
+          dispatch(userDataActions.setIsAuthorized(false));
+          dispatch(userDataActions.setTokens({accessToken: null, refreshToken: null}));
           props.onClosePerRedirect();
+          handleClickExit();
         }}/>
       </ul>
 

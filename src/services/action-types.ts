@@ -17,6 +17,7 @@ export type TFiltersActions = {
 export type TUserDataActions = {
   getUserDataLoading: ActionCreatorWithoutPayload<string>,
   setTokens: ActionCreatorWithPayload<TTokens>,
+  setIsAuthorized: ActionCreatorWithPayload<boolean>,
   getUserData: ActionCreatorWithPayload<TUserData>,
   getUserDataFailed: ActionCreatorWithPayload<TError>,
 }
