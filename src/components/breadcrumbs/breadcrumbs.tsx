@@ -37,6 +37,7 @@ export const BreadcrumbsNav: React.FC<Props> = ({parentPages, currentPage}) => {
 
         {parentPages.length > 0 && parentPages.map( page => (
           <Link
+          key={page.route}
           underline="hover"
           color="#1A1B22"
           component={NavLink}

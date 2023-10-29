@@ -82,13 +82,13 @@ export const ProfilePage: React.FC = () => {
       </div>
 
       <div className={styles.content}>
-        <CardAbout></CardAbout>
+        <CardAbout about={profile.about} />
 
-        <CardSkills skills={profile.skills}></CardSkills>
+        <CardSkills skills={profile.skills} />
 
-        <CardExperience></CardExperience>
+        <CardExperience jobs={profile.jobs} experience={0} />
 
-        <CardEducation></CardEducation>
+        <CardEducation educations={profile.educations} />
       </div>
     </div>
 

@@ -18,6 +18,7 @@ export const loadProfile = (studentId: string): AppThunk => {
         })
       const data = await getResponseData(response)
       dispatch(profileActions.loadProfileSuccess(data));
+      //dispatch(profileActions.loadProfileSuccess(profileData as TProfileData));
     } catch (error) {
       console.error('Failed to load student profile', error);
       dispatch(profileActions.loadProfileFailed());

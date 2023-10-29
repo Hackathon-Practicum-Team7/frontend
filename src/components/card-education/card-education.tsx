@@ -1,8 +1,13 @@
 import { Card, CardContent, CardHeader, ThemeProvider, createTheme } from '@mui/material';
 import React from 'react';
 import styles from './card-education.module.css';
+import { TEducation } from '../../services/slices-types';
 
-export const CardEducation: React.FC = () => {
+interface Props {
+  educations: TEducation[]
+}
+
+export const CardEducation: React.FC<Props> = ({educations}) => {
 
   const theme = createTheme({
     components: {
@@ -52,24 +57,13 @@ export const CardEducation: React.FC = () => {
         <CardContent>
           <div className={styles.content}>
 
-            <div className={styles.item}>
-              <p className={styles.time}>2023</p>
-              <p className={styles.title}>Продуктовый дизайнер</p>
-              <p className={styles.company}>Менторство в Helper, Студия MAX</p>
-            </div>
-
-            <div className={styles.item}>
-              <p className={styles.time}>2021</p>
-              <p className={styles.title}>UI  дизайнер</p>
-              <p className={styles.company}>Пятигорский техникум экономики и инновационных технологий</p>
-            </div>
-
-            <div className={styles.item}>
-              <p className={styles.time}>2013 - 2017</p>
-              <p className={styles.title}>Дизайнер</p>
-              <p className={styles.company}>Рязанский государственный радиотехнический университет, Рязань</p>
-            </div>
-
+            {educations.map(education => (
+              <div className={styles.item} key={education.id}>
+                <p className={styles.time}>{education.started_at} - {education.finished_at}</p>
+                <p className={styles.title}>{education.speciality}</p>
+                <p className={styles.company}>{education.institute}</p>
+              </div>
+            ))}
           </div>
         </CardContent>
       </Card>

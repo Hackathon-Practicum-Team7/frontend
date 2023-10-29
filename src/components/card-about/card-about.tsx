@@ -2,7 +2,11 @@ import { Card, CardContent, CardHeader, ThemeProvider, createTheme } from '@mui/
 import React from 'react';
 import styles from './card-about.module.css';
 
-export const CardAbout: React.FC = () => {
+interface Props {
+  about: string
+}
+
+export const CardAbout: React.FC<Props> = ({about}) => {
 
   const theme = createTheme({
     components: {
@@ -52,12 +56,7 @@ export const CardAbout: React.FC = () => {
       <Card>
         <CardHeader title="О себе" />
         <CardContent>
-          <div className={styles.content}>
-            Помимо дизайна интерфейсов, люблю делать работы в графическом: например,
-            разрабатывать презентации или макеты для печати. Хорошо знакома с многостраничной версткой
-            и предпечатной подготовкой. Базовые знания HTML и CSS получила именно в техникуме.
-            Хобби: видео-игры, рисование, леттеринг, языки (английский, японский).
-          </div>
+          <div className={styles.content}>{about}</div>
         </CardContent>
       </Card>
     </ThemeProvider>
