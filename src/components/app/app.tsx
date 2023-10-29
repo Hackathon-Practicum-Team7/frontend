@@ -29,8 +29,6 @@ function App(): ReactElement {
   };
 
   useEffect(() => {
-    console.log('fromAppIsAuth:', userDataState.isAuthorized)
-    console.log('getCookie:', getCookie('accessToken'))
     init();
   }, []);
 
@@ -40,15 +38,10 @@ function App(): ReactElement {
         !isLoginRoute &&
         <Header/>
       }
-      <main className="main"
-            style={{
-              width: `${!userDataState.isAuthorized && '100%'}`,
-              background: `${!isLoginRoute && userDataState.isAuthorized && 'none'}`,
-              flexGrow: '1'
-            }}>
+      <main className={`${!isLoginRoute ? "main" : "main main_login-page"}`}>
         <RoutesComponent/>
       </main>
-      <Footer isTransparent={!userDataState.isAuthorized}/>
+      <Footer isTransparent={isLoginRoute}/>
     </BrowserRouter>
   )
 }
