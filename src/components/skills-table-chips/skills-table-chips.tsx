@@ -2,7 +2,11 @@ import * as React from "react";
 import {Chip} from "@mui/material";
 
 export default function SkillsTableChips({skills}: {skills: string[]}): React.ReactElement[] {
-  const res = skills.slice(0, 3).map(skill => (
+  const stringLength = skills[0].length + skills[1].length + skills[2].length;
+  let chipCount;
+  if (stringLength >= 20) chipCount = 2;
+  else chipCount = 3;
+  const res = skills.slice(0, chipCount).map(skill => (
     <Chip
       key={skill}
       label={skill}
@@ -16,12 +20,12 @@ export default function SkillsTableChips({skills}: {skills: string[]}): React.Re
 
     />
   ));
-  if (skills.length <= 3)
+  if (skills.length <= chipCount)
     return res;
   // >=4
   res.push(<Chip
     key={'rest'}
-    label={`${skills.length - 3}+`}
+    label={`${skills.length - chipCount}+`}
     variant={"outlined"}
     sx={{
       height: '28px',

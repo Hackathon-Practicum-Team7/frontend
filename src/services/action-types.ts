@@ -1,5 +1,6 @@
 import {ActionCreatorWithoutPayload, ActionCreatorWithPayload} from '@reduxjs/toolkit';
-import {TCity, TError, TProfessionStream, TProfileData, TSkill, TTokens, TUserData} from './slices-types';
+
+import {TCity, TError, TProfessionStream, TSkill, TProfileData, TTableStudent, TTokens, TUserData} from './slices-types';
 
 export type TFiltersActions = {
   getCitiesSuccess: ActionCreatorWithPayload<TCity[]>,
@@ -32,7 +33,31 @@ export type TProfileActions = {
     loadProfileFailed: ActionCreatorWithoutPayload<string>,
 }
 
+export type TStudentsActions = {
+  getStudentsSuccess: ActionCreatorWithPayload<TTableStudent[]>,
+  getStudentsLoading: ActionCreatorWithoutPayload<string>,
+  getStudentsFailed: ActionCreatorWithoutPayload<string>,
+}
+
+export type TDownloadExcelActions = {
+  downloadExcelSuccess: ActionCreatorWithoutPayload<string>,
+  downloadExcelLoading: ActionCreatorWithoutPayload<string>,
+  downloadExcelFailed: ActionCreatorWithoutPayload<string>,
+}
+
+export type TFavouriteStudentsActions = {
+  postFavouriteSuccess: ActionCreatorWithoutPayload<string>,
+  postFavouriteLoading: ActionCreatorWithoutPayload<string>,
+  postFavouriteFailed: ActionCreatorWithoutPayload<string>,
+  deleteFavouriteSuccess: ActionCreatorWithoutPayload<string>,
+  deleteFavouriteLoading: ActionCreatorWithoutPayload<string>,
+  deleteFavouriteFailed: ActionCreatorWithoutPayload<string>,
+}
+
 export type TApplicationActions =
   TFiltersActions
   | TUserDataActions
   | TInputValuesActions
+  | TStudentsActions
+  | TDownloadExcelActions
+  | TFavouriteStudentsActions

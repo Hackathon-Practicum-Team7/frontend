@@ -19,30 +19,74 @@ import inactiveCheckboxIcon from '../../images/checkbox-not-active.svg';
 import {themeInput} from "../../utils/constants/style-constants";
 import {CustomButton} from "../custom-button/custom-button";
 import {SelectInput} from "../select-input/select-input";
-import {rows, tableOptions} from "../../utils/constants/constants";
+import {tableOptions} from "../../utils/constants/constants";
 import downloadIcon from '../../images/download-white.svg';
 import ResultsNotFound from "../results-not-found/results-not-found";
 import {IData, TOrder} from "../../utils/types";
 import EnhancedTableHead from "../enhanced-table-head/enhanced-table-head";
-import {getComparator, profileScoreComparator} from "../../utils/helpers";
+import {createData, getComparator, profileScoreComparator} from "../../utils/helpers";
 import SkillsTableChips from "../skills-table-chips/skills-table-chips";
+import {TTableStudent} from "../../services/slices-types";
+import {useNavigate} from "react-router-dom";
+import {postDownloadExcel} from "../../services/async-thunk/download-excel";
+import {useDispatch} from "../../services/hooks/use-dispatch";
+import {postFavourite} from "../../services/async-thunk/favourite";
 
 
 const CheckboxIcon = <img src={checkboxIcon} alt={'Чекбокс'} className={styles.checkbox} />;
 const InactiveCheckBoxIcon = <img src={inactiveCheckboxIcon} alt={'Чекбокс'} className={styles.checkbox}/>;
-const InactiveLikeIcon = () => (<button className={styles.like_inactive}/>);
-const ActiveLikeIcon = () => ( <button className={styles.like_active}/>);
+
+type TLikeIconProps = {
+  active: boolean,
+  onClick: (event: Event, ids: string[]) => void
+}
+const LikeIcon = ({onClick, active}: TLikeIconProps) => (
+  <button
+    className={active ? styles.like_inactive : styles.like_inactive}
+    onClick={onClick}
+  />);
+
+type TStyle = { backgroundImage: string };
+const scoreMap: Record<string, TStyle> = {
+  '0': { backgroundImage: 'url("src/images/avatar-progress-25.svg")' },
+  '25': { backgroundImage: 'url("src/images/avatar-progress-25.svg")' },
+  '50': { backgroundImage: 'url("src/images/avatar-progress-50.svg")' },
+  '75': { backgroundImage: 'url("src/images/avatar-progress-75.svg")' },
+  '100': { backgroundImage: 'url("src/images/avatar-progress-100.svg")' }
+}
 
 type TEnhancedTableProps = {
   areCandidatesFound: boolean,
+  results: TTableStudent[]
 }
 
-export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProps) {
+export default function EnhancedTable({ areCandidatesFound, results }: TEnhancedTableProps) {
+  const rows = results.map((student, index) => {
+    const skills = student.skills.map(skill => skill.title);
+    return createData(
+      index + 1,
+      {
+        name: `${student.name} ${student.surname}`,
+        profession: student.profession,
+        score: Number(student.skill_match),
+        src: student.avatar,
+      },
+      student.grade,
+      student.city,
+      skills,
+      {
+        phone: student.contact.phone,
+        email: student.contact.email
+      },
+      student.is_favourited,
+      student.id);
+  })
+
   const paginationOptions = tableOptions.pagination.map(option => option.text);
   const [pageOption, setPageOption] = useState<string>(paginationOptions[0]);
   const [order, setOrder] = useState<TOrder>('desc');
   const [orderBy, setOrderBy] = useState<keyof IData>('profile');
-  const [selected, setSelected] = useState<readonly number[]>([]);
+  const [selected, setSelected] = useState<string[]>([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const numberOfPages = Math.ceil(rows.length/rowsPerPage);
@@ -52,6 +96,9 @@ export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProp
     .map((row, index) => ({...row, id: index + 1})),
     [rows]
   );
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleRequestSort = (
     _event: React.MouseEvent<unknown>,
@@ -64,19 +111,25 @@ export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProp
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = refinedRows.map((n) => n.id);
+      const newSelected = refinedRows.map((n) => n.hash);
       setSelected(newSelected);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (_event: React.MouseEvent<unknown>, id: number) => {
-    const selectedIndex = selected.indexOf(id);
-    let newSelected: readonly number[] = [];
+  const handleClick = (row: IData) => {
+    navigate(`/profile/${row.hash}`)
+  };
+
+  const handleSelectClick = (event: React.MouseEvent<unknown>, hash: string) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const selectedIndex = selected.indexOf(hash);
+    let newSelected: string[] = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
+      newSelected = newSelected.concat(selected, hash);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -89,6 +142,7 @@ export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProp
     }
     setSelected(newSelected);
   };
+
   const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage - 1);
   };
@@ -101,7 +155,7 @@ export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProp
     setPage(0);
   };
 
-  const isSelected = (id: number) => selected.indexOf(id) !== -1;
+  const isSelected = (id: string) => selected.indexOf(id) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -116,6 +170,15 @@ export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProp
     [refinedRows, order, orderBy, page, rowsPerPage],
   );
 
+  function onDownloadClick() {
+    dispatch(postDownloadExcel(selected));
+  }
+
+  function onLikeClick(event: Event, ids: string[]) {
+    event.preventDefault();
+    event.stopPropagation();
+    dispatch(postFavourite(ids))
+  }
 
   return (
     <ThemeProvider theme={themeInput}>
@@ -135,10 +198,10 @@ export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProp
               sx={{
                 minWidth: 750,
                 '& .MuiTableCell-sizeMedium': {
-                  padding: '12px 24px',
+                  padding: '12px 12px',
                 },
                 '& .MuiTableCell-head': {
-                  paddingBottom: '16px',
+                  padding: '16px 12px',
                 },
               }}
               aria-labelledby="tableTitle"
@@ -159,13 +222,12 @@ export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProp
               ) : (
                 <TableBody>
                   {visibleRows.map((row, index) => {
-                    const isItemSelected = isSelected(row.id);
+                    const isItemSelected = isSelected(row.hash);
                     const labelId = `enhanced-table-checkbox-${index}`;
-
                     return (
                       <TableRow
                         hover
-                        onClick={(event) => handleClick(event, row.id)}
+                        onClick={() => handleClick(row)}
                         role="checkbox"
                         aria-checked={isItemSelected}
                         tabIndex={-1}
@@ -174,17 +236,16 @@ export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProp
                         sx={{ cursor: 'pointer', minHeight: '68px', maxHeight: '84px' }}
                       >
                         <TableCell
-                          align={'center'}
-                          component="th"
+                          align={'left'}
                           id={labelId}
                           scope="row"
                           padding="none"
-                          width='72px'
+                          width='60px'
                         >
                           {row.id}
                         </TableCell>
 
-                        <TableCell padding="none" width='44px' align={'center'}>
+                        <TableCell padding="none" width='44px' align={'center'} onClick={(event) => handleSelectClick(event, row.hash)}>
                           <Checkbox
                             color="primary"
                             checked={isItemSelected}
@@ -196,9 +257,10 @@ export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProp
                           />
                         </TableCell>
 
-                        <TableCell align="left" width='282px'>
+                        <TableCell align="left" width='292px'>
                           <div className={styles.profile}>
-                            <div className={styles.profile__avatar}>
+                            <div className={styles.profile__avatar}
+                                 style={scoreMap[row.profile.score.toString()]}>
                               <Avatar src={row.profile.src} alt={row.profile.name} sx={{ width: '36px', height: '36px'}}></Avatar>
                             </div>
                             <div>
@@ -226,15 +288,12 @@ export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProp
                             </div>
                           </div>
                         </TableCell>
-                        <TableCell align="left" width='58px'>
-                          {row.isLiked ?
-                            (<ActiveLikeIcon />)
-                            : (<InactiveLikeIcon />)
-                          }
+                        <TableCell align="right" width='58px' sx={{ paddingRight: '4px !important'}}>
+                          <LikeIcon active={row.isLiked} onClick={(event) => onLikeClick(event, [...row.hash])}/>
                         </TableCell>
                       </TableRow>
                     );
-                  })}
+                  })})
                   {emptyRows > 0 && (
                     <TableRow
                       style={{
@@ -257,7 +316,7 @@ export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProp
                 </p>
                 <div className={styles.table__buttons}>
                   <CustomButton customType={"customContained"} width={220}>Добавить в избранное</CustomButton>
-                  <CustomButton customType={"customContained"}>
+                  <CustomButton customType={"customContained"} onClick={onDownloadClick}>
                     <>
                       <img src={downloadIcon} alt={"Экспортировать"} className={styles['download-icon']}></img>
                       <p>Экспортировать список</p>

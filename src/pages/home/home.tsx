@@ -10,11 +10,27 @@ import {ProfessionStreamFilter} from "../../components/filters/profession-stream
 import {ProfessionFilter} from "../../components/filters/profession-filter/profession-filter";
 import {IFormInput} from "../../utils/types";
 import {useSelector} from "../../services/hooks/use-selector";
+import {useDispatch} from "../../services/hooks/use-dispatch";
+import {getStudents} from "../../services/async-thunk/get-students";
+import {useNavigate} from "react-router-dom";
 
 export const HomePage = (): ReactElement => {
   const { control, handleSubmit, reset, watch } = useForm<IFormInput>();
-  const onSubmit = (data: IFormInput | undefined) => {
-    console.log(JSON.stringify(data));
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const onSubmit = (data: IFormInput) => {
+    const queryParams = data;
+    if (queryParams.hasPortfolio[0] === 'Указано') {
+      queryParams.hasPortfolio = 'True'
+    }
+    for (const option in queryParams) {
+      if (queryParams[option].length > 0 && queryParams[option][0] !== 'Не имеет значения') {
+        continue;
+      }
+      delete queryParams[option];
+    }
+    dispatch(getStudents(queryParams));
+    navigate('/results');
   };
   const professionStream = watch("professionStream", "");
   const professions = watch("professions", []);

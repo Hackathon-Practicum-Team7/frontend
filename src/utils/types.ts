@@ -6,7 +6,7 @@ export type TAuthForm = {
   password: string
 }
 
-export interface IFormInput {
+export interface IFormInput extends Record<string, string[] | string> {
   professionStream: string;
   professions: string[];
   skills: string[];
@@ -44,6 +44,7 @@ export interface IData {
   skills: string[];
   contacts: IContacts;
   isLiked: boolean;
+  hash: string;
 }
 
 export type TOrder = 'asc' | 'desc';
