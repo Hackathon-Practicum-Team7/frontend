@@ -1,23 +1,42 @@
 import styles from "./clear-filters.module.css";
 import {ReactElement,} from "react";
 import deleteIconGray from '../../images/delete-icon-gray.svg';
-import deleteIconWhite from '../../images/delete-icon-white.svg';
+import DeleteIcon from '../../images/delete-icon.svg?react';
+import { Button, ThemeProvider, createTheme } from "@mui/material";
 
 type TClearFiltersProps = {
-  onClick: () => void,
-  children: string,
-  color: string
+  onClick: () => void
 }
 
-export const ClearFilters = ({onClick, children, color}: TClearFiltersProps): ReactElement => {
+export const ClearFilters = ({onClick}: TClearFiltersProps): ReactElement => {
+  const theme = createTheme({
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            color: '#1A1B22',
+            textTransform: 'none',
+            fontSize: '14px',
+            fontWeight: '400',
+            lineHeight: '20px',
+            justifyContent: 'start',
+
+            padding: '0 0 16px 0',
+            margin: '0',
+            '&:hover': {
+              backgroundColor: 'unset',
+              textDecoration: 'underline',
+              color: '#5A9BFF'
+            },
+          },
+        },
+      },
+    },
+  });
 
   return (
-    <button className={styles.delete} onClick={onClick}>
-      <img className={styles.delete__icon} src={color === 'gray' ? deleteIconGray : deleteIconWhite}
-           alt="Очистить фильтры"/>
-      <p className={color === 'gray'
-        ? `${styles.delete__text} ${styles.delete__text_gray}`
-        : `${styles.delete__text} ${styles.delete__text_white}`}>{children}</p>
-    </button>
+    <ThemeProvider theme={theme}>
+      <Button startIcon={<DeleteIcon />} onClick={onClick}>Очистить фильтры</Button>
+    </ThemeProvider>
   )
 }

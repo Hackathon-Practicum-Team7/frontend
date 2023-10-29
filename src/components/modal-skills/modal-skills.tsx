@@ -23,7 +23,7 @@ export const ModalSkills: React.FC<Props> = ({ value, onChange, onClose }) => {
           <div className={styles.titleArea}>
             <h1 className={styles.title}>Полный список</h1>
             <IconButton onClick={onClose} sx={{ width: "36px", height: "36px" }}>
-              <CloseIcon sx={{ color: "#1A1B22", fontSize: "32px" }} />
+              <CloseIcon sx={{ color: "#1A1B22", fontSize: "36px" }} />
             </IconButton>
           </div>
 
