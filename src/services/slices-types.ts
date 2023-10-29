@@ -113,3 +113,10 @@ export type TDownloadExcelSliceState = {
   downloadExcelLoading: boolean,
   downloadExcelError: boolean,
 }
+
+export type TFavouriteStudentsSliceState = {
+  postFavouriteLoading: boolean,
+  postFavouriteError: boolean,
+  deleteFavouriteLoading: boolean,
+  deleteFavouriteError: boolean,
+}
