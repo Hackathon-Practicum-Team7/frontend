@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useMemo, useState} from 'react';
+import {MouseEventHandler, useEffect, useMemo, useState} from 'react';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -30,7 +30,7 @@ import {TTableStudent} from "../../services/slices-types";
 import {useNavigate} from "react-router-dom";
 import {postDownloadExcel} from "../../services/async-thunk/download-excel";
 import {useDispatch} from "../../services/hooks/use-dispatch";
-import {postFavourite} from "../../services/async-thunk/favourite";
+import {deleteFavorite, postFavourite} from "../../services/async-thunk/favorite";
 
 
 const CheckboxIcon = <img src={checkboxIcon} alt={'Чекбокс'} className={styles.checkbox} />;
@@ -38,11 +38,12 @@ const InactiveCheckBoxIcon = <img src={inactiveCheckboxIcon} alt={'Чекбок�
 
 type TLikeIconProps = {
   active: boolean,
-  onClick: (event: Event, ids: string[]) => void
+  onClick: MouseEventHandler<HTMLButtonElement>
 }
+
 const LikeIcon = ({onClick, active}: TLikeIconProps) => (
   <button
-    className={active ? styles.like_inactive : styles.like_inactive}
+    className={active ? styles.like_active : styles.like_inactive}
     onClick={onClick}
   />);
 
@@ -61,26 +62,30 @@ type TEnhancedTableProps = {
 }
 
 export default function EnhancedTable({ areCandidatesFound, results }: TEnhancedTableProps) {
-  const rows = results.map((student, index) => {
-    const skills = student.skills.map(skill => skill.title);
-    return createData(
-      index + 1,
-      {
-        name: `${student.name} ${student.surname}`,
-        profession: student.profession,
-        score: Number(student.skill_match),
-        src: student.avatar,
-      },
-      student.grade,
-      student.city,
-      skills,
-      {
-        phone: student.contact.phone,
-        email: student.contact.email
-      },
-      student.is_favourited,
-      student.id);
-  })
+  const [rows, setRows] = useState<IData[]>([]);
+  useEffect(() => {
+    const initalRows = results.map((student, index) => {
+      const skills = student.skills.map(skill => skill.title);
+      return createData(
+        index + 1,
+        {
+          name: `${student.name} ${student.surname}`,
+          profession: student.profession,
+          score: Number(student.skill_match),
+          src: student.avatar,
+        },
+        student.grade,
+        student.city,
+        skills,
+        {
+          phone: student.contact.phone,
+          email: student.contact.email
+        },
+        student.is_favourited,
+        student.id);
+    });
+    setRows(initalRows);
+  }, []);
 
   const paginationOptions = tableOptions.pagination.map(option => option.text);
   const [pageOption, setPageOption] = useState<string>(paginationOptions[0]);
@@ -118,7 +123,7 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
     setSelected([]);
   };
 
-  const handleClick = (row: IData) => {
+  const handleStudentClick = (row: IData) => {
     navigate(`/profile/${row.hash}`)
   };
 
@@ -174,10 +179,30 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
     dispatch(postDownloadExcel(selected));
   }
 
-  function onLikeClick(event: Event, ids: string[]) {
+  function onLikeClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>, ids: string[]) {
     event.preventDefault();
     event.stopPropagation();
-    dispatch(postFavourite(ids))
+    const idsSet = new Set(ids);
+    const liked: string[] = [];
+    const unliked: string[] = [];
+    setRows(rows.reduce((a, c) => {
+      if (idsSet.has(c.hash)) {
+        c.isLiked = !c.isLiked;
+        if (c.isLiked) {
+          liked.push(c.hash);
+        } else {
+          unliked.push(c.hash);
+        }
+      }
+      a.push(c);
+      return a;
+    }, [] as IData[]));
+    if (liked.length > 0) {
+      dispatch(postFavourite(liked));
+    }
+    if (unliked.length > 0) {
+      dispatch(deleteFavorite(unliked));
+    }
   }
 
   return (
@@ -191,7 +216,7 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
                      value={pageOption}
         />
       </div>
-      <Box sx={{ width: '100%', minHeight: 400 }}>
+      <Box sx={{ width: '100%' }}>
         <Paper sx={{ width: '100%' }}>
           <TableContainer>
             <Table
@@ -227,7 +252,7 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
                     return (
                       <TableRow
                         hover
-                        onClick={() => handleClick(row)}
+                        onClick={() => handleStudentClick(row)}
                         role="checkbox"
                         aria-checked={isItemSelected}
                         tabIndex={-1}
@@ -289,11 +314,11 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
                           </div>
                         </TableCell>
                         <TableCell align="right" width='58px' sx={{ paddingRight: '4px !important'}}>
-                          <LikeIcon active={row.isLiked} onClick={(event) => onLikeClick(event, [...row.hash])}/>
+                          <LikeIcon active={row.isLiked} onClick={(event) => onLikeClick(event, [row.hash])}/>
                         </TableCell>
                       </TableRow>
                     );
-                  })})
+                  })}
                   {emptyRows > 0 && (
                     <TableRow
                       style={{
@@ -315,7 +340,7 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
                   Выбрано элементов: {selected.length}
                 </p>
                 <div className={styles.table__buttons}>
-                  <CustomButton customType={"customContained"} width={220}>Добавить в избранное</CustomButton>
+                  <CustomButton customType={"customContained"} width={220} onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => onLikeClick(event, selected)}>Добавить в избранное</CustomButton>
                   <CustomButton customType={"customContained"} onClick={onDownloadClick}>
                     <>
                       <img src={downloadIcon} alt={"Экспортировать"} className={styles['download-icon']}></img>

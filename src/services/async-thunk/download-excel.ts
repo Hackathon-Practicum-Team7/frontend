@@ -1,6 +1,6 @@
 import {AppDispatch, AppThunk} from "../slices-types";
 import {baseUrl} from "../../utils/constants/constants";
-import {getCookie, getResponseData} from "../../utils/helpers";
+import {getCookie} from "../../utils/helpers";
 import {downloadExcelActions} from "../slices/download-excel";
 
 
