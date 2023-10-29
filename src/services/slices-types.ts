@@ -2,6 +2,7 @@ import {Action, AnyAction} from '@reduxjs/toolkit';
 import {ThunkDispatch, ThunkAction} from 'redux-thunk';
 import {rootReducer} from "./store";
 import {TApplicationActions} from './action-types';
+import {TGrade} from "../utils/constants/constants";
 
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppThunk = ThunkAction<void, RootState, unknown, Action<TApplicationActions>>;
@@ -66,4 +67,43 @@ export type TTokens = {
 export type TInputValuesState = {
   email: string,
   password: string | undefined,
+}
+
+export type TTableSkill = {
+  title: string,
+}
+
+export type TTableStudent = {
+  id: string,
+  avatar: string,
+  profession: string,
+  name: string,
+  surname: string,
+  grade: TGrade,
+  city: string,
+  skills: TTableSkill[],
+  contact: {
+    email: string,
+    phone: string
+  },
+  employment_types: string[],
+  working_condition: string[],
+  has_portfolio: boolean,
+  skill_match: string
+}
+
+export type TGetStudentsSliceState = {
+  studentsLoading: boolean,
+  studentsError: boolean,
+  students: TTableStudent[],
+}
+
+export type TGetStudentsQueryParams = {
+  locations?: string | string[],
+  employmentTypes?: string | string[],
+  grade?: string | string[],
+  hasPortfolio?: string,
+  professions: string | string[],
+  skills?: string | string[],
+  workingConditions?: string | string[],
 }

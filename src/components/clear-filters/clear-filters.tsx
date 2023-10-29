@@ -3,7 +3,9 @@ import DeleteIcon from '../../images/delete-icon.svg?react';
 import { Button, ThemeProvider, createTheme } from "@mui/material";
 
 type TClearFiltersProps = {
-  onClick: () => void
+  onClick: () => void,
+  children: string,
+  color?: string
 }
 
 export const ClearFilters = ({onClick}: TClearFiltersProps): ReactElement => {

@@ -19,25 +19,57 @@ import inactiveCheckboxIcon from '../../images/checkbox-not-active.svg';
 import {themeInput} from "../../utils/constants/style-constants";
 import {CustomButton} from "../custom-button/custom-button";
 import {SelectInput} from "../select-input/select-input";
-import {rows, tableOptions} from "../../utils/constants/constants";
+import {tableOptions} from "../../utils/constants/constants";
 import downloadIcon from '../../images/download-white.svg';
 import ResultsNotFound from "../results-not-found/results-not-found";
 import {IData, TOrder} from "../../utils/types";
 import EnhancedTableHead from "../enhanced-table-head/enhanced-table-head";
-import {getComparator, profileScoreComparator} from "../../utils/helpers";
+import {createData, getComparator, profileScoreComparator} from "../../utils/helpers";
 import SkillsTableChips from "../skills-table-chips/skills-table-chips";
+import {TTableStudent} from "../../services/slices-types";
+import {Link, useNavigate} from "react-router-dom";
 
 
 const CheckboxIcon = <img src={checkboxIcon} alt={'Чекбокс'} className={styles.checkbox} />;
 const InactiveCheckBoxIcon = <img src={inactiveCheckboxIcon} alt={'Чекбокс'} className={styles.checkbox}/>;
 const InactiveLikeIcon = () => (<button className={styles.like_inactive}/>);
 const ActiveLikeIcon = () => ( <button className={styles.like_active}/>);
+type TStyle = { backgroundImage: string };
+const scoreMap: Record<string, TStyle> = {
+  '0': { backgroundImage: 'url("src/images/avatar-progress-25.svg")' },
+  '25': { backgroundImage: 'url("src/images/avatar-progress-25.svg")' },
+  '50': { backgroundImage: 'url("src/images/avatar-progress-50.svg")' },
+  '75': { backgroundImage: 'url("src/images/avatar-progress-75.svg")' },
+  '100': { backgroundImage: 'url("src/images/avatar-progress-100.svg")' }
+}
 
 type TEnhancedTableProps = {
   areCandidatesFound: boolean,
+  results: TTableStudent[]
 }
 
-export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProps) {
+export default function EnhancedTable({ areCandidatesFound, results }: TEnhancedTableProps) {
+  const rows = results.map((student, index) => {
+    const skills = student.skills.map(skill => skill.title);
+    return createData(
+      index + 1,
+      {
+        name: `${student.name} ${student.surname}`,
+        profession: student.profession,
+        score: Number(student.skill_match),
+        src: student.avatar,
+      },
+      student.grade,
+      student.city,
+      skills,
+      {
+        phone: student.contact.phone,
+        email: student.contact.email
+      },
+      true,
+      student.id);
+  })
+
   const paginationOptions = tableOptions.pagination.map(option => option.text);
   const [pageOption, setPageOption] = useState<string>(paginationOptions[0]);
   const [order, setOrder] = useState<TOrder>('desc');
@@ -52,6 +84,8 @@ export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProp
     .map((row, index) => ({...row, id: index + 1})),
     [rows]
   );
+
+  const navigate = useNavigate();
 
   const handleRequestSort = (
     _event: React.MouseEvent<unknown>,
@@ -71,7 +105,13 @@ export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProp
     setSelected([]);
   };
 
-  const handleClick = (_event: React.MouseEvent<unknown>, id: number) => {
+  const handleClick = (row: any) => {
+    navigate(`/profile/${row.hash}`)
+  };
+
+  const handleSelectClick = (event: React.MouseEvent<unknown>, id: number) => {
+    event.preventDefault();
+    event.stopPropagation();
     const selectedIndex = selected.indexOf(id);
     let newSelected: readonly number[] = [];
 
@@ -89,6 +129,7 @@ export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProp
     }
     setSelected(newSelected);
   };
+
   const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage - 1);
   };
@@ -165,7 +206,7 @@ export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProp
                     return (
                       <TableRow
                         hover
-                        onClick={(event) => handleClick(event, row.id)}
+                        onClick={() => handleClick(row)}
                         role="checkbox"
                         aria-checked={isItemSelected}
                         tabIndex={-1}
@@ -175,7 +216,6 @@ export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProp
                       >
                         <TableCell
                           align={'center'}
-                          component="th"
                           id={labelId}
                           scope="row"
                           padding="none"
@@ -184,7 +224,7 @@ export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProp
                           {row.id}
                         </TableCell>
 
-                        <TableCell padding="none" width='44px' align={'center'}>
+                        <TableCell padding="none" width='44px' align={'center'} onClick={(event) => handleSelectClick(event, row.id)}>
                           <Checkbox
                             color="primary"
                             checked={isItemSelected}
@@ -193,12 +233,14 @@ export default function EnhancedTable({ areCandidatesFound }: TEnhancedTableProp
                             }}
                             checkedIcon={CheckboxIcon}
                             icon={InactiveCheckBoxIcon}
+
                           />
                         </TableCell>
 
                         <TableCell align="left" width='282px'>
                           <div className={styles.profile}>
-                            <div className={styles.profile__avatar}>
+                            <div className={styles.profile__avatar}
+                                 style={scoreMap[row.profile.score.toString()]}>
                               <Avatar src={row.profile.src} alt={row.profile.name} sx={{ width: '36px', height: '36px'}}></Avatar>
                             </div>
                             <div>
