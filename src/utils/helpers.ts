@@ -9,6 +9,7 @@ export function createData(
   skills: string[],
   contacts: IContacts,
   isLiked: boolean,
+  hash: string
 ): IData {
   return {
     id,
@@ -18,6 +19,7 @@ export function createData(
     skills,
     contacts,
     isLiked,
+    hash
   };
 }
 
