@@ -35,8 +35,17 @@ import {postFavourite} from "../../services/async-thunk/favourite";
 
 const CheckboxIcon = <img src={checkboxIcon} alt={'Чекбокс'} className={styles.checkbox} />;
 const InactiveCheckBoxIcon = <img src={inactiveCheckboxIcon} alt={'Чекбокс'} className={styles.checkbox}/>;
-const InactiveLikeIcon = ({onClick}: {onClick: (event: Event, ids: string[]) => void}) => (<button className={styles.like_inactive} onClick={onClick}/>);
-const ActiveLikeIcon = ({onClick}: {onClick: (event: Event, ids: string[]) => void}) => ( <button className={styles.like_active} onClick={onClick}/>);
+
+type TLikeIconProps = {
+  active: boolean,
+  onClick: (event: Event, ids: string[]) => void
+}
+const LikeIcon = ({onClick, active}: TLikeIconProps) => (
+  <button
+    className={active ? styles.like_inactive : styles.like_inactive}
+    onClick={onClick}
+  />);
+
 type TStyle = { backgroundImage: string };
 const scoreMap: Record<string, TStyle> = {
   '0': { backgroundImage: 'url("src/images/avatar-progress-25.svg")' },
@@ -280,14 +289,11 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
                           </div>
                         </TableCell>
                         <TableCell align="right" width='58px' sx={{ paddingRight: '4px !important'}}>
-                          {row.isLiked ?
-                            (<ActiveLikeIcon onClick={(event) => onLikeClick(event, [...row.hash])}/>)
-                            : (<InactiveLikeIcon onClick={(event) => onLikeClick(event, [...row.hash])}/>)
-                          }
+                          <LikeIcon active={row.isLiked} onClick={(event) => onLikeClick(event, [...row.hash])}/>
                         </TableCell>
                       </TableRow>
                     );
-                  })}
+                  })})
                   {emptyRows > 0 && (
                     <TableRow
                       style={{

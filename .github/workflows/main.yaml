@@ -37,9 +37,9 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd app/
+            cd hakaton/
             sudo docker compose stop
             sudo docker rm frontend
             sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/front_hakaton
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/front_hakaton:latest
-            sudo docker compose up -d --build
+            sudo docker compose -f docker-compose.yml up -d --build
