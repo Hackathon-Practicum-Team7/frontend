@@ -357,6 +357,12 @@ export const customLoginStyles = {
     lineHeight: '12px',
     color: '#ff0200',
   },
+  'text_form-errored': {
+    fontSize: '16px',
+    lineHeight: '20px',
+    color: '#ff0200',
+    textAlign: 'center',
+  },
   input: {
     border: 'none',
     fontFamily: `'YS-Text', ` + `'Arial', ` + 'sans-serif',
