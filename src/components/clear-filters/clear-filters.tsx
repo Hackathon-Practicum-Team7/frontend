@@ -1,6 +1,4 @@
-import styles from "./clear-filters.module.css";
 import {ReactElement,} from "react";
-import deleteIconGray from '../../images/delete-icon-gray.svg';
 import DeleteIcon from '../../images/delete-icon.svg?react';
 import { Button, ThemeProvider, createTheme } from "@mui/material";
 
