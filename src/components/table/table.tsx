@@ -19,7 +19,7 @@ import inactiveCheckboxIcon from '../../images/checkbox-not-active.svg';
 import {themeInput} from "../../utils/constants/style-constants";
 import {CustomButton} from "../custom-button/custom-button";
 import {SelectInput} from "../select-input/select-input";
-import {baseUrl, tableOptions} from "../../utils/constants/constants";
+import {tableOptions} from "../../utils/constants/constants";
 import downloadIcon from '../../images/download-white.svg';
 import ResultsNotFound from "../results-not-found/results-not-found";
 import {IData, TOrder} from "../../utils/types";
@@ -68,7 +68,7 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
         phone: student.contact.phone,
         email: student.contact.email
       },
-      true,
+      student.is_favourited,
       student.id);
   })
 
@@ -99,7 +99,6 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
     setOrderBy(property);
   };
 
-  console.log(selected);
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
       const newSelected = refinedRows.map((n) => n.hash);
@@ -165,6 +164,10 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
     dispatch(postDownloadExcel(selected));
   }
 
+  function onLikeClick() {
+
+  }
+
   return (
     <ThemeProvider theme={themeInput}>
       <div className={styles.table__top}>
@@ -209,7 +212,6 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
                   {visibleRows.map((row, index) => {
                     const isItemSelected = isSelected(row.hash);
                     const labelId = `enhanced-table-checkbox-${index}`;
-                    console.log('lalka src=', row.profile.src);
                     return (
                       <TableRow
                         hover
@@ -247,7 +249,7 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
                           <div className={styles.profile}>
                             <div className={styles.profile__avatar}
                                  style={scoreMap[row.profile.score.toString()]}>
-                              <Avatar src={`https://seventeam-hakaton.sytes.net/media/student_77e8c0a2-4076-4cbe-ad7c-5aa3325ec6fd/avatars/74855-2968.jpg`} alt={row.profile.name} sx={{ width: '36px', height: '36px'}}></Avatar>
+                              <Avatar src={row.profile.src} alt={row.profile.name} sx={{ width: '36px', height: '36px'}}></Avatar>
                             </div>
                             <div>
                               <p className={styles.profile__profession}>{row.profile.profession}</p>
@@ -274,7 +276,7 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
                             </div>
                           </div>
                         </TableCell>
-                        <TableCell align="right" width='58px' sx={{ paddingRight: '0 !important'}}>
+                        <TableCell align="right" width='58px' sx={{ paddingRight: '4px !important'}}>
                           {row.isLiked ?
                             (<ActiveLikeIcon />)
                             : (<InactiveLikeIcon />)

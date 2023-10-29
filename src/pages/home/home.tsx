@@ -20,18 +20,15 @@ export const HomePage = (): ReactElement => {
   const navigate = useNavigate();
   const onSubmit = (data: IFormInput) => {
     const queryParams = data;
-    console.log(JSON.stringify(queryParams));
     if (queryParams.hasPortfolio[0] === 'Указано') {
       queryParams.hasPortfolio = 'True'
     }
-
     for (const option in queryParams) {
       if (queryParams[option].length > 0 && queryParams[option][0] !== 'Не имеет значения') {
         continue;
       }
       delete queryParams[option];
     }
-    console.log(JSON.stringify(queryParams));
     dispatch(getStudents(queryParams));
     navigate('/results');
   };
