@@ -1,4 +1,4 @@
-import {FunctionComponent} from 'react';
+import {FunctionComponent, useCallback, useEffect, useState} from 'react';
 import {
   FormHelperText,
   Link,
@@ -13,12 +13,32 @@ import loginStyles from './login.module.css';
 
 import {authValidationSchema} from '../../utils/constants/constants';
 import {customLoginStyles} from '../../utils/constants/style-constants';
+import {TAuthForm} from '../../utils/types';
+import {useSelector} from '../../services/hooks/use-selector';
+import {inputValuesActions} from '../../services/async-thunk/login-input-values';
 
 import {CustomButton} from '../../components/custom-button/custom-button';
 
-import {TAuthForm} from '../../utils/types';
+import {login} from '../../services/async-thunk/auth';
+import {useDispatch} from '../../services/hooks/use-dispatch';
+
 
 export const Login: FunctionComponent = () => {
+  const inputValuesState = useSelector((state) => state.inputValuesState);
+  const userDataState = useSelector((state) => state.userDataState);
+
+  const [emailInputValue, setEmailInputValue] = useState<string | undefined>(inputValuesState.inputValues);
+  const [passwordInputValue, setPasswordInputValue] = useState<string | undefined>(inputValuesState.inputValues);
+
+  const dispatch = useDispatch();
+
+  const handleSetInputValues = useCallback((emailValue: string, passwordValue: string) => {
+    dispatch(inputValuesActions.setInputValues({
+      email: emailValue,
+      password: passwordValue
+    }))
+  }, [inputValuesState.email, inputValuesState.password])
+
   const form = useForm<TAuthForm>({
     defaultValues: {
       email: '',
@@ -28,10 +48,14 @@ export const Login: FunctionComponent = () => {
   });
   const {register, handleSubmit, formState: {errors}} = form;
 
-  const submitAuthForm = (data: TAuthForm | undefined) => {
-    console.log(errors);
-    console.log({data});
+  const submitAuthForm = () => {
+    dispatch(login(inputValuesState.email, inputValuesState.password));
   };
+
+  useEffect(() => {
+    console.log('accessStore:', userDataState.accessToken)
+    console.log('refreshStore:', userDataState.refreshToken)
+  }, [userDataState])
 
   return (
     <section className={loginStyles['login-page']}>
@@ -58,6 +82,11 @@ export const Login: FunctionComponent = () => {
                          sx={errors?.email ? customLoginStyles['input-outline_errored'] : customLoginStyles['input-outline']}
                          InputProps={{disableUnderline: true}}
                          inputProps={{sx: customLoginStyles.input}}
+                         onChange={(event) => {
+                           setEmailInputValue(event.target.value);
+                           handleSetInputValues(event.target.value, passwordInputValue ? passwordInputValue : '');
+                           // props.onChange(event.target.value)
+                         }}
               />
               {
                 errors.email &&
@@ -77,6 +106,11 @@ export const Login: FunctionComponent = () => {
                          sx={errors?.password ? customLoginStyles['input-outline_errored'] : customLoginStyles['input-outline']}
                          InputProps={{disableUnderline: true}}
                          inputProps={{sx: customLoginStyles.input}}
+                         onChange={(event) => {
+                           setPasswordInputValue(event.target.value);
+                           handleSetInputValues(emailInputValue ? emailInputValue : '', event.target.value);
+                           // props.onChange(event.target.value)
+                         }}
               />
               {
                 errors.password &&
