@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, ThemeProvider, createTheme } from '@mui/material';
 import React from 'react';
-import styles from './cardExperience.module.css';
+import styles from './card-experience.module.css';
 
 export const CardExperience: React.FC = () => {
 

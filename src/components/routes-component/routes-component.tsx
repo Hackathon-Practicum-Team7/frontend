@@ -4,8 +4,7 @@ import {ReactElement} from 'react'
 import {HomePage} from "../../pages/home/home"
 import {Login} from '../../pages/login/login';
 import {ResultsPage} from "../../pages/results/results";
-import { ProfilePage } from '../../pages/profile';
-import { ModalSkills } from '../modalSkills/modalSkills';
+import { ProfilePage } from '../../pages/profile/profile';
 
 export default function RoutesComponent(): ReactElement {
   return (
@@ -14,13 +13,6 @@ export default function RoutesComponent(): ReactElement {
       <Route path='/' element={<HomePage/>}/>
       <Route path='/results' element={<ResultsPage />} />
       <Route path='/profile/:id' element={<ProfilePage />} />
-      <Route path='/skills' element={
-        <ModalSkills
-          value={[]}
-          onChange={(event: { target: { value: string[]; }; }) => {console.log('skills', event.target.value)}}
-          onClose={() => {console.log('close')}}
-        />
-      }/>
       <Route path='*' element={<></>} />
     </Routes>
   );

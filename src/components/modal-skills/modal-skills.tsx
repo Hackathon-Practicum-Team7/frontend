@@ -1,7 +1,6 @@
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import styles from './modalSkills.module.css';
-import { ContactButton } from '../contactButton/ContactButton';
+import styles from './modal-skills.module.css';
 import { SkillsFilter } from '../filters/skills-filter/skills-filter';
 import ReactDOM from 'react-dom';
 import { Overlay } from '../overlay/overlay';

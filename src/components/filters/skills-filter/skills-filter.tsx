@@ -3,7 +3,7 @@ import {ReactElement, useMemo, useState} from "react";
 import {InputWithChip} from "../../input-with-chip/input-with-chip";
 import {ClearFilters} from "../../clear-filters/clear-filters";
 import {useSelector} from "../../../services/hooks/use-selector";
-import { ModalSkills } from "../../modalSkills/modalSkills";
+import { ModalSkills } from "../../modal-skills/modal-skills";
 
 export const SkillsFilter = ({onChange, value, withShowAll = true}: {onChange: (event: { target: { value: string[] } }) => void, value: string[], withShowAll?: boolean}): ReactElement => {
   const filters = useSelector(state => state.getFiltersState);

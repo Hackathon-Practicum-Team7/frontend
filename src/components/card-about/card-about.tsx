@@ -1,14 +1,8 @@
-import { Card, CardContent, CardHeader, Rating, ThemeProvider, createTheme } from '@mui/material';
-import { Circle, CircleOutlined } from '@mui/icons-material';
+import { Card, CardContent, CardHeader, ThemeProvider, createTheme } from '@mui/material';
 import React from 'react';
-import styles from './cardSkills.module.css';
-import { Skill } from './Skill';
+import styles from './card-about.module.css';
 
-interface Props {
-  skills: Skill[]
-}
-
-export const CardSkills: React.FC<Props> = ({ skills }) => {
+export const CardAbout: React.FC = () => {
 
   const theme = createTheme({
     components: {
@@ -56,22 +50,13 @@ export const CardSkills: React.FC<Props> = ({ skills }) => {
   return (
     <ThemeProvider theme={theme}>
       <Card>
-        <CardHeader title="Навыки" />
+        <CardHeader title="О себе" />
         <CardContent>
           <div className={styles.content}>
-            {skills.map(skill => (
-              <div className={styles.skill} key={skill.id}>
-                <p className={styles.skill}>{skill.title}</p>
-                <Rating
-                  name="simple-controlled"
-                  value={skill.score}
-                  readOnly={true}
-                  max={4}
-                  icon={<Circle sx={{ color: "#797981", fontSize: "12px" }} />}
-                  emptyIcon={<CircleOutlined sx={{ color: "#797981", fontSize: "12px" }} />}
-                />
-              </div>
-            ))}
+            Помимо дизайна интерфейсов, люблю делать работы в графическом: например,
+            разрабатывать презентации или макеты для печати. Хорошо знакома с многостраничной версткой
+            и предпечатной подготовкой. Базовые знания HTML и CSS получила именно в техникуме.
+            Хобби: видео-игры, рисование, леттеринг, языки (английский, японский).
           </div>
         </CardContent>
       </Card>

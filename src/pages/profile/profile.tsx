@@ -1,19 +1,19 @@
 import React from 'react';
 import styles from './profile.module.css';
-import { CardAbout } from '../components/cardAbout/cardAbout';
-import { CardSkills } from '../components/cardSkills/cardSkills';
-import { CardExperience } from '../components/cardExperience/cardExperience';
-import { CardEducation } from '../components/cardEducation/cardEducation';
-import { skillsData } from '../components/cardSkills/skillsData';
-import { BreadcrumbsNav } from '../components/breadcrumbs/breadcrumbs';
+import { CardAbout } from '../../components/card-about/card-about';
+import { CardSkills } from '../../components/card-skills/card-skills';
+import { CardExperience } from '../../components/card-experience/card-experience';
+import { CardEducation } from '../../components/card-education/card-education';
+import { skillsData } from '../../components/card-skills/skills-data';
+import { BreadcrumbsNav } from '../../components/breadcrumbs/breadcrumbs';
 import { Avatar, Badge, ThemeProvider, createTheme } from '@mui/material';
-import { CustomButton } from '../components/custom-button/custom-button';
-import SuitcaseIcon from '../images/suitcase-icon-black.svg?react';
-import DownloadIcon from '../images/download-icon.svg?react';
-import EmailIcon from '../images/email-icon.svg?react';
-import PaperPlaneIcon from '../images/paper-plane-icon.svg?react';
-import { ContactButton } from '../components/contactButton/ContactButton';
-import { FavoriteButton } from '../components/favoriteButton/favoriteButton';
+import { CustomButton } from '../../components/custom-button/custom-button';
+import SuitcaseIcon from '../../images/suitcase-icon-black.svg?react';
+import DownloadIcon from '../../images/download-icon.svg?react';
+import EmailIcon from '../../images/email-icon.svg?react';
+import PaperPlaneIcon from '../../images/paper-plane-icon.svg?react';
+import { ContactButton } from '../../components/contact-button/contact-button';
+import { FavoriteButton } from '../../components/favorite-button/favorite-button';
 
 export const ProfilePage: React.FC = () => {
   const copyToClipboard = async (text: string) => {

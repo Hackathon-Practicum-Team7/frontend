@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, ThemeProvider, createTheme } from '@mui/material';
 import React from 'react';
-import styles from './cardEducation.module.css';
+import styles from './card-education.module.css';
 
 export const CardEducation: React.FC = () => {
 

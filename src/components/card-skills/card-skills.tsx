@@ -1,8 +1,14 @@
-import { Card, CardContent, CardHeader, ThemeProvider, createTheme } from '@mui/material';
+import { Card, CardContent, CardHeader, Rating, ThemeProvider, createTheme } from '@mui/material';
+import { Circle, CircleOutlined } from '@mui/icons-material';
 import React from 'react';
-import styles from './cardAbout.module.css';
+import styles from './card-skills.module.css';
+import { Skill } from './skill';
 
-export const CardAbout: React.FC = () => {
+interface Props {
+  skills: Skill[]
+}
+
+export const CardSkills: React.FC<Props> = ({ skills }) => {
 
   const theme = createTheme({
     components: {
@@ -50,13 +56,22 @@ export const CardAbout: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <Card>
-        <CardHeader title="О себе" />
+        <CardHeader title="Навыки" />
         <CardContent>
           <div className={styles.content}>
-            Помимо дизайна интерфейсов, люблю делать работы в графическом: например,
-            разрабатывать презентации или макеты для печати. Хорошо знакома с многостраничной версткой
-            и предпечатной подготовкой. Базовые знания HTML и CSS получила именно в техникуме.
-            Хобби: видео-игры, рисование, леттеринг, языки (английский, японский).
+            {skills.map(skill => (
+              <div className={styles.skill} key={skill.id}>
+                <p className={styles.skill}>{skill.title}</p>
+                <Rating
+                  name="simple-controlled"
+                  value={skill.score}
+                  readOnly={true}
+                  max={4}
+                  icon={<Circle sx={{ color: "#797981", fontSize: "12px" }} />}
+                  emptyIcon={<CircleOutlined sx={{ color: "#797981", fontSize: "12px" }} />}
+                />
+              </div>
+            ))}
           </div>
         </CardContent>
       </Card>
