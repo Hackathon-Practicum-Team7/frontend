@@ -28,7 +28,7 @@ export const ModalSkills: React.FC<Props> = ({ value, onChange, onClose }) => {
             </IconButton>
           </div>
 
-          <SkillsFilter onChange={(event) => onChange(event.target.value)} value={value}></SkillsFilter>
+          <SkillsFilter onChange={(event) => onChange(event.target.value)} value={value} withShowAll={false}></SkillsFilter>
         </div>
       </section>
     </Overlay>
