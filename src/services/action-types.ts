@@ -32,6 +32,12 @@ export type TStudentsActions = {
   getStudentsFailed: ActionCreatorWithoutPayload<string>,
 }
 
+export type TDownloadExcelActions = {
+  downloadExcelSuccess: ActionCreatorWithoutPayload<string>,
+  downloadExcelLoading: ActionCreatorWithoutPayload<string>,
+  downloadExcelFailed: ActionCreatorWithoutPayload<string>,
+}
+
 export type TApplicationActions =
   TFiltersActions
   | TUserDataActions

@@ -8,6 +8,7 @@ declare module '@mui/material/Button' {
     customOutlined: true;
     customFilterActive: true;
     customFilter: true;
+    customOutlinedFilter: true;
   }
 }
 

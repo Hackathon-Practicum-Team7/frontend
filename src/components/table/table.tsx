@@ -19,7 +19,7 @@ import inactiveCheckboxIcon from '../../images/checkbox-not-active.svg';
 import {themeInput} from "../../utils/constants/style-constants";
 import {CustomButton} from "../custom-button/custom-button";
 import {SelectInput} from "../select-input/select-input";
-import {tableOptions} from "../../utils/constants/constants";
+import {baseUrl, tableOptions} from "../../utils/constants/constants";
 import downloadIcon from '../../images/download-white.svg';
 import ResultsNotFound from "../results-not-found/results-not-found";
 import {IData, TOrder} from "../../utils/types";
@@ -27,7 +27,9 @@ import EnhancedTableHead from "../enhanced-table-head/enhanced-table-head";
 import {createData, getComparator, profileScoreComparator} from "../../utils/helpers";
 import SkillsTableChips from "../skills-table-chips/skills-table-chips";
 import {TTableStudent} from "../../services/slices-types";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import {postDownloadExcel} from "../../services/async-thunk/download-excel";
+import {useDispatch} from "../../services/hooks/use-dispatch";
 
 
 const CheckboxIcon = <img src={checkboxIcon} alt={'Чекбокс'} className={styles.checkbox} />;
@@ -74,7 +76,7 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
   const [pageOption, setPageOption] = useState<string>(paginationOptions[0]);
   const [order, setOrder] = useState<TOrder>('desc');
   const [orderBy, setOrderBy] = useState<keyof IData>('profile');
-  const [selected, setSelected] = useState<readonly number[]>([]);
+  const [selected, setSelected] = useState<string[]>([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const numberOfPages = Math.ceil(rows.length/rowsPerPage);
@@ -86,6 +88,7 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
   );
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleRequestSort = (
     _event: React.MouseEvent<unknown>,
@@ -96,27 +99,28 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
     setOrderBy(property);
   };
 
+  console.log(selected);
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = refinedRows.map((n) => n.id);
+      const newSelected = refinedRows.map((n) => n.hash);
       setSelected(newSelected);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (row: any) => {
+  const handleClick = (row: IData) => {
     navigate(`/profile/${row.hash}`)
   };
 
-  const handleSelectClick = (event: React.MouseEvent<unknown>, id: number) => {
+  const handleSelectClick = (event: React.MouseEvent<unknown>, hash: string) => {
     event.preventDefault();
     event.stopPropagation();
-    const selectedIndex = selected.indexOf(id);
-    let newSelected: readonly number[] = [];
+    const selectedIndex = selected.indexOf(hash);
+    let newSelected: string[] = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
+      newSelected = newSelected.concat(selected, hash);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -142,7 +146,7 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
     setPage(0);
   };
 
-  const isSelected = (id: number) => selected.indexOf(id) !== -1;
+  const isSelected = (id: string) => selected.indexOf(id) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -157,6 +161,9 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
     [refinedRows, order, orderBy, page, rowsPerPage],
   );
 
+  function onDownloadClick() {
+    dispatch(postDownloadExcel(selected));
+  }
 
   return (
     <ThemeProvider theme={themeInput}>
@@ -176,10 +183,10 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
               sx={{
                 minWidth: 750,
                 '& .MuiTableCell-sizeMedium': {
-                  padding: '12px 24px',
+                  padding: '12px 12px',
                 },
                 '& .MuiTableCell-head': {
-                  paddingBottom: '16px',
+                  padding: '16px 12px',
                 },
               }}
               aria-labelledby="tableTitle"
@@ -200,9 +207,9 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
               ) : (
                 <TableBody>
                   {visibleRows.map((row, index) => {
-                    const isItemSelected = isSelected(row.id);
+                    const isItemSelected = isSelected(row.hash);
                     const labelId = `enhanced-table-checkbox-${index}`;
-
+                    console.log('lalka src=', row.profile.src);
                     return (
                       <TableRow
                         hover
@@ -215,16 +222,16 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
                         sx={{ cursor: 'pointer', minHeight: '68px', maxHeight: '84px' }}
                       >
                         <TableCell
-                          align={'center'}
+                          align={'left'}
                           id={labelId}
                           scope="row"
                           padding="none"
-                          width='72px'
+                          width='60px'
                         >
                           {row.id}
                         </TableCell>
 
-                        <TableCell padding="none" width='44px' align={'center'} onClick={(event) => handleSelectClick(event, row.id)}>
+                        <TableCell padding="none" width='44px' align={'center'} onClick={(event) => handleSelectClick(event, row.hash)}>
                           <Checkbox
                             color="primary"
                             checked={isItemSelected}
@@ -233,15 +240,14 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
                             }}
                             checkedIcon={CheckboxIcon}
                             icon={InactiveCheckBoxIcon}
-
                           />
                         </TableCell>
 
-                        <TableCell align="left" width='282px'>
+                        <TableCell align="left" width='292px'>
                           <div className={styles.profile}>
                             <div className={styles.profile__avatar}
                                  style={scoreMap[row.profile.score.toString()]}>
-                              <Avatar src={row.profile.src} alt={row.profile.name} sx={{ width: '36px', height: '36px'}}></Avatar>
+                              <Avatar src={`https://seventeam-hakaton.sytes.net/media/student_77e8c0a2-4076-4cbe-ad7c-5aa3325ec6fd/avatars/74855-2968.jpg`} alt={row.profile.name} sx={{ width: '36px', height: '36px'}}></Avatar>
                             </div>
                             <div>
                               <p className={styles.profile__profession}>{row.profile.profession}</p>
@@ -268,7 +274,7 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
                             </div>
                           </div>
                         </TableCell>
-                        <TableCell align="left" width='58px'>
+                        <TableCell align="right" width='58px' sx={{ paddingRight: '0 !important'}}>
                           {row.isLiked ?
                             (<ActiveLikeIcon />)
                             : (<InactiveLikeIcon />)
@@ -299,7 +305,7 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
                 </p>
                 <div className={styles.table__buttons}>
                   <CustomButton customType={"customContained"} width={220}>Добавить в избранное</CustomButton>
-                  <CustomButton customType={"customContained"}>
+                  <CustomButton customType={"customContained"} onClick={onDownloadClick}>
                     <>
                       <img src={downloadIcon} alt={"Экспортировать"} className={styles['download-icon']}></img>
                       <p>Экспортировать список</p>

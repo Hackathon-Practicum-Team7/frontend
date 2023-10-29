@@ -4,6 +4,5 @@ WORKDIR /app
 COPY . .
 
 RUN npm install
-
-EXPOSE 8080
-CMD ["npm", "run", "dev", "--", "--host", "--port", "8080"]
+RUN npm run build-prod
+CMD cp -r build result_build
