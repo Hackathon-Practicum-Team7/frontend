@@ -174,7 +174,7 @@ export default function EnhancedTable({ areCandidatesFound, results }: TEnhanced
     dispatch(postDownloadExcel(selected));
   }
 
-  function onLikeClick(event: Event, ids) {
+  function onLikeClick(event: Event, ids: string[]) {
     event.preventDefault();
     event.stopPropagation();
     dispatch(postFavourite(ids))
