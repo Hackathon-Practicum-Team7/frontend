@@ -5,6 +5,7 @@ import {HomePage} from "../../pages/home/home"
 import {Login} from '../../pages/login/login';
 import {ResultsPage} from "../../pages/results/results";
 import { ProfilePage } from '../../pages/profile';
+import { ModalSkills } from '../modalSkills/modalSkills';
 
 export default function RoutesComponent(): ReactElement {
   return (
@@ -13,6 +14,7 @@ export default function RoutesComponent(): ReactElement {
       <Route path='/' element={<HomePage/>}/>
       <Route path='/results' element={<ResultsPage />} />
       <Route path='/profile/:id' element={<ProfilePage />} />
+      <Route path='/skills' element={<ModalSkills />} />
       <Route path='*' element={<></>} />
     </Routes>
   );

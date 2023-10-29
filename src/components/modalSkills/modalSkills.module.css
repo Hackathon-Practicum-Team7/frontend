@@ -1,0 +1,38 @@
+.section {
+  display: flex;
+  margin: auto;
+}
+
+.modal {
+  width: 652px;
+  height: 339px;
+  border: 2px solid #5A9BFF;
+  border-radius: 12px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+:hover {
+  border: 1px #5A9BFF 12px;
+}
+
+.titleArea {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.subTitle {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
