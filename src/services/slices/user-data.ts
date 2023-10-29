@@ -14,6 +14,7 @@ export const userDataSlice = createSlice({
     },
     accessToken: '',
     refreshToken: '',
+    isAuthorized: false,
     isError: false,
     error: {message: ''}
   } as TUserDataSliceState,
@@ -31,6 +32,7 @@ export const userDataSlice = createSlice({
         isUserLoading: false,
         accessToken: action.payload.access,
         refreshToken: action.payload.refresh,
+        isAuthorized: true,
         isError: false
       }
     },
@@ -51,6 +53,7 @@ export const userDataSlice = createSlice({
       return {
         ...state,
         isLading: false,
+        isAuthorized: false,
         isError: true,
         error: {message: action.payload}
       }

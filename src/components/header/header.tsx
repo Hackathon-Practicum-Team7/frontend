@@ -35,7 +35,7 @@ export const Header: React.FC = () => {
         <BurgerMenuIcon onClick={handleShowMenu} isOpen={menuIsOpen} isActive={isBurgerButtonActive}/>
 
         <DropDown type="menu" onClose={handleShowMenu} isOpen={menuIsOpen}>
-          <Navigation/>
+          <Navigation onClosePerRedirect={handleShowMenu}/>
         </DropDown>
 
 

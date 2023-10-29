@@ -54,6 +54,7 @@ export type TUserDataSliceState = TUserData & {
   isUserLoading: boolean,
   accessToken: string,
   refreshToken: string,
+  isAuthorized: boolean,
   isError: boolean,
   error: { message: string }
 }
