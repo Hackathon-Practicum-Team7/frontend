@@ -151,6 +151,7 @@ export default function EnhancedTable({ areCandidatesFound, rows, setRows }: TEn
   );
 
   function onDownloadClick() {
+    console.log(selected);
     dispatch(postDownloadExcel(selected));
   }
 
@@ -342,6 +343,7 @@ export default function EnhancedTable({ areCandidatesFound, rows, setRows }: TEn
                 onPageChange={handleChangePage}
                 labelRowsPerPage={''}
                 labelDisplayedRows={() => null}
+                sx={{ alignSelf: 'flex-end'}}
               />
             </>)}
         </Paper>

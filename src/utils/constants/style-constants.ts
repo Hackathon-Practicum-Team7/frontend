@@ -183,6 +183,7 @@ export const themeInput = createTheme({
           color: '#1A1B22',
           fontWeight: '400',
           borderBottom: '1px solid rgba(221, 224, 228, 1)',
+          minHeight: '57px',
         },
         head: {
           fontWeight: '500',

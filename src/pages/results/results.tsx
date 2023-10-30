@@ -39,6 +39,7 @@ export const ResultsPage = (): ReactElement => {
           student.id);
       });
       setRows(initalRows);
+      console.log(initalRows);
     }
     setLoaded(true);
   }, [students]);
