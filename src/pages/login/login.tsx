@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 
 import {useForm, Controller} from 'react-hook-form';
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useLocation} from 'react-router-dom'
 import {yupResolver} from '@hookform/resolvers/yup';
 
 import loginStyles from './login.module.css';
@@ -25,12 +25,22 @@ import {useDispatch} from '../../services/hooks/use-dispatch';
 
 export const Login: FunctionComponent = () => {
   const inputValuesState = useSelector((state) => state.inputValuesState);
-  const userDataState = useSelector((state) => state.userDataState);
 
   const [emailInputValue, setEmailInputValue] = useState<string | undefined>(inputValuesState.email);
   const [passwordInputValue, setPasswordInputValue] = useState<string | undefined>(inputValuesState.email);
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+  const {pathname} = useLocation();
+
+  const {register, handleSubmit, formState: {errors}, control} = useForm<TAuthForm>({
+    defaultValues: {
+      email: '',
+      password: ''
+    },
+    resolver: yupResolver(authValidationSchema),
+  });
 
   const handleSetInputValues = useCallback((emailValue: string, passwordValue: string) => {
     dispatch(inputValuesActions.setInputValues({
@@ -39,25 +49,22 @@ export const Login: FunctionComponent = () => {
     }))
   }, [inputValuesState.email, inputValuesState.password])
 
-  const form = useForm<TAuthForm>({
-    defaultValues: {
-      email: '',
-      password: ''
-    },
-    resolver: yupResolver(authValidationSchema),
-  });
-  const {register, handleSubmit, formState: {errors}, control} = form;
-
-  const navigate = useNavigate();
-
   const submitAuthForm = () => {
-    dispatch(login(inputValuesState.email, inputValuesState.password));
-    navigate('/', {redirect: true})
+    dispatch(login(inputValuesState.email, inputValuesState.password))
+      .then(() => {
+        navigate('/', {redirect: true});
+        // Чтобы обновить стили для страницы, которая не-логин, надо обновить window.location.pathname:
+        window.location.pathname = '/';
+      })
+      .catch((err) => console.log(err))
   };
 
   useEffect(() => {
-    console.log('fromLogin:', userDataState.isAuthorized)
-  }, [userDataState.isAuthorized])
+    const main = document.getElementsByTagName("main");
+    if (pathname === '/login') {
+      main[0].classList.add(loginStyles['main-login-page']);
+    }
+  }, [pathname])
 
   return (
     <section className={loginStyles['login-page']}>

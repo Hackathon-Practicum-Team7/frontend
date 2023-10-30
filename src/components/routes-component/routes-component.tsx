@@ -1,6 +1,8 @@
+import React, {ReactElement} from 'react';
+import {Route, Routes, Navigate} from 'react-router-dom';
 
-import {Route, Routes} from 'react-router-dom'
-import {ReactElement} from 'react'
+import '../app/app.css';
+
 import {HomePage} from "../../pages/home/home"
 import {Login} from '../../pages/login/login';
 import {ResultsPage} from "../../pages/results/results";
@@ -9,8 +11,6 @@ import {ProtectedRoute} from '../protected-route/protected-route';
 import {useSelector} from '../../services/hooks/use-selector';
 
 export default function RoutesComponent(): ReactElement {
-  const userDataState = useSelector(state => state.userDataState);
-
   return (
     <Routes>
       <Route path='login' element={<Login/>}/>
@@ -19,9 +19,17 @@ export default function RoutesComponent(): ReactElement {
           <HomePage/>
         </ProtectedRoute>
       }/>
-      <Route path='results' element={<ResultsPage />} />
-      <Route path='/profile/:studentId' element={<ProfilePage />} />
-      <Route path='*' element={<></>} />
+      <Route path='results' element={
+        <ProtectedRoute>
+          <ResultsPage/>
+        </ProtectedRoute>
+      }/>
+      <Route path='profile/:studentId' element={
+        <ProtectedRoute>
+          <ProfilePage/>
+        </ProtectedRoute>
+      }/>
+      <Route path='*' element={<></>}/>
     </Routes>
   );
 }

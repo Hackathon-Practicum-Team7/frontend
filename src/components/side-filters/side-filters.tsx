@@ -17,12 +17,11 @@ export const SideFilters: FunctionComponent = () => {
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
   const [employmentTypes, setEmploymentTypes] = useState<string[]>([]);
 
-  const {control, handleSubmit, reset, watch, getValues} = useForm<IFormInput>();
+  const {control, reset, watch} = useForm<IFormInput>();
 
   const allValues = watch(['professions', 'specialization', 'portfolio', 'workingCondition']);
 
   const handleIsAnyFilterSet = () => {
-    console.log(allValues)
     return allValues.some(inputValue => inputValue?.length > 0)
       || selectedQualification.length > 0
       || selectedSkills.length > 0

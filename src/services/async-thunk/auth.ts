@@ -4,6 +4,7 @@ import {userDataActions} from '../slices/user-data';
 import {baseUrl} from '../../utils/constants/constants';
 import {getResponseData} from '../../utils/helpers';
 import {setCookie} from '../../utils/helpers';
+import UnauthorizedError from '../exceptions/error-401-unauthorized';
 
 export const login = (email: string, password: string): AppThunk => {
   return function (dispatch: AppDispatch) {
@@ -24,16 +25,23 @@ export const login = (email: string, password: string): AppThunk => {
         "password": password
       })
     })
+      .then(res => {
+        if (res.ok || res.status !== 401) {
+          return res
+        } else {
+          throw new UnauthorizedError();
+        }
+      })
       .then(res => getResponseData<TTokens>(res))
       .then(data => {
-        console.log(data)
         setCookie('accessToken', data.access);
         setCookie('refreshToken', data.refresh);
         dispatch(userDataActions.setIsAuthorized(true));
       })
       .catch((error) => {
         console.log(error)
-        dispatch(userDataActions.getUserDataFailed({message: error.message}))
+        dispatch(userDataActions.getUserDataFailed({message: error.message}));
+        throw error
       });
   }
 }
@@ -52,9 +60,6 @@ export const validateToken = (token: string) => {
     })
   })
     .then(res => getResponseData<any>(res))
-    .then((data) => {
-      console.log("verifiedToken: ", data)
-    })
     .catch((error) => {
       console.log(error)
       throw error

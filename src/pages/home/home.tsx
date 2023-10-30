@@ -1,5 +1,5 @@
 import styles from "./home.module.css";
-import {ReactElement, useMemo} from "react";
+import {ReactElement, useEffect, useMemo} from "react";
 import {CustomButton} from "../../components/custom-button/custom-button";
 import {SelectInput} from "../../components/select-input/select-input";
 import {filterOptions} from "../../utils/constants/constants";
@@ -10,6 +10,9 @@ import {ProfessionStreamFilter} from "../../components/filters/profession-stream
 import {ProfessionFilter} from "../../components/filters/profession-filter/profession-filter";
 import {IFormInput} from "../../utils/types";
 import {useSelector} from "../../services/hooks/use-selector";
+import loginStyles from '../login/login.module.css';
+
+import {useLocation} from 'react-router-dom';
 import {useDispatch} from "../../services/hooks/use-dispatch";
 import {getStudents} from "../../services/async-thunk/get-students";
 import {useNavigate} from "react-router-dom";
@@ -47,6 +50,14 @@ export const HomePage = (): ReactElement => {
   }, [filters]);
 
   const professionOptions = useMemo(() => professionByStreams.get(professionStream) || [], [professionStream]);
+
+  const {pathname} = useLocation();
+  useEffect( () => {
+    const main = document.getElementsByTagName("main");
+    if (pathname !== 'login' && main[0].classList.contains(loginStyles['main-login-page'])) {
+      main[0].classList.remove(loginStyles['main-login-page']);
+    }
+  }, [pathname])
 
   return (
     <section className={styles.section}>
@@ -149,7 +160,7 @@ export const HomePage = (): ReactElement => {
         </div>
         <div className={styles.buttons__container}>
           <CustomButton customType='customContained' type='submit' disabled={!isSubmitButtonEnabled}>Найти</CustomButton>
-          <CustomButton customType='customOutlined' type='button' onClick={() => reset()}>Сбросить все</CustomButton>
+          <CustomButton customType='customOutlined' type='button' onClick={reset}>Сбросить все</CustomButton>
         </div>
       </form>
     </section>
