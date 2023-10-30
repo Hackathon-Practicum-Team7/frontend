@@ -4,7 +4,6 @@ import { CardAbout } from '../../components/card-about/card-about';
 import { CardSkills } from '../../components/card-skills/card-skills';
 import { CardExperience } from '../../components/card-experience/card-experience';
 import { CardEducation } from '../../components/card-education/card-education';
-import { skillsData } from '../../components/card-skills/skills-data';
 import { BreadcrumbsNav } from '../../components/breadcrumbs/breadcrumbs';
 import { Avatar } from '@mui/material';
 import { CustomButton } from '../../components/custom-button/custom-button';
