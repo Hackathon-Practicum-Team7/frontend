@@ -30,6 +30,12 @@ import {useNavigate} from "react-router-dom";
 import {postDownloadExcel} from "../../services/async-thunk/download-excel";
 import {useDispatch} from "../../services/hooks/use-dispatch";
 import {deleteFavorite, postFavourite} from "../../services/async-thunk/favorite";
+import progressBar25 from "../../images/avatar-progress-25.svg";
+import progressBar50 from "../../images/avatar-progress-50.svg";
+import progressBar75 from "../../images/avatar-progress-75.svg";
+import progressBar100 from "../../images/avatar-progress-100.svg";
+import likeActive from "../../images/like-active.svg";
+import likeInactive from "../../images/like-not-active.svg";
 
 
 const CheckboxIcon = <img src={checkboxIcon} alt={'Чекбокс'} className={styles.checkbox} />;
@@ -40,19 +46,36 @@ type TLikeIconProps = {
   onClick: MouseEventHandler<HTMLButtonElement>
 }
 
-const LikeIcon = ({onClick, active}: TLikeIconProps) => (
-  <button
-    className={active ? styles.like_active : styles.like_inactive}
-    onClick={onClick}
-  />);
+const LikeIcon = ({onClick, active}: TLikeIconProps) => {
+  const [hover, setHover] = useState(false);
+
+  let backgroundImage = active ? `url('${likeActive}')` : `url('${likeInactive}')`;
+  const backgroundImageHover = `url('${likeActive}')`;
+  if (hover) {
+    backgroundImage = backgroundImageHover;
+  }
+  return (
+    <button
+      className={styles.like__icon}
+      style={{backgroundImage: backgroundImage}}
+      onClick={onClick}
+      onMouseEnter={()=>{
+        setHover(true);
+      }}
+      onMouseLeave={()=>{
+        setHover(false);
+      }}
+    />
+  );
+}
 
 type TStyle = { backgroundImage: string };
 const scoreMap: Record<string, TStyle> = {
-  '0': { backgroundImage: 'url("src/images/avatar-progress-25.svg")' },
-  '25': { backgroundImage: 'url("src/images/avatar-progress-25.svg")' },
-  '50': { backgroundImage: 'url("src/images/avatar-progress-50.svg")' },
-  '75': { backgroundImage: 'url("src/images/avatar-progress-75.svg")' },
-  '100': { backgroundImage: 'url("src/images/avatar-progress-100.svg")' }
+  '0': { backgroundImage: `url("${progressBar25}")` },
+  '25': { backgroundImage: `url("${progressBar25}")` },
+  '50': { backgroundImage: `url("${progressBar50}")` },
+  '75': { backgroundImage: `url("${progressBar75}")` },
+  '100': { backgroundImage: `url("${progressBar100}")` }
 }
 
 type TEnhancedTableProps = {
@@ -127,8 +150,8 @@ export default function EnhancedTable({ areCandidatesFound, rows, setRows }: TEn
     setPage(newPage - 1);
   };
 
-  const handleChangeRowsPerPage = (event: { target: { value: string[] } }) => {
-    const newValue = event.target.value[0];
+  const handleChangeRowsPerPage = (event: { target: { value: string | string[] } }) => {
+    const newValue = event.target.value as string;
     const option = tableOptions.pagination.find(option => option.text === newValue) || tableOptions.pagination[0];
     setPageOption(newValue);
     setRowsPerPage(option.value);
@@ -216,9 +239,13 @@ export default function EnhancedTable({ areCandidatesFound, rows, setRows }: TEn
                 rowCount={refinedRows.length}
               />
               { !areCandidatesFound ? (
-                <TableCell colSpan={8} sx={{ padding: 0, borderBottom: 0}}>
-                  <ResultsNotFound />
-                </TableCell>
+                <TableBody>
+                  <TableRow>
+                    <TableCell colSpan={8} sx={{ padding: 0, borderBottom: 0}}>
+                      <ResultsNotFound />
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
               ) : (
                 <TableBody>
                   {visibleRows.map((row, index) => {
@@ -342,6 +369,7 @@ export default function EnhancedTable({ areCandidatesFound, rows, setRows }: TEn
                 onPageChange={handleChangePage}
                 labelRowsPerPage={''}
                 labelDisplayedRows={() => null}
+                sx={{ alignSelf: 'flex-end'}}
               />
             </>)}
         </Paper>

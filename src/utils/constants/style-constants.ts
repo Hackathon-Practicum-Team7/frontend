@@ -183,6 +183,7 @@ export const themeInput = createTheme({
           color: '#1A1B22',
           fontWeight: '400',
           borderBottom: '1px solid rgba(221, 224, 228, 1)',
+          minHeight: '57px',
         },
         head: {
           fontWeight: '500',
@@ -356,6 +357,12 @@ export const customLoginStyles = {
     fontSize: '11px',
     lineHeight: '12px',
     color: '#ff0200',
+  },
+  'text_form-errored': {
+    fontSize: '16px',
+    lineHeight: '20px',
+    color: '#ff0200',
+    textAlign: 'center',
   },
   input: {
     border: 'none',

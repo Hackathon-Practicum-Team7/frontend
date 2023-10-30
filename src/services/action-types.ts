@@ -1,6 +1,7 @@
 import {ActionCreatorWithoutPayload, ActionCreatorWithPayload} from '@reduxjs/toolkit';
 
-import {TCity, TError, TProfessionStream, TSkill, TProfileData, TTableStudent, TTokens, TUserData} from './slices-types';
+import {TCity, TError, TProfessionStream, TSkill, TProfileData, TTableStudent, TUserData} from './slices-types';
+import {ISelectedFilters} from "../utils/types";
 
 export type TFiltersActions = {
   getCitiesSuccess: ActionCreatorWithPayload<TCity[]>,
@@ -23,8 +24,6 @@ export type TUserDataActions = {
 
 export type TInputValuesActions = {
   setInputValues: ActionCreatorWithPayload<{ email: string, password: string }>,
-  clearPassword: ActionCreatorWithoutPayload<string>,
-  clearInputValuesState: ActionCreatorWithoutPayload<string>,
 }
 
 export type TProfileActions = {
@@ -54,6 +53,10 @@ export type TFavoriteStudentsActions = {
   deleteFavoriteFailed: ActionCreatorWithoutPayload<string>,
 }
 
+export type TSelectedFiltersActions = {
+  setSelectedFilters: ActionCreatorWithPayload<ISelectedFilters>,
+}
+
 export type TApplicationActions =
   TFiltersActions
   | TUserDataActions
@@ -61,3 +64,4 @@ export type TApplicationActions =
   | TStudentsActions
   | TDownloadExcelActions
   | TFavoriteStudentsActions
+  | TSelectedFiltersActions

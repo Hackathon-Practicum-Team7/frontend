@@ -1,4 +1,4 @@
-import {ReactElement, useMemo} from 'react';
+import {ReactElement, useEffect, useMemo} from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import sideFiltersStyles from './side-filters.module.css';
 import filtersIcon from '../../images/settings-icon-white.svg';
@@ -11,15 +11,22 @@ import {CustomButton} from '../custom-button/custom-button';
 import {getStudents} from "../../services/async-thunk/get-students";
 import {useDispatch} from "../../services/hooks/use-dispatch";
 import {useSelector} from "../../services/hooks/use-selector";
+import {selectedFiltersSlice} from "../../services/slices/selected-filters";
 
 export const SideFilters = ({setFiltersAreOpen} : {setFiltersAreOpen: (value: boolean) => void}): ReactElement => {
-  const {control, handleSubmit, reset, watch, resetField} = useForm<IFormInput>();
   const dispatch = useDispatch();
+  const selectedFilters = useSelector(state => state.selectedFiltersState);
+  const {control, handleSubmit, reset, watch, resetField, setValue} = useForm<IFormInput>();
 
-  const professionStream = watch("professionStream", "");
+  const professionStream = watch('professionStream', '');
+  watch((_, { name }) => {
+    if (name === "professionStream")
+      resetField("professions");
+  });
   const professions = watch('professions', []);
   const grades = watch('grade', []);
   const skills = watch('skills', []);
+  const hasPortfolio = watch('hasPortfolio', '');
   const workingConditions = watch('workingConditions', []);
   const employmentTypes = watch('employmentTypes', []);
 
@@ -35,7 +42,7 @@ export const SideFilters = ({setFiltersAreOpen} : {setFiltersAreOpen: (value: bo
     }, new Map<string, string[]>());
   }, [filters]);
 
-  const professionOptions = useMemo(() => professionByStreams.get(professionStream[0]) || [], [professionStream]);
+  const professionOptions = useMemo(() => professionByStreams.get(professionStream) || [], [professionStream]);
   const onSubmit = (data: IFormInput) => {
     const queryParams = data;
     if (queryParams.hasPortfolio[0] === 'Указано') {
@@ -47,17 +54,24 @@ export const SideFilters = ({setFiltersAreOpen} : {setFiltersAreOpen: (value: bo
       }
       delete queryParams[option];
     }
+    dispatch(selectedFiltersSlice.actions.setSelectedFilters(queryParams));
     dispatch(getStudents(queryParams));
     setFiltersAreOpen(false);
   };
 
-  const allValues = watch(['professions', 'specialization', 'portfolio', 'workingCondition']);
+  useEffect(() => {
+    Object.entries(selectedFilters).forEach(([key, value]) => {
+      setValue(key, value);
+    });
+  }, [selectedFilters]);
 
   const handleIsAnyFilterSet = () => {
-    return allValues.some(inputValue => inputValue?.length > 0)
-      || grades.length > 0
-      || skills.length > 0
-      || employmentTypes.length > 0;
+    return hasPortfolio.length > 0
+          || professions.length > 0
+          || workingConditions.length > 0
+          || grades.length > 0
+          || skills.length > 0
+          || employmentTypes.length > 0;
   }
 
   const onClearClick = (input: string) => {

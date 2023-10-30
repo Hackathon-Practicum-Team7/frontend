@@ -70,13 +70,35 @@ export function getComparator<Key extends keyof IData>(
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-export const getResponseData = (res: Response) => {
+
+export function getResponseData<T>(res: Response): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    if (res.ok) {
+      resolve(res.json());
+    } else {
+      reject(res.json().then((err) => {
+        return err.message;
+      }));
+    }
+  });
+}
+
+// export function getResponseData<T>(res: Response): Promise<void | T> {
+//   if (!res.ok) {
+//     return res.json().then((err) => {
+//       throw new Error(err.message);
+//     })
+//   }
+//   return res.json();
+// }
+
+export const checkDownloadResponse = (res: Response) => {
   if (!res.ok) {
     return res.text().then(text => {
       throw new Error(`Ошибка: ${text}`)
     })
   }
-  return res.json();
+  return res.blob();
 }
 
 export const checkResponse = (res: Response) => {
@@ -85,7 +107,6 @@ export const checkResponse = (res: Response) => {
       throw new Error(`Ошибка: ${text}`)
     })
   }
-  console.log(res);
   return res;
 }
 

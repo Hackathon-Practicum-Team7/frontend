@@ -17,7 +17,8 @@ export const CardExperience: React.FC<Props> = ({jobs, experience}) => {
           root: {
             borderBox: 'none',
             borderRadius: '0',
-            boxShadow: 'none'
+            boxShadow: 'none',
+            height: '100%',
           },
         },
       },
@@ -41,7 +42,7 @@ export const CardExperience: React.FC<Props> = ({jobs, experience}) => {
             backgroundColor: '#F1F6FF',
             color: '#000',
             textTransform: 'none',
-            minHeight: '396px',
+            minHeight: '',
             height: '100%',
             padding: '0',
             borderRadius: '12px'
@@ -71,7 +72,6 @@ export const CardExperience: React.FC<Props> = ({jobs, experience}) => {
             </div>
             )}).toReversed()}
           </div>
-
         </CardContent>
       </Card>
     </ThemeProvider>

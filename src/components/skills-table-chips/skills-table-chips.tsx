@@ -2,7 +2,7 @@ import * as React from "react";
 import {Chip} from "@mui/material";
 
 export default function SkillsTableChips({skills}: {skills: string[]}): React.ReactElement[] {
-  const stringLength = skills[0].length + skills[1].length + skills[2].length;
+  const stringLength = skills[0]?.length + skills[1]?.length + skills[2]?.length;
   let chipCount;
   if (stringLength >= 20) chipCount = 2;
   else chipCount = 3;
@@ -23,7 +23,8 @@ export default function SkillsTableChips({skills}: {skills: string[]}): React.Re
   if (skills.length <= chipCount)
     return res;
   // >=4
-  res.push(<Chip
+  res.push(
+    <Chip
     key={'rest'}
     label={`${skills.length - chipCount}+`}
     variant={"outlined"}
@@ -34,8 +35,9 @@ export default function SkillsTableChips({skills}: {skills: string[]}): React.Re
       borderColor: 'rgba(90, 155, 255, 1)',
       '& .MuiChip-label': {
         padding: '0 8px',
-      }
+      },
     }}
-  />);
+  />
+  );
   return res;
 }

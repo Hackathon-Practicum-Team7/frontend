@@ -1,3 +1,7 @@
+.profileSection {
+  padding-bottom: 60px;
+}
+
 .staticContent {
   margin: 0;
   padding: 28px 0 0 0;
@@ -74,7 +78,7 @@
 .content {
   display: grid;
   grid-template-columns: 764px 540px;
-  grid-template-rows: 188px auto;
+  grid-template-rows: minmax(188px, max-content) minmax(min-content, max-content);
   gap: 20px 32px;
   /* overflow: scroll; */
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {TGrade} from "./constants/constants";
 
 export type TAuthForm = {
@@ -16,6 +17,8 @@ export interface IFormInput extends Record<string, string[] | string> {
   hasPortfolio: string;
   grade: string[];
 }
+
+export interface ISelectedFilters extends IFormInput {}
 
 export type TDropDown = {
   type: 'menu' | 'filters',
@@ -67,6 +70,6 @@ export enum MenuItemName {
 
 export type TMenuItem = {
   itemName: string,
-  path?: string,
+  path: string,
   onClick: () => void
 }

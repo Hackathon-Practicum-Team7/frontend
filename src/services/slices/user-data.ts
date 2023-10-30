@@ -2,7 +2,6 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 import {TError, TUserData, TUserDataSliceState} from '../slices-types';
 import {TUserDataActions} from '../action-types';
-import {act} from 'react-dom/test-utils';
 
 export const userDataSlice = createSlice({
   name: 'userData',
@@ -19,7 +18,7 @@ export const userDataSlice = createSlice({
     },
     isAuthorized: false,
     isError: false,
-    error: {message: ''}
+    error: {}
   } as TUserDataSliceState,
   reducers: {
     getUserDataLoading: (state) => {
@@ -44,12 +43,16 @@ export const userDataSlice = createSlice({
       }
     },
     getUserDataFailed: (state, action: PayloadAction<TError>) => {
+      console.log(action.payload)
       return {
         ...state,
         isLading: false,
         isAuthorized: false,
         isError: true,
-        error: {message: action.payload}
+        error: {
+          errorCode: action.payload.errorCode,
+          message: action.payload.message,
+        }
       }
     },
   }

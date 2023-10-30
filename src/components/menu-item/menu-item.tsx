@@ -1,4 +1,4 @@
-import React, {FunctionComponent} from 'react';
+import {FunctionComponent} from 'react';
 import {Link} from 'react-router-dom';
 import menuItemStyles from './menu-item.module.css';
 import suitcaseIcon from '../../images/suitcase-icon-white.svg';

@@ -12,7 +12,6 @@ import {Footer} from "../footer/footer";
 
 import {getCookie} from '../../utils/helpers';
 
-import {userDataActions} from '../../services/slices/user-data';
 import {useSelector} from '../../services/hooks/use-selector';
 import {getUser} from '../../services/async-thunk/user';
 
@@ -21,25 +20,31 @@ function App(): ReactElement {
   const dispatch = useDispatch();
 
   const isLoginRoute = window.location.pathname === '/login';
-  const token = getCookie('accessToken');
-
-  const init = async () => {
-    await dispatch(userDataActions.setIsAuthorized(token !== undefined));
-    await dispatch(getUser(token ? token : ''));
-    await dispatch(getCities());
-    await dispatch(getSkills());
-    await dispatch(getProfessionSkills());
-  };
 
   useEffect(() => {
-    init();
+    (async () => {
+      await dispatch(getCities());
+      await dispatch(getSkills());
+      await dispatch(getProfessionSkills());
+    })();
+  }, []);
+  useEffect(() => {
+    (async () => {
+      const token = getCookie('accessToken');
+
+      console.log('currentToken:', token)
+      // await dispatch(userDataActions.setIsAuthorized(token !== undefined));
+      await dispatch(getUser(token ? token : ''));
+    })();
   }, [userDataState.isAuthorized]);
 
   // Подгрузка своих стилей для страницы авторизации и других страниц при переходе вперед-назад
   useEffect(() => {
     const handleLocationChange = () => {
       // Обновляем window.location.pathname при изменении адресной строки
-      window.location.pathname = window.location.pathname;
+      if (window.location.pathname === '/login') {
+        window.location.pathname = window.location.pathname;
+      }
     };
     // popstate - кнопки "назад-вперед" в браузере
     window.addEventListener("popstate", handleLocationChange);

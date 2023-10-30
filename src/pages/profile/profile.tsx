@@ -38,7 +38,7 @@ export const ProfilePage: React.FC = () => {
   }
 
   return (
-    <div>
+    <section className={styles.profileSection}>
       <div className={styles.staticContent}>
         <BreadcrumbsNav parentPages={[{route: '/results', title: 'Список кандидатов'}]} currentPage="Профиль кандидата" />
         <h1 className={styles.title}>Профиль кандидата</h1>
@@ -84,14 +84,11 @@ export const ProfilePage: React.FC = () => {
 
       <div className={styles.content}>
         <CardAbout about={profile.about} />
-
         <CardSkills skills={profile.skills} />
-
         <CardExperience jobs={profile.jobs} experience={profile.experience} />
-
         <CardEducation educations={profile.educations} />
       </div>
-    </div>
+    </section>
 
   )
 }

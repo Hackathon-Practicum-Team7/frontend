@@ -16,7 +16,7 @@ export const CardEducation: React.FC<Props> = ({educations}) => {
           root: {
             borderBox: 'none',
             borderRadius: '0',
-            boxShadow: 'none'
+            boxShadow: 'none',
           },
         },
       },
@@ -40,10 +40,9 @@ export const CardEducation: React.FC<Props> = ({educations}) => {
             backgroundColor: '#F1F6FF',
             color: '#000',
             textTransform: 'none',
-            minHeight: '396px',
-            height: '100%',
             padding: '0',
-            borderRadius: '12px'
+            borderRadius: '12px',
+            height: '100%'
           },
         },
       },

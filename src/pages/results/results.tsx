@@ -6,12 +6,13 @@ import { BreadcrumbsNav } from "../../components/breadcrumbs/breadcrumbs";
 import {useSelector} from "../../services/hooks/use-selector";
 import {createData} from "../../utils/helpers";
 import {IData} from "../../utils/types";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export const ResultsPage = (): ReactElement => {
   const [ areCandidatesFound, setCandidatesFound ] = useState<boolean>(false);
-  const [ isLoaded, setLoaded ] = useState<boolean>(false);
   const [ rows, setRows ] = useState<IData[]>([]);
   const students = useSelector(state => state.getStudentsState.students);
+  const studentsLoading = useSelector(state => state.getStudentsState.studentsLoading);
 
   useEffect(() => {
     if (students.length === 0) {
@@ -40,11 +41,9 @@ export const ResultsPage = (): ReactElement => {
       });
       setRows(initalRows);
     }
-    setLoaded(true);
   }, [students]);
 
-  if (!isLoaded) return <p>Загрузка...</p>
-  else
+  if (studentsLoading) return <CircularProgress color="inherit" sx={{ margin: 'auto'}}/>
   return (
     <section className={styles.section}>
       <div className={styles.breadcrumbs}>

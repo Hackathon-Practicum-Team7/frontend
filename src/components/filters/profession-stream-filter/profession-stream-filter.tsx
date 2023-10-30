@@ -3,6 +3,7 @@ import {CustomButton} from "../../custom-button/custom-button";
 import {ReactElement, useMemo} from "react";
 import {ClearFilters} from "../../clear-filters/clear-filters";
 import {useSelector} from "../../../services/hooks/use-selector";
+import CircularProgress from "@mui/material/CircularProgress";
 
 type TProfessionStreamFilterProps = {
   onChange: (event: { target: { value: string } }) => void,
@@ -12,6 +13,7 @@ type TProfessionStreamFilterProps = {
 export const ProfessionStreamFilter = ({onChange, value}: TProfessionStreamFilterProps): ReactElement => {
   const filters = useSelector(state => state.getFiltersState);
   const professionStreams = useMemo(() => filters.professionStreams.map(filter => filter.title), [filters]);
+  const professionStreamAreLoaded = filters.professionStreams.length > 0;
 
   const selectedProfessionStream = value;
   const setSelectedProfessionStream = (newValue: string) => {
@@ -37,18 +39,22 @@ export const ProfessionStreamFilter = ({onChange, value}: TProfessionStreamFilte
         {(selectedProfessionStream) && (<ClearFilters onClick={onClearClick}>Очистить фильтр</ClearFilters>) }
       </div>
       <div className={styles.professions}>
-        { professionStreams.map((stream) => {
-          return (
-            <CustomButton
-            key={stream}
-            customType={ (selectedProfessionStream === stream) ? 'customFilterActive' : 'customFilter' }
-            extraStyles='filterButton'
-            onClick={() => handleClick(stream)}
-          >
-            {stream}
-            </CustomButton>
-            )
-          })
+        { professionStreamAreLoaded && (professionStreams.map((stream) => {
+            return (
+              <CustomButton
+              key={stream}
+              customType={ (selectedProfessionStream === stream) ? 'customFilterActive' : 'customFilter' }
+              extraStyles='filterButton'
+              onClick={() => handleClick(stream)}
+            >
+              {stream}
+              </CustomButton>
+            );
+          })) || (
+            <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+              <CircularProgress color="inherit" />
+            </div>
+          )
         }
       </div>
     </div>

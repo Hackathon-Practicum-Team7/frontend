@@ -8,7 +8,7 @@ type TCustomButtonProps = {
   width?: string | number,
   customType: 'customContained' | 'customOutlined' | 'customFilterActive' | 'customFilter' | 'customOutlinedFilter',
   extraStyles?: 'button' | 'filterButton',
-  onClick?: MouseEventHandler<HTMLButtonElement>,
+  onClick?: MouseEventHandler<HTMLButtonElement> | any,
   type?: 'submit' | 'button' | 'reset',
   disabled?: boolean,
 }

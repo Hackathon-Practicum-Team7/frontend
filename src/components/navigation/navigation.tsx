@@ -36,18 +36,18 @@ export const Navigation: FunctionComponent<{ onClosePerRedirect: () => void }> =
           </div>
         </button>
         <ul className={`${navStyles.list} ${navStyles['list_outer']}`}>
-          <MenuItem itemName="Мои вакансии" onClick={() => console.log('hi there!')}/>
+          <MenuItem itemName="Мои вакансии" path="" onClick={() => console.log('hi there!')}/>
           <li className={navStyles['decor-item']}/>
           <ul className={navStyles.list}>
             <MenuItem itemName="Найти кандидата" path="/" onClick={props.onClosePerRedirect}/>
-            <MenuItem itemName="Избранное" onClick={() => console.log('hi there!')}/>
-            <MenuItem itemName="Чат" onClick={() => console.log('hi there!')}/>
+            <MenuItem itemName="Избранное" path="" onClick={() => console.log('hi there!')}/>
+            <MenuItem itemName="Чат" path="" onClick={() => console.log('hi there!')}/>
           </ul>
         </ul>
       </div>
       <ul className={navStyles.list}>
-        <MenuItem itemName="Инфо профиля" onClick={() => console.log('hi there!')}/>
-        <MenuItem itemName="Помощь" onClick={() => console.log('hi there!')}/>
+        <MenuItem itemName="Инфо профиля" path="" onClick={() => console.log('hi there!')}/>
+        <MenuItem itemName="Помощь" path="" onClick={() => console.log('hi there!')}/>
         <MenuItem itemName="Выйти" path="/login" onClick={handleOnClickExit}/>
       </ul>
     </nav>
