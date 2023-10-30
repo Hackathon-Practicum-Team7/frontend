@@ -14,6 +14,7 @@ import {getCookie} from '../../utils/helpers';
 
 import {userDataActions} from '../../services/slices/user-data';
 import {useSelector} from '../../services/hooks/use-selector';
+import {getUser} from '../../services/async-thunk/user';
 
 function App(): ReactElement {
   const userDataState = useSelector(state => state.userDataState)
@@ -22,7 +23,8 @@ function App(): ReactElement {
   const isLoginRoute = window.location.pathname === '/login';
 
   const init = async () => {
-    await dispatch(userDataActions.setIsAuthorized(getCookie('accessToken') !== undefined))
+    await dispatch(userDataActions.setIsAuthorized(getCookie('accessToken') !== undefined));
+    await dispatch(getUser());
     await dispatch(getCities());
     await dispatch(getSkills());
     await dispatch(getProfessionSkills());
@@ -34,7 +36,7 @@ function App(): ReactElement {
 
   useEffect(() => {
     const handleLocationChange = () => {
-      console.log(window.location.pathname)
+      console.log(userDataState.user);
       // Обновляем window.location.pathname при изменении адресной строки
       window.location.pathname = window.location.pathname;
     };
@@ -47,14 +49,14 @@ function App(): ReactElement {
 
   return (
     <BrowserRouter>
-      {
-        !isLoginRoute &&
-        <Header/>
-      }
+      {/*{*/}
+      {/*  !isLoginRoute &&*/}
+      {/*  <Header/>*/}
+      {/*}*/}
       <main className="main">
         <RoutesComponent/>
       </main>
-      <Footer isTransparent={isLoginRoute}/>
+      {/*<Footer isTransparent={isLoginRoute}/>*/}
     </BrowserRouter>
   )
 }

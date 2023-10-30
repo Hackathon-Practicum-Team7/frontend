@@ -45,17 +45,21 @@ export type TGetFiltersSliceState = {
 }
 
 export type TUserData = {
-  user: {
-    name: string,
-    avatar: string
-  },
+  id: string,
+  email: string,
+  name: string,
+  surname: string,
+  avatar: string,
+  company: string,
+  favorite_students: string[]
 }
 
-export type TUserDataSliceState = TUserData & {
+export type TUserDataSliceState = {
+  user: TUserData,
   isUserLoading: boolean,
   isAuthorized: boolean,
   isError: boolean,
-  error: { message: string }
+  error: TError
 }
 
 export type TTokens = {

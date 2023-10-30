@@ -12,7 +12,7 @@ import {yupResolver} from '@hookform/resolvers/yup';
 
 import loginStyles from './login.module.css';
 
-import {authValidationSchema} from '../../utils/constants/constants';
+import {authValidationSchema, failedAuthErrorMessage} from '../../utils/constants/constants';
 import {customLoginStyles} from '../../utils/constants/style-constants';
 import {TAuthForm} from '../../utils/types';
 import {useSelector} from '../../services/hooks/use-selector';
@@ -22,9 +22,11 @@ import {CustomButton} from '../../components/custom-button/custom-button';
 
 import {login} from '../../services/async-thunk/auth';
 import {useDispatch} from '../../services/hooks/use-dispatch';
+import {userDataActions, userDataSlice} from '../../services/slices/user-data';
 
 export const Login: FunctionComponent = () => {
   const inputValuesState = useSelector((state) => state.inputValuesState);
+  const userDataState = useSelector((state) => state.userDataState);
 
   const [emailInputValue, setEmailInputValue] = useState<string | undefined>(inputValuesState.email);
   const [passwordInputValue, setPasswordInputValue] = useState<string | undefined>(inputValuesState.email);
@@ -56,7 +58,10 @@ export const Login: FunctionComponent = () => {
         // Чтобы обновить стили для страницы, которая не-логин, надо обновить window.location.pathname:
         window.location.pathname = '/';
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        console.log(err);
+        // dispatch(userDataActions.getUserDataFailed({message: failedAuthErrorMessage}));
+      })
   };
 
   useEffect(() => {
@@ -77,10 +82,17 @@ export const Login: FunctionComponent = () => {
         </Typography>
         <form onSubmit={handleSubmit(submitAuthForm)} noValidate>
           <div className={loginStyles['login-page__inputs-wrap']}>
-            <Typography variant="subtitle1" align="center"
-                        sx={[customLoginStyles.text, customLoginStyles['text_subtitle']]}>
-              Войти в аккаунт
-            </Typography>
+            {
+              userDataState.isError && userDataState.error.message === failedAuthErrorMessage
+                ? <FormHelperText
+                  sx={[customLoginStyles.text, customLoginStyles['text_errored']]}>
+                  {userDataState.error.message}
+                </FormHelperText>
+                : <Typography variant="subtitle1" align="center"
+                              sx={[customLoginStyles.text, customLoginStyles['text_subtitle']]}>
+                  Войти в аккаунт
+                </Typography>
+            }
             <div>
               <Controller
                 control={control}
@@ -145,7 +157,10 @@ export const Login: FunctionComponent = () => {
                 errors.password &&
                 <FormHelperText
                   sx={[customLoginStyles.text, customLoginStyles['text_errored']]}>
-                  {errors.password?.message}
+                  {
+
+                    errors.password?.message
+                  }
                 </FormHelperText>
               }
             </div>
@@ -156,7 +171,9 @@ export const Login: FunctionComponent = () => {
               Не помню пароль
             </Link>
           </Typography>
-          <CustomButton customType="customContained" width="100%" type="submit">Войти</CustomButton>
+          <CustomButton customType="customContained" width="100%" type="submit" onClick={() => {
+            console.log(userDataState.error.message)
+          }}>Войти</CustomButton>
         </form>
       </div>
       <Typography paragraph sx={[customLoginStyles.text, customLoginStyles['text_secondary']]}>

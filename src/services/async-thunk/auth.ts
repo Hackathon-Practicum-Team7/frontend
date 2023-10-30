@@ -1,7 +1,7 @@
 import {AppDispatch, AppThunk, TTokens} from '../slices-types';
 import {userDataActions} from '../slices/user-data';
 
-import {baseUrl} from '../../utils/constants/constants';
+import {baseUrl, failedAuthErrorMessage} from '../../utils/constants/constants';
 
 import {getResponseData} from '../../utils/helpers';
 import {setCookie} from '../../utils/helpers';
@@ -13,6 +13,9 @@ export const login = (email: string, password: string): AppThunk => {
 
     return fetch(`${baseUrl}/auth/jwt/create/`, {
       method: 'POST',
+      credentials: 'same-origin',
+      mode: 'cors',
+      cache: 'no-cache',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -27,6 +30,7 @@ export const login = (email: string, password: string): AppThunk => {
         if (res.ok || res.status !== 401) {
           return res
         } else {
+          dispatch(userDataActions.getUserDataFailed({message: failedAuthErrorMessage}));
           throw new UnauthorizedError();
         }
       })
@@ -47,6 +51,9 @@ export const login = (email: string, password: string): AppThunk => {
 export const validateToken = (token: string) => {
   return fetch(`${baseUrl}/auth/jwt/verify/`, {
     method: 'POST',
+    credentials: 'same-origin',
+    mode: 'cors',
+    cache: 'no-cache',
     headers: {
       'Content-Type': 'application/json'
     },
@@ -63,10 +70,12 @@ export const validateToken = (token: string) => {
     });
 }
 
-
 export const refreshToken = (refreshToken: string) => {
   return fetch(`${baseUrl}/auth/jwt/refresh/`, {
     method: 'POST',
+    credentials: 'same-origin',
+    mode: 'cors',
+    cache: 'no-cache',
     headers: {
       'Content-Type': 'application/json'
     },

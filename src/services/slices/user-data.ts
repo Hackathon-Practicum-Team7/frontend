@@ -2,14 +2,20 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 import {TError, TUserData, TUserDataSliceState} from '../slices-types';
 import {TUserDataActions} from '../action-types';
+import {act} from 'react-dom/test-utils';
 
 export const userDataSlice = createSlice({
   name: 'userData',
   initialState: {
     isUserLoading: false,
     user: {
+      id: '',
+      email: '',
       name: '',
-      avatar: ''
+      surname: '',
+      avatar: '',
+      company: '',
+      favorite_students: []
     },
     isAuthorized: false,
     isError: false,
@@ -29,17 +35,22 @@ export const userDataSlice = createSlice({
         isAuthorized: action.payload
       }
     },
-    // TODO: проверить схему для юзера на бэке и поправить
     getUserData: (state, action: PayloadAction<TUserData>) => {
+      console.log(action.payload)
       return {
         ...state,
-        isUserLoading: false,
-        user: {
-          ...state.user,
-          name: action.payload.user.name,
-          avatar: action.payload.user.avatar
-        },
-        isError: false
+        // isUserLoading: false,
+        // user: {
+        //   ...state.user,
+        //   id: action.payload.id,
+        //   email: action.payload.email,
+        //   name: action.payload.name,
+        //   surname: action.payload.surname,
+        //   avatar: action.payload.avatar,
+        //   company: action.payload.company,
+        //   favorite_students: action.payload.favorite_students
+        // },
+        // isError: false
       }
     },
     getUserDataFailed: (state, action: PayloadAction<TError>) => {
