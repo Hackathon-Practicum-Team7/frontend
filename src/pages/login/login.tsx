@@ -12,7 +12,7 @@ import {yupResolver} from '@hookform/resolvers/yup';
 
 import loginStyles from './login.module.css';
 
-import {authValidationSchema, failedAuthErrorMessage} from '../../utils/constants/constants';
+import {authValidationSchema} from '../../utils/constants/constants';
 import {customLoginStyles} from '../../utils/constants/style-constants';
 import {TAuthForm} from '../../utils/types';
 import {useSelector} from '../../services/hooks/use-selector';
@@ -22,8 +22,6 @@ import {CustomButton} from '../../components/custom-button/custom-button';
 
 import {login} from '../../services/async-thunk/auth';
 import {useDispatch} from '../../services/hooks/use-dispatch';
-import {userDataActions, userDataSlice} from '../../services/slices/user-data';
-import UnauthorizedError from '../../services/exceptions/error-401-unauthorized';
 
 export const Login: FunctionComponent = () => {
   const inputValuesState = useSelector((state) => state.inputValuesState);
@@ -57,7 +55,7 @@ export const Login: FunctionComponent = () => {
       .then(() => {
         navigate('/', {redirect: true});
         // Чтобы обновить стили для страницы, которая не-логин, надо обновить window.location.pathname:
-        window.location.pathname = '/';
+        // window.location.pathname = '/';
       })
       .catch((err) => {
         console.log(err);
@@ -174,9 +172,7 @@ export const Login: FunctionComponent = () => {
               Не помню пароль
             </Link>
           </Typography>
-          <CustomButton customType="customContained" width="100%" type="submit" onClick={() => {
-            console.log(userDataState.error.message)
-          }}>Войти</CustomButton>
+          <CustomButton customType="customContained" width="100%" type="submit">Войти</CustomButton>
         </form>
       </div>
       <Typography paragraph sx={[customLoginStyles.text, customLoginStyles['text_secondary']]}>

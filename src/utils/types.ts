@@ -1,4 +1,6 @@
 import React from 'react';
+import {To} from 'react-router-dom';
+
 import {TGrade} from "./constants/constants";
 
 export type TAuthForm = {
@@ -67,6 +69,6 @@ export enum MenuItemName {
 
 export type TMenuItem = {
   itemName: string,
-  path?: string,
+  path: string,
   onClick: () => void
 }
