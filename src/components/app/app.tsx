@@ -57,7 +57,7 @@ function App(): ReactElement {
       <main className="main">
         <RoutesComponent/>
       </main>
-      {/*<Footer isTransparent={isLoginRoute}/>*/}
+      <Footer isTransparent={isLoginRoute}/>
     </BrowserRouter>
   )
 }

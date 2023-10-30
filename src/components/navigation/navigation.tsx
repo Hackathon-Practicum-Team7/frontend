@@ -8,8 +8,11 @@ import {MenuItem} from '../menu-item/menu-item';
 import {deleteCookie} from '../../utils/helpers';
 import {userDataActions} from '../../services/slices/user-data';
 import {useDispatch} from '../../services/hooks/use-dispatch';
+import {useSelector} from '../../services/hooks/use-selector';
 
 export const Navigation: FunctionComponent<{ onClosePerRedirect: () => void }> = (props) => {
+  const userDataState = useSelector(state => state.userDataState);
+
   const dispatch = useDispatch();
 
   const handleOnClickExit = () => {
@@ -23,10 +26,12 @@ export const Navigation: FunctionComponent<{ onClosePerRedirect: () => void }> =
       <div>
         <button className={navStyles['menu__profile-button']}>
           <div className={navStyles['menu__profile-button-wrap']}>
-            <Avatar src={avatarImage} alt="Аватар пользователя" sx={{width: 50, height: 50}}/>
+            <Avatar src={userDataState.user?.avatar ? userDataState.user?.avatar : avatarImage}
+                    alt="Аватар пользователя"
+                    sx={{ width: 50, height: 50 }}/>
             <div className={navStyles['menu__text-wrap']}>
-              <p className={`${navStyles.text} ${navStyles['text_primary']}`}>Мария</p>
-              <p className={`${navStyles.text} ${navStyles['text_secondary']}`}>Компания: CROT</p>
+              <p className={`${navStyles.text} ${navStyles['text_primary']}`}>{userDataState.user?.name}</p>
+              <p className={`${navStyles.text} ${navStyles['text_secondary']}`}>{userDataState.user?.company}</p>
             </div>
           </div>
         </button>
