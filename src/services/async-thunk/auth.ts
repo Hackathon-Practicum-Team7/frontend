@@ -2,6 +2,7 @@ import {AppDispatch, AppThunk, TTokens} from '../slices-types';
 import {userDataActions} from '../slices/user-data';
 
 import {baseUrl} from '../../utils/constants/constants';
+
 import {getResponseData} from '../../utils/helpers';
 import {setCookie} from '../../utils/helpers';
 import UnauthorizedError from '../exceptions/error-401-unauthorized';
@@ -12,9 +13,6 @@ export const login = (email: string, password: string): AppThunk => {
 
     return fetch(`${baseUrl}/auth/jwt/create/`, {
       method: 'POST',
-      // mode: 'cors',
-      // cache: 'no-cache',
-      // credentials: 'same-origin',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -46,7 +44,6 @@ export const login = (email: string, password: string): AppThunk => {
   }
 }
 
-
 export const validateToken = (token: string) => {
   return fetch(`${baseUrl}/auth/jwt/verify/`, {
     method: 'POST',
@@ -68,12 +65,8 @@ export const validateToken = (token: string) => {
 
 
 export const refreshToken = (refreshToken: string) => {
-
   return fetch(`${baseUrl}/auth/jwt/refresh/`, {
     method: 'POST',
-    // mode: 'cors',
-    // cache: 'no-cache',
-    // credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json'
     },
@@ -89,7 +82,6 @@ export const refreshToken = (refreshToken: string) => {
       return token.access
     })
     .catch((error) => {
-      console.log(error)
-      // dispatch(userDataActions.getUserDataFailed({message: error.message}))
+      console.log(error);
     });
 }
