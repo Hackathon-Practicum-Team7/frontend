@@ -43,20 +43,27 @@ export const CardAbout: React.FC<Props> = ({about}) => {
             lineHeight: '20px',
             fontWeight: '400',
             height: '128px',
-            padding: '0',
-            borderRadius: '12px'
+            width: '764px',
+            padding: '24px',
+            borderRadius: '12px',
+            overflow: 'clip',
+            overflowClipMargin: 'content-box',
           },
         },
       },
     },
   });
 
+  const aboutParagraphs = about.split(/\r\n|\r|\n/g);
+
   return (
     <ThemeProvider theme={theme}>
       <Card>
         <CardHeader title="О себе" />
         <CardContent>
-          <div className={styles.content}>{about}</div>
+          <div>
+            {aboutParagraphs.map( paragraph => (<div key={paragraph} className={styles.description}>{paragraph}</div>))}
+          </div>
         </CardContent>
       </Card>
     </ThemeProvider>
