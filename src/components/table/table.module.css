@@ -54,19 +54,17 @@
 }
 
 .like_inactive {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   padding: 0;
   background-image: url('src/images/like-not-active.svg');
-  background-size: 26px 26px;
+  background-size: 24px 24px;
   background-color: transparent;
   border: 0;
   background-repeat: no-repeat;
 }
 
 .like_inactive:hover {
-  width: 24px;
-  height: 24px;
   background-image: url('src/images/like-active.svg');
   opacity: 50%;
 }

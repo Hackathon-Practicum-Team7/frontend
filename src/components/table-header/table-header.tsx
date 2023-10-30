@@ -50,7 +50,7 @@ export const TableHeader = ({ areCandidatesFound, resultsNumber }: TTableHeaderP
             Фильтры
           </button>
           <DropDown type="filters" onClose={handleShowFilters} isOpen={filtersAreOpen}>
-            <SideFilters/>
+            <SideFilters setFiltersAreOpen={setFiltersAreOpen}/>
           </DropDown>
         </div>
       </div>

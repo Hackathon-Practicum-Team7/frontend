@@ -1,18 +1,23 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-import {TError, TTokens, TUserData, TUserDataSliceState} from '../slices-types';
+import {TError, TUserData, TUserDataSliceState} from '../slices-types';
 import {TUserDataActions} from '../action-types';
+import {act} from 'react-dom/test-utils';
 
 export const userDataSlice = createSlice({
   name: 'userData',
   initialState: {
     isUserLoading: false,
     user: {
+      id: '',
+      email: '',
       name: '',
-      avatar: ''
+      surname: '',
+      avatar: '',
+      company: '',
+      favorite_students: []
     },
-    accessToken: '',
-    refreshToken: '',
+    isAuthorized: false,
     isError: false,
     error: {message: ''}
   } as TUserDataSliceState,
@@ -24,25 +29,17 @@ export const userDataSlice = createSlice({
         isError: false
       }
     },
-    setTokens: (state, action: PayloadAction<TTokens>) => {
+    setIsAuthorized: (state, action: PayloadAction<boolean>) => {
       return {
         ...state,
-        isUserLoading: false,
-        accessToken: action.payload.access,
-        refreshToken: action.payload.refresh,
-        isError: false
+        isAuthorized: action.payload
       }
     },
-    // TODO: проверить схему для юзера на бэке и поправить
     getUserData: (state, action: PayloadAction<TUserData>) => {
       return {
         ...state,
         isUserLoading: false,
-        user: {
-          ...state.user,
-          name: action.payload.user.name,
-          avatar: action.payload.user.avatar
-        },
+        user: action.payload,
         isError: false
       }
     },
@@ -50,8 +47,9 @@ export const userDataSlice = createSlice({
       return {
         ...state,
         isLading: false,
+        isAuthorized: false,
         isError: true,
-        error: {message: action.payload.message || ''}
+        error: {message: action.payload}
       }
     },
   }
@@ -61,14 +59,14 @@ export default userDataSlice.reducer
 
 export const {
   getUserDataLoading,
-  setTokens,
+  setIsAuthorized,
   getUserData,
   getUserDataFailed
 } = userDataSlice.actions
 
 export const userDataActions: TUserDataActions = {
   getUserDataLoading: getUserDataLoading,
-  setTokens: setTokens,
+  setIsAuthorized: setIsAuthorized,
   getUserData: getUserData,
   getUserDataFailed: getUserDataFailed
 }

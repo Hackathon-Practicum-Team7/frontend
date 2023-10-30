@@ -1,5 +1,5 @@
 import { IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import closeIcon from '../../images/close-icon.svg';
 import styles from './modal-skills.module.css';
 import { SkillsFilter } from '../filters/skills-filter/skills-filter';
 import ReactDOM from 'react-dom';
@@ -23,7 +23,7 @@ export const ModalSkills: React.FC<Props> = ({ value, onChange, onClose }) => {
           <div className={styles.titleArea}>
             <h1 className={styles.title}>Полный список</h1>
             <IconButton onClick={onClose} sx={{ width: "36px", height: "36px" }}>
-              <CloseIcon sx={{ color: "#1A1B22", fontSize: "36px" }} />
+              <img src={closeIcon} alt={'Закрыть'} />
             </IconButton>
           </div>
 

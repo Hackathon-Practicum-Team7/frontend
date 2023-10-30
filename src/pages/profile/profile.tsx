@@ -85,7 +85,7 @@ export const ProfilePage: React.FC = () => {
 
         <CardSkills skills={profile.skills} />
 
-        <CardExperience jobs={profile.jobs} experience={0} />
+        <CardExperience jobs={profile.jobs} experience={profile.experience} />
 
         <CardEducation educations={profile.educations} />
       </div>

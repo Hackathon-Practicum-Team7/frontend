@@ -34,7 +34,7 @@ export const ProfessionStreamFilter = ({onChange, value}: TProfessionStreamFilte
     <div className={styles.filter}>
       <div className={styles.filter__container}>
         <p className={styles.filter__header}><span className={`${styles.filter__header} ${styles.filter__span}`}>*</span> Направление</p>
-        {(selectedProfessionStream) && (<ClearFilters color="gray" onClick={onClearClick}>Очистить фильтр</ClearFilters>) }
+        {(selectedProfessionStream) && (<ClearFilters onClick={onClearClick}>Очистить фильтр</ClearFilters>) }
       </div>
       <div className={styles.professions}>
         { professionStreams.map((stream) => {

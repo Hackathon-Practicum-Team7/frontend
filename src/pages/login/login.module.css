@@ -1,3 +1,9 @@
+.main-login-page {
+  width: 100%;
+  background: url(../../images/login-page-background.png) center center no-repeat;
+  background-size: cover;
+}
+
 .login-page {
   position: relative;
   min-width: 100%;
