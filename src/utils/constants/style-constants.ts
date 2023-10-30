@@ -387,15 +387,19 @@ export const customLoginStyles = {
     },
   },
   'input-outline': {
-    border: '1px solid #797981',
+    overflow: 'hidden',
+    border: '2px solid transparent',
+    outline: '1px solid #797981',
     borderRadius: '4px',
     ':has(> .Mui-focused)': {
       border: '2px solid #5a9bff',
+      outline: 'none',
     }
   },
   'input-outline_errored': {
     border: '2px solid #ff0200',
     borderRadius: '4px',
+    outline: 'none',
   },
 }
 
