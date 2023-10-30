@@ -51,7 +51,6 @@ export const CardExperience: React.FC<Props> = ({jobs, experience}) => {
     },
   });
 
-
   return (
     <ThemeProvider theme={theme}>
       <Card>
@@ -65,12 +64,12 @@ export const CardExperience: React.FC<Props> = ({jobs, experience}) => {
               <div className={styles.item} key={job.id}>
               <p className={styles.title}>{job.position}</p>
               <p className={styles.company}>{job.organisation}</p>
-              <p className={styles.time}>{job.started_at} - {job.finished_at}</p>
+              <p className={styles.time}>{job.started_at} - {job.finished_at || 'по настоящее время'}</p>
               {descriptionParagraphs.map(paragraph => (
-                <p className={styles.description}>{paragraph}</p>
+                <p key={paragraph} className={styles.description}>{paragraph}</p>
               ))}
             </div>
-            )})}
+            )}).toReversed()}
           </div>
 
         </CardContent>
