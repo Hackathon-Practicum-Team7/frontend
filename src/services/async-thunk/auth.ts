@@ -35,12 +35,15 @@ export const login = (email: string, password: string): AppThunk => {
       })
       .then(res => getResponseData<TTokens>(res))
       .then(data => {
+        console.log('savingCookie')
         setCookie('accessToken', data.access);
         setCookie('refreshToken', data.refresh);
-        dispatch(userDataActions.setIsAuthorized(true));
+        console.log('cookiesAreSet')
+        return dispatch(userDataActions.setIsAuthorized(true));
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
+        dispatch(userDataActions.setIsAuthorized(false));
         dispatch(userDataActions.getUserDataFailed({
           errorCode: error.statusCode,
           message: error.message

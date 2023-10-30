@@ -1,5 +1,6 @@
 import {IContacts, IData, IProfile, TComparator, TOrder} from "./types";
 import {gradeOrder, TGrade} from "./constants/constants";
+import {refreshToken, validateToken} from '../services/async-thunk/auth';
 
 export function createData(
   id: number,
@@ -135,4 +136,38 @@ export function getCookie(cookieName: string): string | undefined {
 
 export function deleteCookie(cookieName: string) {
   setCookie(cookieName, null, {expires: -1});
+}
+
+
+export const isAuthorized = (totalAttempts: number = 0): any => {
+  if (totalAttempts > 3) {
+    return false;
+  }
+  const token = getCookie('accessToken');
+  const refresh = getCookie('refreshToken');
+  if (!token) {
+    if (!refresh) {
+      return false;
+    }
+    return refreshToken(refresh)
+      .then(() => isAuthorized(totalAttempts + 1))
+      .catch((err) => {
+        console.log(err);
+        deleteCookie('refreshToken')
+      })
+  }
+  return validateToken(token)
+    .then(() => true)
+    .catch((err) => {
+      deleteCookie('accessToken');
+      if (!refresh) {
+        return false
+      }
+      return refreshToken(refresh)
+        .then(() => isAuthorized(totalAttempts + 1))
+        .catch((err) => {
+          console.log(err);
+          deleteCookie('refreshToken')
+        })
+    })
 }

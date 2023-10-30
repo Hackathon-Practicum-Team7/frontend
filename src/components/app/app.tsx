@@ -10,7 +10,7 @@ import {getCities, getProfessionSkills, getSkills} from "../../services/async-th
 import {Header} from "../header/header";
 import {Footer} from "../footer/footer";
 
-import {getCookie} from '../../utils/helpers';
+import {getCookie, isAuthorized} from '../../utils/helpers';
 
 import {userDataActions} from '../../services/slices/user-data';
 import {useSelector} from '../../services/hooks/use-selector';
@@ -21,10 +21,12 @@ function App(): ReactElement {
   const dispatch = useDispatch();
 
   const isLoginRoute = window.location.pathname === '/login';
-  const token = getCookie('accessToken');
 
   const init = async () => {
-    await dispatch(userDataActions.setIsAuthorized(token !== undefined));
+    const token = getCookie('accessToken');
+
+    console.log('currentToken:', token)
+    // await dispatch(userDataActions.setIsAuthorized(token !== undefined));
     await dispatch(getUser(token ? token : ''));
     await dispatch(getCities());
     await dispatch(getSkills());
@@ -39,7 +41,9 @@ function App(): ReactElement {
   useEffect(() => {
     const handleLocationChange = () => {
       // Обновляем window.location.pathname при изменении адресной строки
-      window.location.pathname = window.location.pathname;
+      if (window.location.pathname === '/login') {
+        window.location.pathname = window.location.pathname;
+      }
     };
     // popstate - кнопки "назад-вперед" в браузере
     window.addEventListener("popstate", handleLocationChange);
