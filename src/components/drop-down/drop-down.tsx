@@ -1,7 +1,5 @@
 import {FunctionComponent} from 'react';
-
 import dropDownStyles from './drop-down.module.css';
-import crossIcon from '../../images/cross-icon.svg';
 
 import {Overlay} from '../overlay/overlay';
 

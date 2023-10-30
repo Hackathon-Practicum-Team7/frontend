@@ -23,7 +23,7 @@ export const SkillsFilter = ({onChange, value, withShowAll = true}: {onChange: (
     <>
       <div className={styles.filter__container}>
         <p className={styles.filter__header}>Профессиональные навыки</p>
-        { (selectedSkills.length > 0 && !withShowAll) && (<ClearFilters onClick={onClearClick} />) }
+        { (selectedSkills.length > 0) && (<ClearFilters onClick={onClearClick}>Очистить фильтры</ClearFilters>) }
       </div>
       <InputWithChip
         filterOptions={skills}

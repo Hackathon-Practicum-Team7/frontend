@@ -24,11 +24,10 @@ type TSelectInputProps = {
   value?: string[] | string,
   width?: number | string,
   isMulti?: boolean,
-  disabled?: boolean
+  disabled?: boolean,
 }
 
 export const SelectInput = ({ filterOptions, onChange, width, isMulti, disabled, value }: TSelectInputProps): ReactElement => {
-
   const selectedInput = (value && value.length > 0) ? value : [filterOptions[0]];
   const setSelectedInput = (newValue: string[]) => {
     if (onChange) {
@@ -55,7 +54,6 @@ export const SelectInput = ({ filterOptions, onChange, width, isMulti, disabled,
             id="demo-multiple-checkbox"
             multiple={isMulti || (isMulti === undefined)}
             disabled={disabled}
-            displayEmpty
             value={selectedInput}
             onChange={handleChange}
             input={<Input disableUnderline={true} />}

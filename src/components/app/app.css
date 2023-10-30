@@ -23,3 +23,7 @@
   background: url(../../images/login-page-background.png) center center no-repeat;
   background-size: cover;
 }
+
+#modal {
+  font-family: 'YS-Text', 'YS-Display', 'Arial', sans-serif;
+}

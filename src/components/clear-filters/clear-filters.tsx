@@ -1,26 +1,24 @@
-import {ReactElement,} from "react";
+import {FC, PropsWithChildren} from "react";
 import DeleteIcon from '../../images/delete-icon.svg?react';
 import { Button, ThemeProvider, createTheme } from "@mui/material";
 
 type TClearFiltersProps = {
   onClick: () => void,
-  children: string,
   color?: string
 }
 
-export const ClearFilters = ({onClick}: TClearFiltersProps): ReactElement => {
+export const ClearFilters: FC<PropsWithChildren<TClearFiltersProps>> = ({children, onClick, color = '#1A1B22'}) => {
   const theme = createTheme({
     components: {
       MuiButton: {
         styleOverrides: {
           root: {
-            color: '#1A1B22',
+            color,
             textTransform: 'none',
             fontSize: '14px',
             fontWeight: '400',
             lineHeight: '20px',
             justifyContent: 'start',
-
             padding: '0 0 16px 0',
             margin: '0',
             '&:hover': {
@@ -36,7 +34,7 @@ export const ClearFilters = ({onClick}: TClearFiltersProps): ReactElement => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Button startIcon={<DeleteIcon />} onClick={onClick}>Очистить фильтры</Button>
+      <Button startIcon={<DeleteIcon />} onClick={onClick}>{children}</Button>
     </ThemeProvider>
   )
 }

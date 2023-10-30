@@ -1,19 +1,19 @@
 import { baseUrl } from "../../utils/constants/constants";
-import { getResponseData } from "../../utils/helpers";
-import { AppThunk, AppDispatch, RootState } from "../slices-types";
+import {getCookie, getResponseData} from "../../utils/helpers";
+import { AppThunk, AppDispatch } from "../slices-types";
 import { profileActions } from "../slices/load-profile";
 
 export const loadProfile = (studentId: string): AppThunk => {
-  return async function (dispatch: AppDispatch, getState: () => RootState) {
+  return async function (dispatch: AppDispatch) {
     dispatch(profileActions.loadProfileLoading());
-    const accessToken = getState().userDataState.accessToken;
+    const token = getCookie('accessToken');
     try {
       const response = await fetch(
         `${baseUrl}/students/${studentId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `JWT ${accessToken}`
+            'Authorization': `JWT ${token}`
           }
         })
       const data = await getResponseData(response)

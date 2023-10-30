@@ -37,7 +37,7 @@ export const ProfessionFilter = ({onChange, isStreamChosen, value, professions}:
             <p className={styles.filter__header}><span
               className={`${styles.filter__header} ${styles.filter__span}`}>*</span> Специализация</p>
             {(selectedProfessions && selectedProfessions.length > 0) && (
-              <ClearFilters color="gray" onClick={onClearClick}>Очистить фильтр</ClearFilters>)}
+              <ClearFilters onClick={onClearClick}>Очистить фильтр</ClearFilters>)}
           </div>
           <div className={styles.professions}>
             {professions.map((profession) => {

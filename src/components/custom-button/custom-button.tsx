@@ -6,7 +6,7 @@ import {themeInput} from '../../utils/constants/style-constants';
 type TCustomButtonProps = {
   children: string | ReactElement,
   width?: string | number,
-  customType: 'customContained' | 'customOutlined' | 'customFilterActive' | 'customFilter',
+  customType: 'customContained' | 'customOutlined' | 'customFilterActive' | 'customFilter' | 'customOutlinedFilter',
   extraStyles?: 'button' | 'filterButton',
   onClick?: MouseEventHandler<HTMLButtonElement>,
   type?: 'submit' | 'button' | 'reset',
