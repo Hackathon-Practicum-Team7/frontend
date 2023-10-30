@@ -30,6 +30,10 @@ import {useNavigate} from "react-router-dom";
 import {postDownloadExcel} from "../../services/async-thunk/download-excel";
 import {useDispatch} from "../../services/hooks/use-dispatch";
 import {deleteFavorite, postFavourite} from "../../services/async-thunk/favorite";
+import progressBar25 from "../../images/avatar-progress-25.svg";
+import progressBar50 from "../../images/avatar-progress-50.svg";
+import progressBar75 from "../../images/avatar-progress-75.svg";
+import progressBar100 from "../../images/avatar-progress-100.svg";
 
 
 const CheckboxIcon = <img src={checkboxIcon} alt={'Чекбокс'} className={styles.checkbox} />;
@@ -48,11 +52,11 @@ const LikeIcon = ({onClick, active}: TLikeIconProps) => (
 
 type TStyle = { backgroundImage: string };
 const scoreMap: Record<string, TStyle> = {
-  '0': { backgroundImage: 'url("src/images/avatar-progress-25.svg")' },
-  '25': { backgroundImage: 'url("src/images/avatar-progress-25.svg")' },
-  '50': { backgroundImage: 'url("src/images/avatar-progress-50.svg")' },
-  '75': { backgroundImage: 'url("src/images/avatar-progress-75.svg")' },
-  '100': { backgroundImage: 'url("src/images/avatar-progress-100.svg")' }
+  '0': { backgroundImage: `url("${progressBar25}")` },
+  '25': { backgroundImage: `url("${progressBar25}")` },
+  '50': { backgroundImage: `url("${progressBar50}")` },
+  '75': { backgroundImage: `url("${progressBar75}")` },
+  '100': { backgroundImage: `url("${progressBar100}")` }
 }
 
 type TEnhancedTableProps = {

@@ -5,7 +5,6 @@
 .profile__avatar {
   width: 44px;
   height: 44px;
-  background-image: url('src/images/avatar-progress-25.svg');
   padding: 0 4px;
   border-radius: 10000px;
   background-position: center;
