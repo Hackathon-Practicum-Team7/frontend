@@ -19,7 +19,7 @@ export const userDataSlice = createSlice({
     },
     isAuthorized: false,
     isError: false,
-    error: {message: ''}
+    error: {}
   } as TUserDataSliceState,
   reducers: {
     getUserDataLoading: (state) => {
@@ -44,12 +44,16 @@ export const userDataSlice = createSlice({
       }
     },
     getUserDataFailed: (state, action: PayloadAction<TError>) => {
+      console.log(action.payload)
       return {
         ...state,
         isLading: false,
         isAuthorized: false,
         isError: true,
-        error: {message: action.payload}
+        error: {
+          errorCode: action.payload.errorCode,
+          message: action.payload.message,
+        }
       }
     },
   }

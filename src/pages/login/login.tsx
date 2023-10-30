@@ -23,6 +23,7 @@ import {CustomButton} from '../../components/custom-button/custom-button';
 import {login} from '../../services/async-thunk/auth';
 import {useDispatch} from '../../services/hooks/use-dispatch';
 import {userDataActions, userDataSlice} from '../../services/slices/user-data';
+import UnauthorizedError from '../../services/exceptions/error-401-unauthorized';
 
 export const Login: FunctionComponent = () => {
   const inputValuesState = useSelector((state) => state.inputValuesState);
@@ -83,15 +84,15 @@ export const Login: FunctionComponent = () => {
         <form onSubmit={handleSubmit(submitAuthForm)} noValidate>
           <div className={loginStyles['login-page__inputs-wrap']}>
             {
-              // userDataState.isError &&
-              // userDataState.error.message === 'Ошибка авторизации'
-              //   ? <FormHelperText
-              //     sx={[customLoginStyles.text, customLoginStyles['text_errored']]}>
-              //     {userDataState.error.message}
-              //   </FormHelperText>
-              //   :
-              <Typography variant="subtitle1" align="center"
-                              sx={[customLoginStyles.text, customLoginStyles['text_subtitle']]}>
+              userDataState.isError &&
+              userDataState.error.errorCode === 401
+                ? <FormHelperText
+                  sx={[customLoginStyles.text, customLoginStyles['text_form-errored']]}>
+                  Неверные почта или пароль
+                </FormHelperText>
+                :
+                <Typography variant="subtitle1" align="center"
+                            sx={[customLoginStyles.text, customLoginStyles['text_subtitle']]}>
                   Войти в аккаунт
                 </Typography>
             }

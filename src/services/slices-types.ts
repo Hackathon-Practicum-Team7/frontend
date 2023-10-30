@@ -9,6 +9,7 @@ export type AppThunk = ThunkAction<void, RootState, unknown, Action<TApplication
 export type AppDispatch = ThunkDispatch<RootState, any, AnyAction>;
 
 export type TError = {
+  errorCode?: number,
   message?: string
 };
 

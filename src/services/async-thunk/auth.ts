@@ -30,7 +30,6 @@ export const login = (email: string, password: string): AppThunk => {
         if (res.ok || res.status !== 401) {
           return res
         } else {
-          dispatch(userDataActions.getUserDataFailed({message: failedAuthErrorMessage}));
           throw new UnauthorizedError();
         }
       })
@@ -42,7 +41,10 @@ export const login = (email: string, password: string): AppThunk => {
       })
       .catch((error) => {
         console.log(error)
-        dispatch(userDataActions.getUserDataFailed({message: error.message}));
+        dispatch(userDataActions.getUserDataFailed({
+          errorCode: error.statusCode,
+          message: error.message
+        }));
         throw error
       });
   }
