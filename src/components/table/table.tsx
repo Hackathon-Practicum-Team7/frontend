@@ -34,6 +34,8 @@ import progressBar25 from "../../images/avatar-progress-25.svg";
 import progressBar50 from "../../images/avatar-progress-50.svg";
 import progressBar75 from "../../images/avatar-progress-75.svg";
 import progressBar100 from "../../images/avatar-progress-100.svg";
+import likeActive from "../../images/like-active.svg";
+import likeInactive from "../../images/like-not-active.svg";
 
 
 const CheckboxIcon = <img src={checkboxIcon} alt={'Чекбокс'} className={styles.checkbox} />;
@@ -44,11 +46,28 @@ type TLikeIconProps = {
   onClick: MouseEventHandler<HTMLButtonElement>
 }
 
-const LikeIcon = ({onClick, active}: TLikeIconProps) => (
-  <button
-    className={active ? styles.like_active : styles.like_inactive}
-    onClick={onClick}
-  />);
+const LikeIcon = ({onClick, active}: TLikeIconProps) => {
+  const [hover, setHover] = useState(false);
+
+  let backgroundImage = active ? `url('${likeActive}')` : `url('${likeInactive}')`;
+  const backgroundImageHover = `url('${likeActive}')`;
+  if (hover) {
+    backgroundImage = backgroundImageHover;
+  }
+  return (
+    <button
+      className={styles.like__icon}
+      style={{backgroundImage: backgroundImage}}
+      onClick={onClick}
+      onMouseEnter={()=>{
+        setHover(true);
+      }}
+      onMouseLeave={()=>{
+        setHover(false);
+      }}
+    />
+  );
+}
 
 type TStyle = { backgroundImage: string };
 const scoreMap: Record<string, TStyle> = {
