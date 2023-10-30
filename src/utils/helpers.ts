@@ -105,7 +105,7 @@ export function setCookie(cookieName: string, tokenValue: string | number | bool
   document.cookie = updatedCookie;
 }
 
-export function getCookie(cookieName: string) {
+export function getCookie(cookieName: string): string | undefined {
   const matches = document.cookie.match(
     new RegExp('(?:^|; )' + cookieName.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
   );

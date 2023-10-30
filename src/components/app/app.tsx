@@ -17,9 +17,9 @@ import {useSelector} from '../../services/hooks/use-selector';
 
 function App(): ReactElement {
   const userDataState = useSelector(state => state.userDataState)
-  const isLoginRoute = window.location.pathname === '/login';
   const dispatch = useDispatch();
 
+  const isLoginRoute = window.location.pathname === '/login';
 
   const init = async () => {
     await dispatch(userDataActions.setIsAuthorized(getCookie('accessToken') !== undefined))
@@ -30,7 +30,20 @@ function App(): ReactElement {
 
   useEffect(() => {
     init();
-  }, []);
+  }, [userDataState.isAuthorized]);
+
+  useEffect(() => {
+    const handleLocationChange = () => {
+      console.log(window.location.pathname)
+      // Обновляем window.location.pathname при изменении адресной строки
+      window.location.pathname = window.location.pathname;
+    };
+    // popstate - кнопки "назад-вперед" в браузере
+    window.addEventListener("popstate", handleLocationChange);
+    return () => {
+      window.removeEventListener("popstate", handleLocationChange);
+    };
+  }, [window.location.pathname]);
 
   return (
     <BrowserRouter>
@@ -38,7 +51,7 @@ function App(): ReactElement {
         !isLoginRoute &&
         <Header/>
       }
-      <main className={`${!isLoginRoute ? "main" : "main main_login-page"}`}>
+      <main className="main">
         <RoutesComponent/>
       </main>
       <Footer isTransparent={isLoginRoute}/>

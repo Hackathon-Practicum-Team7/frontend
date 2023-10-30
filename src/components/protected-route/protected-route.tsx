@@ -4,8 +4,10 @@ import {deleteCookie, getCookie, setCookie} from '../../utils/helpers';
 import {validateToken, refreshToken} from '../../services/async-thunk/auth';
 
 export const ProtectedRoute: FunctionComponent<{ children: React.ReactNode }> = (props) => {
-
-  const isAuthorized = () => {
+  const isAuthorized = (totalAttempts: number = 0) => {
+    if (totalAttempts > 3) {
+      return false;
+    }
     const token = getCookie('accessToken');
     const refresh = getCookie('refreshToken');
     if (!token) {
@@ -13,7 +15,7 @@ export const ProtectedRoute: FunctionComponent<{ children: React.ReactNode }> = 
         return false;
       }
       return refreshToken(refresh)
-        .then(() => isAuthorized())
+        .then(() => isAuthorized(totalAttempts + 1))
         .catch((err) => deleteCookie('refreshToken'))
     }
     return validateToken(token)
@@ -24,12 +26,11 @@ export const ProtectedRoute: FunctionComponent<{ children: React.ReactNode }> = 
           return false
         }
         return refreshToken(refresh)
-          .then(() => isAuthorized())
+          .then(() => isAuthorized(totalAttempts + 1))
           .catch((err) => deleteCookie('refreshToken'))
       })
   }
-  const authorized = isAuthorized()
-  console.log('authorized: ', authorized)
+  const authorized = isAuthorized();
 
   return authorized ? props.children : <Navigate to="/login"/>;
 };
