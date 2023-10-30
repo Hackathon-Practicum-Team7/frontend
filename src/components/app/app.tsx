@@ -21,10 +21,11 @@ function App(): ReactElement {
   const dispatch = useDispatch();
 
   const isLoginRoute = window.location.pathname === '/login';
+  const token = getCookie('accessToken');
 
   const init = async () => {
-    await dispatch(userDataActions.setIsAuthorized(getCookie('accessToken') !== undefined));
-    await dispatch(getUser());
+    await dispatch(userDataActions.setIsAuthorized(token !== undefined));
+    await dispatch(getUser(token ? token : ''));
     await dispatch(getCities());
     await dispatch(getSkills());
     await dispatch(getProfessionSkills());
@@ -34,9 +35,9 @@ function App(): ReactElement {
     init();
   }, [userDataState.isAuthorized]);
 
+  // Подгрузка своих стилей для страницы авторизации и других страниц при переходе вперед-назад
   useEffect(() => {
     const handleLocationChange = () => {
-      console.log(userDataState.user);
       // Обновляем window.location.pathname при изменении адресной строки
       window.location.pathname = window.location.pathname;
     };

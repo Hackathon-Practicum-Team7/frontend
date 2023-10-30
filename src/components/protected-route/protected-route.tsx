@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from 'react';
 import {Navigate} from 'react-router-dom';
-import {deleteCookie, getCookie, setCookie} from '../../utils/helpers';
+import {deleteCookie, getCookie} from '../../utils/helpers';
 import {validateToken, refreshToken} from '../../services/async-thunk/auth';
 
 export const ProtectedRoute: FunctionComponent<{ children: React.ReactNode }> = (props) => {

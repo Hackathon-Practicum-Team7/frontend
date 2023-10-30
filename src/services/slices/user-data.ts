@@ -36,21 +36,11 @@ export const userDataSlice = createSlice({
       }
     },
     getUserData: (state, action: PayloadAction<TUserData>) => {
-      console.log(action.payload)
       return {
         ...state,
-        // isUserLoading: false,
-        // user: {
-        //   ...state.user,
-        //   id: action.payload.id,
-        //   email: action.payload.email,
-        //   name: action.payload.name,
-        //   surname: action.payload.surname,
-        //   avatar: action.payload.avatar,
-        //   company: action.payload.company,
-        //   favorite_students: action.payload.favorite_students
-        // },
-        // isError: false
+        isUserLoading: false,
+        user: action.payload,
+        isError: false
       }
     },
     getUserDataFailed: (state, action: PayloadAction<TError>) => {

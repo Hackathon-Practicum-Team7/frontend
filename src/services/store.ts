@@ -1,7 +1,7 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {getFiltersSlice} from "./slices/get-filters";
 import {userDataSlice} from './slices/user-data';
-import {inputValuesSlice} from './async-thunk/login-input-values';
+import {inputValuesSlice} from './slices/login-input-values';
 import { loadProfileSlice } from './slices/load-profile';
 import {getStudentsSlice} from "./slices/get-students";
 import {favoriteStudentsSlice} from "./slices/favorite";

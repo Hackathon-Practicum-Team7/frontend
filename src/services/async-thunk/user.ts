@@ -4,17 +4,16 @@ import {baseUrl} from '../../utils/constants/constants';
 import UnauthorizedError from '../exceptions/error-401-unauthorized';
 import {getResponseData} from '../../utils/helpers';
 
-export const getUser = (): AppThunk => {
+export const getUser = (token: string): AppThunk => {
   return function (dispatch: AppDispatch) {
 
     dispatch(userDataActions.getUserData());
 
     return fetch(`${baseUrl}/auth/users/me/`, {
       method: 'GET',
-      credentials: 'same-origin',
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Credentials': 'true'
+        'Authorization': `JWT ${token}`,
       },
     })
       .then(res => {
@@ -26,8 +25,7 @@ export const getUser = (): AppThunk => {
       })
       .then(res => getResponseData<TUserData>(res))
       .then(data => {
-        console.log(data)
-        dispatch(userDataActions.setUserData({user: data}));
+        dispatch(userDataActions.getUserData(data));
         dispatch(userDataActions.setIsAuthorized(true));
       })
       .catch((error) => {
