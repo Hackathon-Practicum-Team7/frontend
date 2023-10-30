@@ -79,13 +79,21 @@ export const getResponseData = (res: Response) => {
   return res.json();
 }
 
+export const checkDownloadResponse = (res: Response) => {
+  if (!res.ok) {
+    return res.text().then(text => {
+      throw new Error(`Ошибка: ${text}`)
+    })
+  }
+  return res.blob();
+}
+
 export const checkResponse = (res: Response) => {
   if (!res.ok) {
     return res.text().then(text => {
       throw new Error(`Ошибка: ${text}`)
     })
   }
-  console.log(res);
   return res;
 }
 
