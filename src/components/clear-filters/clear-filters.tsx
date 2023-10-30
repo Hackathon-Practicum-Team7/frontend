@@ -19,7 +19,6 @@ export const ClearFilters: FC<PropsWithChildren<TClearFiltersProps>> = ({childre
             fontWeight: '400',
             lineHeight: '20px',
             justifyContent: 'start',
-
             padding: '0 0 16px 0',
             margin: '0',
             '&:hover': {

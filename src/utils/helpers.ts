@@ -79,6 +79,17 @@ export const getResponseData = (res: Response) => {
   return res.json();
 }
 
+export const checkResponse = (res: Response) => {
+  if (!res.ok) {
+    return res.text().then(text => {
+      throw new Error(`Ошибка: ${text}`)
+    })
+  }
+  console.log(res);
+  return res;
+}
+
+
 export function setCookie(cookieName: string, tokenValue: string | number | boolean | null, props: any = {}) {
   props = {
     path: '/',

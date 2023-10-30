@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {MouseEventHandler, useEffect, useMemo, useState} from 'react';
+import {MouseEventHandler, useMemo, useState} from 'react';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -24,9 +24,8 @@ import downloadIcon from '../../images/download-white.svg';
 import ResultsNotFound from "../results-not-found/results-not-found";
 import {IData, TOrder} from "../../utils/types";
 import EnhancedTableHead from "../enhanced-table-head/enhanced-table-head";
-import {createData, getComparator, profileScoreComparator} from "../../utils/helpers";
+import {getComparator, profileScoreComparator} from "../../utils/helpers";
 import SkillsTableChips from "../skills-table-chips/skills-table-chips";
-import {TTableStudent} from "../../services/slices-types";
 import {useNavigate} from "react-router-dom";
 import {postDownloadExcel} from "../../services/async-thunk/download-excel";
 import {useDispatch} from "../../services/hooks/use-dispatch";
@@ -58,35 +57,11 @@ const scoreMap: Record<string, TStyle> = {
 
 type TEnhancedTableProps = {
   areCandidatesFound: boolean,
-  results: TTableStudent[]
+  rows: IData[],
+  setRows: (rows: IData[]) => void
 }
 
-export default function EnhancedTable({ areCandidatesFound, results }: TEnhancedTableProps) {
-  const [rows, setRows] = useState<IData[]>([]);
-  useEffect(() => {
-    const initalRows = results.map((student, index) => {
-      const skills = student.skills.map(skill => skill.title);
-      return createData(
-        index + 1,
-        {
-          name: `${student.name} ${student.surname}`,
-          profession: student.profession,
-          score: Number(student.skill_match),
-          src: student.avatar,
-        },
-        student.grade,
-        student.city,
-        skills,
-        {
-          phone: student.contact.phone,
-          email: student.contact.email
-        },
-        student.is_favourited,
-        student.id);
-    });
-    setRows(initalRows);
-  }, []);
-
+export default function EnhancedTable({ areCandidatesFound, rows, setRows }: TEnhancedTableProps) {
   const paginationOptions = tableOptions.pagination.map(option => option.text);
   const [pageOption, setPageOption] = useState<string>(paginationOptions[0]);
   const [order, setOrder] = useState<TOrder>('desc');

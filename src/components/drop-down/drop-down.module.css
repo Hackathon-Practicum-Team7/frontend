@@ -38,6 +38,7 @@
   background-size: contain;
   z-index: 5;
   transition-duration: 0.2s; /* скорость наступления эффекта hover */
+  cursor: pointer;
 }
 
 .drop-down-body__close-icon:hover {

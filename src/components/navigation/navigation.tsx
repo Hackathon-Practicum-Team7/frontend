@@ -1,4 +1,4 @@
-import React, {FunctionComponent} from 'react';
+import {FunctionComponent} from 'react';
 import {Avatar} from '@mui/material';
 
 import navStyles from './navigation.module.css';
