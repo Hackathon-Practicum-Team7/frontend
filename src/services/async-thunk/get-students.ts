@@ -42,7 +42,7 @@ export const getStudents = ( studentsQueryParams: TGetStudentsQueryParams ): App
           'Content-Type': 'application/json',
         }
       })
-      .then(res => getResponseData(res))
+      .then(res => getResponseData<any>(res))
       .then((res) => {
         dispatch(studentsActions.getStudentsSuccess(res));
       })

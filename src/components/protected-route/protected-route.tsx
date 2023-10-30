@@ -24,6 +24,7 @@ export const ProtectedRoute: FunctionComponent<{ children: React.ReactNode }> = 
     return validateToken(token)
       .then(() => true)
       .catch((err) => {
+        console.log(err);
         deleteCookie('accessToken');
         if (!refresh) {
           return false

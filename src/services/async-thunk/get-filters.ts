@@ -13,7 +13,7 @@ export const getCities = (): AppThunk => {
           'Content-Type': 'application/json',
         }
       })
-      .then(res => getResponseData(res))
+      .then(res => getResponseData<any>(res))
       .then((res) => {
         dispatch(filterActions.getCitiesSuccess(res));
       })
@@ -34,7 +34,7 @@ export const getSkills = (): AppThunk => {
           'Content-Type': 'application/json',
         }
       })
-      .then(res => getResponseData(res))
+      .then(res => getResponseData<any>(res))
       .then((res) => {
         dispatch(filterActions.getSkillsSuccess(res));
       })
@@ -55,7 +55,7 @@ export const getProfessionSkills = (): AppThunk => {
           'Content-Type': 'application/json',
         }
       })
-      .then(res => getResponseData(res))
+      .then(res => getResponseData<any>(res))
       .then((res) => {
         dispatch(filterActions.getProfessionStreamSuccess(res));
       })
