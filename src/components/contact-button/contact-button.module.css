@@ -7,3 +7,9 @@
   flex-direction: column;
   justify-content: center;
 }
+
+.text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

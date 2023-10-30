@@ -1,6 +1,7 @@
 import { ThemeProvider } from "@emotion/react";
 import { createTheme, Button } from "@mui/material";
 import { ReactNode } from "react";
+import styles from './contact-button.module.css';
 
 interface Props {
   icon: ReactNode
@@ -35,7 +36,9 @@ export const ContactButton: React.FC<Props> = ({icon, label, onClick, href}) => 
 
   return (
     <ThemeProvider theme={theme}>
-        <Button startIcon={icon} onClick={onClick} href={href}>{label}</Button>
+        <Button startIcon={icon} onClick={onClick} href={href}>
+          <div className={styles.text}>{label}</div>
+        </Button>
     </ThemeProvider>
   )
 }
