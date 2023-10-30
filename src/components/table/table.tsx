@@ -127,8 +127,8 @@ export default function EnhancedTable({ areCandidatesFound, rows, setRows }: TEn
     setPage(newPage - 1);
   };
 
-  const handleChangeRowsPerPage = (event: { target: { value: string[] } }) => {
-    const newValue = event.target.value[0];
+  const handleChangeRowsPerPage = (event: { target: { value: string | string[] } }) => {
+    const newValue = event.target.value as string;
     const option = tableOptions.pagination.find(option => option.text === newValue) || tableOptions.pagination[0];
     setPageOption(newValue);
     setRowsPerPage(option.value);
@@ -151,7 +151,6 @@ export default function EnhancedTable({ areCandidatesFound, rows, setRows }: TEn
   );
 
   function onDownloadClick() {
-    console.log(selected);
     dispatch(postDownloadExcel(selected));
   }
 
@@ -217,9 +216,13 @@ export default function EnhancedTable({ areCandidatesFound, rows, setRows }: TEn
                 rowCount={refinedRows.length}
               />
               { !areCandidatesFound ? (
-                <TableCell colSpan={8} sx={{ padding: 0, borderBottom: 0}}>
-                  <ResultsNotFound />
-                </TableCell>
+                <TableBody>
+                  <TableRow>
+                    <TableCell colSpan={8} sx={{ padding: 0, borderBottom: 0}}>
+                      <ResultsNotFound />
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
               ) : (
                 <TableBody>
                   {visibleRows.map((row, index) => {

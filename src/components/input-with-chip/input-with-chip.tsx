@@ -25,9 +25,10 @@ type TInputWithChipProps = {
   width?: number | string,
   chipVariant?: 'gray',
   withShowAll?: boolean,
-  onShowAll?: () => void
+  onShowAll?: () => void,
+  isSkill?: boolean,
 }
-export const InputWithChip = ({ filterOptions, input, setInput, placeholderText, width, chipVariant, withShowAll = true, onShowAll }: TInputWithChipProps): ReactElement => {
+export const InputWithChip = ({ filterOptions, input, setInput, placeholderText, width, chipVariant, withShowAll = true, onShowAll, isSkill }: TInputWithChipProps): ReactElement => {
   const handleChange = (_event: React.SyntheticEvent, value: string[], _reason: string) => {
     setInput(value);
   };
@@ -37,7 +38,7 @@ export const InputWithChip = ({ filterOptions, input, setInput, placeholderText,
     setInput(input.filter(item => item !== value));
   }
 
-  const chips = withShowAll ? input.slice(0, 6) : input;
+  const chips = (withShowAll && isSkill) ? input.slice(0, 6) : input;
 
   return (
     <ThemeProvider theme={themeInput}>
@@ -75,8 +76,9 @@ export const InputWithChip = ({ filterOptions, input, setInput, placeholderText,
               deleteIcon={<CloseRoundedIcon />}
             />
           ))}
-          { (input.length > 6 && withShowAll) && (
+          { (input.length > 6 && withShowAll && isSkill) && (
             <Chip
+              clickable={true}
               onClick={onShowAll}
               label={'Показать все'}
               variant={'outlined'}
@@ -86,7 +88,7 @@ export const InputWithChip = ({ filterOptions, input, setInput, placeholderText,
                 color: '#797981',
                 borderColor: 'rgba(90, 155, 255, 1)',
                 cursor: 'pointer',
-                ':hover': {
+                '&.MuiChip-clickable:hover': {
                   backgroundColor: '#1D6BF3',
                   color: 'white',
                   borderColor: 'transparent',

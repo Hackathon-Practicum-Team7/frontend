@@ -10,9 +10,8 @@ import {getCities, getProfessionSkills, getSkills} from "../../services/async-th
 import {Header} from "../header/header";
 import {Footer} from "../footer/footer";
 
-import {getCookie, isAuthorized} from '../../utils/helpers';
+import {getCookie} from '../../utils/helpers';
 
-import {userDataActions} from '../../services/slices/user-data';
 import {useSelector} from '../../services/hooks/use-selector';
 import {getUser} from '../../services/async-thunk/user';
 
@@ -22,19 +21,21 @@ function App(): ReactElement {
 
   const isLoginRoute = window.location.pathname === '/login';
 
-  const init = async () => {
-    const token = getCookie('accessToken');
-
-    console.log('currentToken:', token)
-    // await dispatch(userDataActions.setIsAuthorized(token !== undefined));
-    await dispatch(getUser(token ? token : ''));
-    await dispatch(getCities());
-    await dispatch(getSkills());
-    await dispatch(getProfessionSkills());
-  };
-
   useEffect(() => {
-    init();
+    (async () => {
+      await dispatch(getCities());
+      await dispatch(getSkills());
+      await dispatch(getProfessionSkills());
+    })();
+  }, []);
+  useEffect(() => {
+    (async () => {
+      const token = getCookie('accessToken');
+
+      console.log('currentToken:', token)
+      // await dispatch(userDataActions.setIsAuthorized(token !== undefined));
+      await dispatch(getUser(token ? token : ''));
+    })();
   }, [userDataState.isAuthorized]);
 
   // Подгрузка своих стилей для страницы авторизации и других страниц при переходе вперед-назад

@@ -9,9 +9,9 @@ import {IData} from "../../utils/types";
 
 export const ResultsPage = (): ReactElement => {
   const [ areCandidatesFound, setCandidatesFound ] = useState<boolean>(false);
-  const [ isLoaded, setLoaded ] = useState<boolean>(false);
   const [ rows, setRows ] = useState<IData[]>([]);
   const students = useSelector(state => state.getStudentsState.students);
+  const studentsLoading = useSelector(state => state.getStudentsState.studentsLoading);
 
   useEffect(() => {
     if (students.length === 0) {
@@ -39,13 +39,10 @@ export const ResultsPage = (): ReactElement => {
           student.id);
       });
       setRows(initalRows);
-      console.log(initalRows);
     }
-    setLoaded(true);
   }, [students]);
 
-  if (!isLoaded) return <p>Загрузка...</p>
-  else
+  if (studentsLoading) return <p>Загрузка...</p>
   return (
     <section className={styles.section}>
       <div className={styles.breadcrumbs}>

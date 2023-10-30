@@ -32,6 +32,7 @@ export const SkillsFilter = ({onChange, value, withShowAll = true}: {onChange: (
         setInput={setSelectedSkills}
         placeholderText={'Выберите навыки'}
         withShowAll={withShowAll}
+        isSkill={true}
         onShowAll={() => setShowSkillsModal(true)}
       />
 
