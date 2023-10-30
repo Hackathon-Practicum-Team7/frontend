@@ -16,9 +16,8 @@ export const loadProfile = (studentId: string): AppThunk => {
             'Authorization': `JWT ${token}`
           }
         })
-      const data = await getResponseData(response)
+      const data = await getResponseData<any>(response)
       dispatch(profileActions.loadProfileSuccess(data));
-      //dispatch(profileActions.loadProfileSuccess(profileData as TProfileData));
     } catch (error) {
       console.error('Failed to load student profile', error);
       dispatch(profileActions.loadProfileFailed());

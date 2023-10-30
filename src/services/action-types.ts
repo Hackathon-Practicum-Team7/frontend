@@ -24,8 +24,6 @@ export type TUserDataActions = {
 
 export type TInputValuesActions = {
   setInputValues: ActionCreatorWithPayload<{ email: string, password: string }>,
-  clearPassword: ActionCreatorWithoutPayload<string>,
-  clearInputValuesState: ActionCreatorWithoutPayload<string>,
 }
 
 export type TProfileActions = {

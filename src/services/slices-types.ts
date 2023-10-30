@@ -70,7 +70,7 @@ export type TTokens = {
 
 export type TInputValuesState = {
   email: string,
-  password: string | undefined,
+  password: string,
 }
 
 export type TProfileSliceState = {

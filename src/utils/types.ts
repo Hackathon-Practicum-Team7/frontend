@@ -1,5 +1,4 @@
 import React from 'react';
-import {To} from 'react-router-dom';
 
 import {TGrade} from "./constants/constants";
 

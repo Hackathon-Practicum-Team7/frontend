@@ -2,7 +2,6 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 import {TError, TUserData, TUserDataSliceState} from '../slices-types';
 import {TUserDataActions} from '../action-types';
-import {act} from 'react-dom/test-utils';
 
 export const userDataSlice = createSlice({
   name: 'userData',
