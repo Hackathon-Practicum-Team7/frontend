@@ -51,20 +51,26 @@ export const CardExperience: React.FC<Props> = ({jobs, experience}) => {
     },
   });
 
+
   return (
     <ThemeProvider theme={theme}>
       <Card>
         <CardHeader title={`Опыт работы ${experience} лет`} />
         <CardContent>
           <div className={styles.content}>
-            {jobs.map( job => (
+            {jobs.map( job => {
+              const descriptionParagraphs = job.about.split(/\r\n|\r|\n/g);
+
+              return (
               <div className={styles.item} key={job.id}>
               <p className={styles.title}>{job.position}</p>
               <p className={styles.company}>{job.organisation}</p>
               <p className={styles.time}>{job.started_at} - {job.finished_at}</p>
-              <p className={styles.description}>{job.about}</p>
+              {descriptionParagraphs.map(paragraph => (
+                <p className={styles.description}>{paragraph}</p>
+              ))}
             </div>
-            ))}
+            )})}
           </div>
 
         </CardContent>
