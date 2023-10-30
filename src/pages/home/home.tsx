@@ -16,11 +16,14 @@ import {useLocation} from 'react-router-dom';
 import {useDispatch} from "../../services/hooks/use-dispatch";
 import {getStudents} from "../../services/async-thunk/get-students";
 import {useNavigate} from "react-router-dom";
+import {selectedFiltersSlice} from "../../services/slices/selected-filters";
 
 export const HomePage = (): ReactElement => {
-  const { control, handleSubmit, reset, watch } = useForm<IFormInput>();
   const dispatch = useDispatch();
+  const selectedFilters = useSelector(state => state.selectedFiltersState);
+  const { control, handleSubmit, reset, resetField, setValue, watch } = useForm<IFormInput>();
   const navigate = useNavigate();
+
   const onSubmit = (data: IFormInput) => {
     const queryParams = data;
     if (queryParams.hasPortfolio[0] === 'Указано') {
@@ -32,10 +35,15 @@ export const HomePage = (): ReactElement => {
       }
       delete queryParams[option];
     }
+    dispatch(selectedFiltersSlice.actions.setSelectedFilters(queryParams));
     dispatch(getStudents(queryParams));
     navigate('/results');
   };
   const professionStream = watch("professionStream", "");
+  watch((_, { name }) => {
+    if (name === "professionStream")
+      resetField("professions");
+  });
   const professions = watch("professions", []);
 
   const isStreamChosen = (professionStream !== '');
@@ -57,7 +65,17 @@ export const HomePage = (): ReactElement => {
     if (pathname !== 'login' && main[0].classList.contains(loginStyles['main-login-page'])) {
       main[0].classList.remove(loginStyles['main-login-page']);
     }
-  }, [pathname])
+  }, [pathname]);
+  useEffect(() => {
+    Object.entries(selectedFilters).forEach(([key, value]) => {
+      setValue(key, value);
+    });
+  }, []);
+  useEffect(() => {
+    Object.entries(selectedFilters).forEach(([key, value]) => {
+      setValue(key, value);
+    });
+  }, [selectedFilters]);
 
   return (
     <section className={styles.section}>
@@ -160,7 +178,7 @@ export const HomePage = (): ReactElement => {
         </div>
         <div className={styles.buttons__container}>
           <CustomButton customType='customContained' type='submit' disabled={!isSubmitButtonEnabled}>Найти</CustomButton>
-          <CustomButton customType='customOutlined' type='button' onClick={reset}>Сбросить все</CustomButton>
+          <CustomButton customType='customOutlined' type='button' onClick={() => reset()}>Сбросить все</CustomButton>
         </div>
       </form>
     </section>

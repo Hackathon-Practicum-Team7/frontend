@@ -19,6 +19,8 @@ export interface IFormInput extends Record<string, string[] | string> {
   grade: string[];
 }
 
+export interface ISelectedFilters extends IFormInput {}
+
 export type TDropDown = {
   type: 'menu' | 'filters',
   isOpen: boolean,

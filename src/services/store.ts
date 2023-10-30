@@ -6,6 +6,7 @@ import { loadProfileSlice } from './slices/load-profile';
 import {getStudentsSlice} from "./slices/get-students";
 import {favoriteStudentsSlice} from "./slices/favorite";
 import {downloadExcelSlice} from "./slices/download-excel";
+import {selectedFiltersSlice} from "./slices/selected-filters";
 
 export const rootReducer = combineReducers({
     getFiltersState: getFiltersSlice.reducer,
@@ -14,7 +15,8 @@ export const rootReducer = combineReducers({
     loadProfileState: loadProfileSlice.reducer,
     getStudentsState: getStudentsSlice.reducer,
     downloadExcelState: downloadExcelSlice.reducer,
-    favoriteStudentsState:  favoriteStudentsSlice.reducer
+    favoriteStudentsState:  favoriteStudentsSlice.reducer,
+    selectedFiltersState:  selectedFiltersSlice.reducer,
   }
 );
 

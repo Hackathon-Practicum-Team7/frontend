@@ -20,7 +20,7 @@ const MenuProps = {
 
 type TSelectInputProps = {
   filterOptions: string[],
-  onChange?: (event: { target: { value: string[] } }) => void,
+  onChange?: (event: { target: { value: string[] | string } }) => void,
   value?: string[] | string,
   width?: number | string,
   isMulti?: boolean,
@@ -31,7 +31,10 @@ export const SelectInput = ({ filterOptions, onChange, width, isMulti, disabled,
   const selectedInput = (value && value.length > 0) ? value : [filterOptions[0]];
   const setSelectedInput = (newValue: string[]) => {
     if (onChange) {
-      onChange({target: {value: newValue}});
+      if (isMulti === false)
+        onChange({target: {value: newValue[0]}});
+      else
+        onChange({target: {value: newValue}});
     }
   }
 

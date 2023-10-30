@@ -23,7 +23,8 @@ export default function SkillsTableChips({skills}: {skills: string[]}): React.Re
   if (skills.length <= chipCount)
     return res;
   // >=4
-  res.push(<Chip
+  res.push(
+    <Chip
     key={'rest'}
     label={`${skills.length - chipCount}+`}
     variant={"outlined"}
@@ -34,8 +35,9 @@ export default function SkillsTableChips({skills}: {skills: string[]}): React.Re
       borderColor: 'rgba(90, 155, 255, 1)',
       '& .MuiChip-label': {
         padding: '0 8px',
-      }
+      },
     }}
-  />);
+  />
+  );
   return res;
 }
