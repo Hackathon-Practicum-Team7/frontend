@@ -37,6 +37,7 @@
   background: url(../../images/cross-icon.svg) center center no-repeat;
   background-size: contain;
   z-index: 5;
+  cursor: pointer;
   transition-duration: 0.2s; /* скорость наступления эффекта hover */
   cursor: pointer;
 }

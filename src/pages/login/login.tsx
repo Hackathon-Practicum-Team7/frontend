@@ -6,31 +6,43 @@ import {
   Typography
 } from '@mui/material';
 
-import {useForm} from 'react-hook-form';
+import {useForm, Controller} from 'react-hook-form';
+import {useNavigate, useLocation} from 'react-router-dom'
 import {yupResolver} from '@hookform/resolvers/yup';
 
 import loginStyles from './login.module.css';
 
-import {authValidationSchema} from '../../utils/constants/constants';
+import {authValidationSchema, failedAuthErrorMessage} from '../../utils/constants/constants';
 import {customLoginStyles} from '../../utils/constants/style-constants';
 import {TAuthForm} from '../../utils/types';
 import {useSelector} from '../../services/hooks/use-selector';
-import {inputValuesActions} from '../../services/async-thunk/login-input-values';
+import {inputValuesActions} from '../../services/slices/login-input-values';
 
 import {CustomButton} from '../../components/custom-button/custom-button';
 
 import {login} from '../../services/async-thunk/auth';
 import {useDispatch} from '../../services/hooks/use-dispatch';
-
+import {userDataActions, userDataSlice} from '../../services/slices/user-data';
 
 export const Login: FunctionComponent = () => {
   const inputValuesState = useSelector((state) => state.inputValuesState);
   const userDataState = useSelector((state) => state.userDataState);
 
-  const [emailInputValue, setEmailInputValue] = useState<string | undefined>(inputValuesState.inputValues);
-  const [passwordInputValue, setPasswordInputValue] = useState<string | undefined>(inputValuesState.inputValues);
+  const [emailInputValue, setEmailInputValue] = useState<string | undefined>(inputValuesState.email);
+  const [passwordInputValue, setPasswordInputValue] = useState<string | undefined>(inputValuesState.email);
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+  const {pathname} = useLocation();
+
+  const {register, handleSubmit, formState: {errors}, control} = useForm<TAuthForm>({
+    defaultValues: {
+      email: '',
+      password: ''
+    },
+    resolver: yupResolver(authValidationSchema),
+  });
 
   const handleSetInputValues = useCallback((emailValue: string, passwordValue: string) => {
     dispatch(inputValuesActions.setInputValues({
@@ -39,23 +51,25 @@ export const Login: FunctionComponent = () => {
     }))
   }, [inputValuesState.email, inputValuesState.password])
 
-  const form = useForm<TAuthForm>({
-    defaultValues: {
-      email: '',
-      password: ''
-    },
-    resolver: yupResolver(authValidationSchema),
-  });
-  const {register, handleSubmit, formState: {errors}} = form;
-
   const submitAuthForm = () => {
-    dispatch(login(inputValuesState.email, inputValuesState.password));
+    dispatch(login(inputValuesState.email, inputValuesState.password))
+      .then(() => {
+        navigate('/', {redirect: true});
+        // Чтобы обновить стили для страницы, которая не-логин, надо обновить window.location.pathname:
+        window.location.pathname = '/';
+      })
+      .catch((err) => {
+        console.log(err);
+        // dispatch(userDataActions.getUserDataFailed({message: failedAuthErrorMessage}));
+      })
   };
 
   useEffect(() => {
-    console.log('accessStore:', userDataState.accessToken)
-    console.log('refreshStore:', userDataState.refreshToken)
-  }, [userDataState])
+    const main = document.getElementsByTagName("main");
+    if (pathname === '/login') {
+      main[0].classList.add(loginStyles['main-login-page']);
+    }
+  }, [pathname])
 
   return (
     <section className={loginStyles['login-page']}>
@@ -68,25 +82,44 @@ export const Login: FunctionComponent = () => {
         </Typography>
         <form onSubmit={handleSubmit(submitAuthForm)} noValidate>
           <div className={loginStyles['login-page__inputs-wrap']}>
-            <Typography variant="subtitle1" align="center"
-                        sx={[customLoginStyles.text, customLoginStyles['text_subtitle']]}>
-              Войти в аккаунт
-            </Typography>
+            {
+              // userDataState.isError &&
+              // userDataState.error.message === 'Ошибка авторизации'
+              //   ? <FormHelperText
+              //     sx={[customLoginStyles.text, customLoginStyles['text_errored']]}>
+              //     {userDataState.error.message}
+              //   </FormHelperText>
+              //   :
+              <Typography variant="subtitle1" align="center"
+                              sx={[customLoginStyles.text, customLoginStyles['text_subtitle']]}>
+                  Войти в аккаунт
+                </Typography>
+            }
             <div>
-              <TextField variant="standard"
-                         type="email"
-                         {...register('email')}
-                         placeholder="Почта"
-                         fullWidth
-                         error={!!errors.email}
-                         sx={errors?.email ? customLoginStyles['input-outline_errored'] : customLoginStyles['input-outline']}
-                         InputProps={{disableUnderline: true}}
-                         inputProps={{sx: customLoginStyles.input}}
-                         onChange={(event) => {
-                           setEmailInputValue(event.target.value);
-                           handleSetInputValues(event.target.value, passwordInputValue ? passwordInputValue : '');
-                           // props.onChange(event.target.value)
-                         }}
+              <Controller
+                control={control}
+                name="email"
+                render={({
+                           field: {onChange},
+                           fieldState: {}
+                         }) => (
+                  <TextField variant="standard"
+                             type="email"
+                             autoComplete="email"
+                             placeholder="Почта"
+                             fullWidth
+                             {...register("email")}
+                             error={!!errors.email}
+                             sx={errors?.email ? customLoginStyles['input-outline_errored'] : customLoginStyles['input-outline']}
+                             InputProps={{disableUnderline: true}}
+                             inputProps={{sx: customLoginStyles.input}}
+                             onChange={(event) => {
+                               setEmailInputValue(event.target.value);
+                               handleSetInputValues(event.target.value, passwordInputValue ? passwordInputValue : '');
+                               onChange(event.target.value)
+                             }}
+                  />
+                )}
               />
               {
                 errors.email &&
@@ -97,26 +130,39 @@ export const Login: FunctionComponent = () => {
               }
             </div>
             <div>
-              <TextField variant="standard"
-                         type="password"
-                         {...register("password")}
-                         placeholder="Пароль"
-                         fullWidth
-                         error={!!errors.password}
-                         sx={errors?.password ? customLoginStyles['input-outline_errored'] : customLoginStyles['input-outline']}
-                         InputProps={{disableUnderline: true}}
-                         inputProps={{sx: customLoginStyles.input}}
-                         onChange={(event) => {
-                           setPasswordInputValue(event.target.value);
-                           handleSetInputValues(emailInputValue ? emailInputValue : '', event.target.value);
-                           // props.onChange(event.target.value)
-                         }}
+              <Controller
+                control={control}
+                name="password"
+                render={({
+                           field: {onChange},
+                           fieldState: {}
+                         }) => (
+                  <TextField variant="standard"
+                             type="password"
+                             autoComplete="current-password"
+                             {...register("password")}
+                             placeholder="Пароль"
+                             fullWidth
+                             error={!!errors.password}
+                             sx={errors?.password ? customLoginStyles['input-outline_errored'] : customLoginStyles['input-outline']}
+                             InputProps={{disableUnderline: true}}
+                             inputProps={{sx: customLoginStyles.input}}
+                             onChange={(event) => {
+                               setPasswordInputValue(event.target.value);
+                               handleSetInputValues(emailInputValue ? emailInputValue : '', event.target.value);
+                               onChange(event.target.value)
+                             }}
+                  />
+                )}
               />
               {
                 errors.password &&
                 <FormHelperText
                   sx={[customLoginStyles.text, customLoginStyles['text_errored']]}>
-                  {errors.password?.message}
+                  {
+
+                    errors.password?.message
+                  }
                 </FormHelperText>
               }
             </div>
@@ -127,8 +173,9 @@ export const Login: FunctionComponent = () => {
               Не помню пароль
             </Link>
           </Typography>
-          <CustomButton customType="customContained" width="100%"
-                        onClick={handleSubmit(submitAuthForm)}>Войти</CustomButton>
+          <CustomButton customType="customContained" width="100%" type="submit" onClick={() => {
+            console.log(userDataState.error.message)
+          }}>Войти</CustomButton>
         </form>
       </div>
       <Typography paragraph sx={[customLoginStyles.text, customLoginStyles['text_secondary']]}>

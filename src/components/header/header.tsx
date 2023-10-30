@@ -7,11 +7,14 @@ import avatarImage from '../../images/user-image.png';
 
 import {themeHeader} from '../../utils/constants/style-constants';
 
+import {useSelector} from '../../services/hooks/use-selector';
+
 import {DropDown} from '../drop-down/drop-down';
 import {BurgerMenuIcon} from '../burger-menu-icon/burger-menu-icon';
 import {Navigation} from '../navigation/navigation';
 
 export const Header: React.FC = () => {
+  const userDataState = useSelector(state => state.userDataState);
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
   const [isBurgerButtonActive, setIsBurgerButtonActive] = useState<boolean>(false)
 
@@ -35,7 +38,7 @@ export const Header: React.FC = () => {
         <BurgerMenuIcon onClick={handleShowMenu} isOpen={menuIsOpen} isActive={isBurgerButtonActive}/>
 
         <DropDown type="menu" onClose={handleShowMenu} isOpen={menuIsOpen}>
-          <Navigation/>
+          <Navigation onClosePerRedirect={handleShowMenu}/>
         </DropDown>
 
 
@@ -51,7 +54,9 @@ export const Header: React.FC = () => {
             <p>Добавить вакансию</p>
           </Button>
         </ThemeProvider>
-        <Avatar src={avatarImage} alt="Аватар пользователя" sx={{ width: 50, height: 50 }}/>
+        <Avatar src={userDataState.user?.avatar ? userDataState.user?.avatar : avatarImage}
+                alt="Аватар пользователя"
+                sx={{ width: 50, height: 50 }}/>
       </div>
     </header>
   )
