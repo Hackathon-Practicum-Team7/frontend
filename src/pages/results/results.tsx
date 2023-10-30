@@ -6,6 +6,7 @@ import { BreadcrumbsNav } from "../../components/breadcrumbs/breadcrumbs";
 import {useSelector} from "../../services/hooks/use-selector";
 import {createData} from "../../utils/helpers";
 import {IData} from "../../utils/types";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export const ResultsPage = (): ReactElement => {
   const [ areCandidatesFound, setCandidatesFound ] = useState<boolean>(false);
@@ -42,7 +43,7 @@ export const ResultsPage = (): ReactElement => {
     }
   }, [students]);
 
-  if (studentsLoading) return <p>Загрузка...</p>
+  if (studentsLoading) return <CircularProgress color="inherit" sx={{ margin: 'auto'}}/>
   return (
     <section className={styles.section}>
       <div className={styles.breadcrumbs}>
