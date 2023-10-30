@@ -1,6 +1,5 @@
 import {IContacts, IData, IProfile, TComparator, TOrder} from "./types";
 import {gradeOrder, TGrade} from "./constants/constants";
-import {refreshToken, validateToken} from '../services/async-thunk/auth';
 
 export function createData(
   id: number,
@@ -71,14 +70,27 @@ export function getComparator<Key extends keyof IData>(
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-export const getResponseData = (res: Response) => {
-  if (!res.ok) {
-    return res.text().then(text => {
-      throw new Error(`Ошибка: ${text}`)
-    })
-  }
-  return res.json();
+
+export function getResponseData<T>(res: Response): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    if (res.ok) {
+      resolve(res.json());
+    } else {
+      reject(res.json().then((err) => {
+        return err.message;
+      }));
+    }
+  });
 }
+
+// export function getResponseData<T>(res: Response): Promise<void | T> {
+//   if (!res.ok) {
+//     return res.json().then((err) => {
+//       throw new Error(err.message);
+//     })
+//   }
+//   return res.json();
+// }
 
 export const checkDownloadResponse = (res: Response) => {
   if (!res.ok) {
@@ -136,38 +148,4 @@ export function getCookie(cookieName: string): string | undefined {
 
 export function deleteCookie(cookieName: string) {
   setCookie(cookieName, null, {expires: -1});
-}
-
-
-export const isAuthorized = (totalAttempts: number = 0): any => {
-  if (totalAttempts > 3) {
-    return false;
-  }
-  const token = getCookie('accessToken');
-  const refresh = getCookie('refreshToken');
-  if (!token) {
-    if (!refresh) {
-      return false;
-    }
-    return refreshToken(refresh)
-      .then(() => isAuthorized(totalAttempts + 1))
-      .catch((err) => {
-        console.log(err);
-        deleteCookie('refreshToken')
-      })
-  }
-  return validateToken(token)
-    .then(() => true)
-    .catch((err) => {
-      deleteCookie('accessToken');
-      if (!refresh) {
-        return false
-      }
-      return refreshToken(refresh)
-        .then(() => isAuthorized(totalAttempts + 1))
-        .catch((err) => {
-          console.log(err);
-          deleteCookie('refreshToken')
-        })
-    })
 }

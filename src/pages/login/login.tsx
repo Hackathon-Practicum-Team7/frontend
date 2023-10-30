@@ -51,15 +51,12 @@ export const Login: FunctionComponent = () => {
   }, [inputValuesState.email, inputValuesState.password])
 
   const submitAuthForm = () => {
-    dispatch(login(inputValuesState.email, inputValuesState.password))
+    Promise.resolve(dispatch(login(inputValuesState.email, inputValuesState.password)))
       .then(() => {
-        navigate('/', {redirect: true});
-        // Чтобы обновить стили для страницы, которая не-логин, надо обновить window.location.pathname:
-        // window.location.pathname = '/';
+        navigate('/', {replace: true});
       })
       .catch((err) => {
         console.log(err);
-        // dispatch(userDataActions.getUserDataFailed({message: failedAuthErrorMessage}));
       })
   };
 

@@ -1,7 +1,7 @@
 import {AppDispatch, AppThunk, TTokens} from '../slices-types';
 import {userDataActions} from '../slices/user-data';
 
-import {baseUrl, failedAuthErrorMessage} from '../../utils/constants/constants';
+import {baseUrl} from '../../utils/constants/constants';
 
 import {getResponseData} from '../../utils/helpers';
 import {setCookie} from '../../utils/helpers';
@@ -39,7 +39,7 @@ export const login = (email: string, password: string): AppThunk => {
         setCookie('accessToken', data.access);
         setCookie('refreshToken', data.refresh);
         console.log('cookiesAreSet')
-        return dispatch(userDataActions.setIsAuthorized(true));
+        return dispatch(userDataActions.setIsAuthorized(true))
       })
       .catch((error) => {
         console.log(error);

@@ -6,20 +6,23 @@ import {getResponseData} from '../../utils/helpers';
 
 export const getUser = (token: string | undefined): AppThunk => {
   return function (dispatch: AppDispatch) {
-    dispatch(userDataActions.getUserData());
+    // dispatch(userDataActions.getUserData());
 
-    const headers = !token
-      ? {
-        'Content-Type': 'application/json',
-      }
-      : {
-        'Content-Type': 'application/json',
-        'Authorization': `JWT ${token}`,
-      };
+    // const headers = !token
+    //   ? {
+    //     'Content-Type': 'application/json',
+    //   }
+    //   : {
+    //     'Content-Type': 'application/json',
+    //     'Authorization': `JWT ${token}`,
+    //   };
 
     return fetch(`${baseUrl}/auth/users/me/`, {
       method: 'GET',
-      headers: headers
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token ? 'JWT' + ' ' + token : undefined}`,
+      }
     })
       .then(res => {
         if (res.ok || res.status !== 401) {
