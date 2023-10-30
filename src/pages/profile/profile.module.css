@@ -24,6 +24,7 @@
   padding: 22px 0;
   display: grid;
   grid-template-columns: 242px 262px 242px 186px 225px;
+  align-items: start;
 }
 
 .cell {

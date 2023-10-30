@@ -9,8 +9,9 @@ import { Avatar } from '@mui/material';
 import { CustomButton } from '../../components/custom-button/custom-button';
 import SuitcaseIcon from '../../images/suitcase-icon-black.svg?react';
 import DownloadIcon from '../../images/download-icon.svg?react';
-import EmailIcon from '../../images/email-icon.svg?react';
-import PaperPlaneIcon from '../../images/paper-plane-icon.svg?react';
+import EmailIcon from '../../images/email-cc-icon.svg?react';
+import PhoneIcon from '../../images/phone-cc-icon.svg?react';
+import PaperPlaneIcon from '../../images/telegramm-cc-icon.svg?react';
 import { ContactButton } from '../../components/contact-button/contact-button';
 import { FavoriteButton } from '../../components/favorite-button/favorite-button';
 import { useParams } from 'react-router-dom';
@@ -69,7 +70,8 @@ export const ProfilePage: React.FC = () => {
             </div>
             <div className={styles.cellButton}>
               <ContactButton icon={<EmailIcon />} label={profile.contact.email} onClick={ () => copyToClipboard(profile.contact.email)}/>
-              <ContactButton icon={<PaperPlaneIcon />} label={profile.contact.phone} onClick={ () => copyToClipboard(profile.contact.phone) }/>
+              <ContactButton icon={<PhoneIcon />} label={profile.contact.phone} onClick={ () => copyToClipboard(profile.contact.phone) }/>
+              <ContactButton icon={<PaperPlaneIcon />} label={profile.contact.telegram} href={profile.contact.telegram}/>
             </div>
           </div>
         </div>

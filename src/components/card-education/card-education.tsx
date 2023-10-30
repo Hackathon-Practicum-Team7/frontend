@@ -59,7 +59,7 @@ export const CardEducation: React.FC<Props> = ({educations}) => {
 
             {educations.map(education => (
               <div className={styles.item} key={education.id}>
-                <p className={styles.time}>{education.started_at} - {education.finished_at || 'по настоящее время'}</p>
+                <p className={styles.time}>{education.started_at && `${education.started_at} - ` }{education.finished_at || 'по настоящее время'}</p>
                 <p className={styles.title}>{education.speciality}</p>
                 <p className={styles.company}>{education.institute}</p>
               </div>

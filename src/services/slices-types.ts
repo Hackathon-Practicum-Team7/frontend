@@ -91,6 +91,7 @@ export type TProfileData = {
     id: number,
     email: string,
     phone: string,
+    telegram: string,
     portfolio: string
   },
   avatar: string,
