@@ -83,12 +83,14 @@ export const Login: FunctionComponent = () => {
         <form onSubmit={handleSubmit(submitAuthForm)} noValidate>
           <div className={loginStyles['login-page__inputs-wrap']}>
             {
-              userDataState.isError && userDataState.error.message === failedAuthErrorMessage
-                ? <FormHelperText
-                  sx={[customLoginStyles.text, customLoginStyles['text_errored']]}>
-                  {userDataState.error.message}
-                </FormHelperText>
-                : <Typography variant="subtitle1" align="center"
+              // userDataState.isError &&
+              // userDataState.error.message === 'Ошибка авторизации'
+              //   ? <FormHelperText
+              //     sx={[customLoginStyles.text, customLoginStyles['text_errored']]}>
+              //     {userDataState.error.message}
+              //   </FormHelperText>
+              //   :
+              <Typography variant="subtitle1" align="center"
                               sx={[customLoginStyles.text, customLoginStyles['text_subtitle']]}>
                   Войти в аккаунт
                 </Typography>

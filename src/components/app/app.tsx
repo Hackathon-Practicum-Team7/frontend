@@ -50,10 +50,10 @@ function App(): ReactElement {
 
   return (
     <BrowserRouter>
-      {/*{*/}
-      {/*  !isLoginRoute &&*/}
-      {/*  <Header/>*/}
-      {/*}*/}
+      {
+        !isLoginRoute &&
+        <Header/>
+      }
       <main className="main">
         <RoutesComponent/>
       </main>
