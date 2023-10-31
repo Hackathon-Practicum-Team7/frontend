@@ -47,6 +47,7 @@ export const InputWithChip = ({ filterOptions, input, setInput, placeholderText,
           value={input}
           onChange={handleChange}
           multiple
+          disableCloseOnSelect
           disableClearable={true}
           renderInput={(params) => <TextField placeholder={placeholderText} {...params} />}
           options={filterOptions}
