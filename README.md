@@ -30,7 +30,7 @@
 
 ------
 
-<h3 align="center">Запуск проекта</h2>
+<h3 align="center">Локальный запуск проекта</h2>
 
 Проект создан с помощью **<a href="https://vitejs.dev/">Vite</a>**
 
@@ -60,3 +60,14 @@ npm run preview
 
 
 ```
+
+------
+
+<h3 align="center">Деплой</h2>
+
+Продакшн-версия доступна по ссылке: https://seventeam-hakaton.sytes.net/
+
+Данные для авторизации:
+
+_Логин_: recruiter1@example.com
+_Пароль_: MnTre328
