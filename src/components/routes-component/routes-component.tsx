@@ -1,34 +1,31 @@
 import {ReactElement} from 'react';
 import {Route, Routes} from 'react-router-dom';
 
-// import {ProtectedRoute} from '../protected-route/protected-route';
-import {Login} from '../../pages/login/login';
+import {ProtectedRoute} from '../protected-route/protected-route';
 import {HomePage} from "../../pages/home/home"
+import {Login} from '../../pages/login/login';
 import {ResultsPage} from "../../pages/results/results";
-// import {ProfilePage} from '../../pages/profile/profile';
-// import { ApologyPage } from '../../pages/apology-page/apology-page';
-import {InProgressPage} from '../../pages/in-progress-page';
-import {NotFound404} from '../../pages/not-found-404';
+import {ProfilePage} from '../../pages/profile/profile';
 
 export default function RoutesComponent(): ReactElement {
   return (
     <Routes>
       <Route path='login' element={<Login/>}/>
       <Route path='/' element={
-        // <ProtectedRoute>
+        <ProtectedRoute>
           <HomePage/>
-        // </ProtectedRoute>
+        </ProtectedRoute>
       }/>
       <Route path='results' element={
-        // <ProtectedRoute>
+        <ProtectedRoute>
           <ResultsPage/>
-        // </ProtectedRoute>
+        </ProtectedRoute>
       }/>
-      {/*<Route path='profile/:studentId' element={*/}
-      {/*  <ProtectedRoute>*/}
-      {/*    <ProfilePage/>*/}
-      {/*  </ProtectedRoute>*/}
-      {/*}/>*/}
+      <Route path='profile/:studentId' element={
+        <ProtectedRoute>
+          <ProfilePage/>
+        </ProtectedRoute>
+      }/>
       <Route path='/in-progress' element={<InProgressPage/>}/>
       <Route path='/*' element={<NotFound404/>}/>
     </Routes>
