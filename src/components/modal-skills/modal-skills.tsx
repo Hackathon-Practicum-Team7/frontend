@@ -17,7 +17,10 @@ export const ModalSkills: React.FC<Props> = ({ value, onChange, onClose }) => {
 
   const modalContent = (
     <Overlay onClose={onClose}>
-      <section className={styles.section}>
+      <section className={styles.section} onClick={(event) => {
+        event.stopPropagation();
+        event.preventDefault();
+      }}>
 
         <div className={styles.modal}>
           <div className={styles.titleArea}>

@@ -9,7 +9,7 @@ import { Avatar } from '@mui/material';
 import { CustomButton } from '../../components/custom-button/custom-button';
 import SuitcaseIcon from '../../images/suitcase-icon-black.svg?react';
 import DownloadIcon from '../../images/download-icon.svg?react';
-import EmailIcon from '../../images/email-cc-icon.svg?react';
+import EmailIcon from '../../images/email-icon-black.svg?react';
 import PhoneIcon from '../../images/phone-cc-icon.svg?react';
 import PaperPlaneIcon from '../../images/telegramm-cc-icon.svg?react';
 import { ContactButton } from '../../components/contact-button/contact-button';
@@ -18,6 +18,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import { useDispatch } from '../../services/hooks/use-dispatch';
 import { loadProfile } from '../../services/async-thunk/load-profile';
 import { useSelector } from '../../services/hooks/use-selector';
+import CircularProgress from "@mui/material/CircularProgress";
 
 export const ProfilePage: React.FC = () => {
   const { studentId } = useParams();
@@ -32,7 +33,7 @@ export const ProfilePage: React.FC = () => {
   }, [studentId]);
 
   if (profileLoading || !profile) {
-    return <></>
+    return <CircularProgress color="inherit" sx={{ margin: 'auto'}}/>
   }
 
   const copyToClipboard = async (text: string) => {
