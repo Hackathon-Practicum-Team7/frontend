@@ -97,7 +97,6 @@ export const Login: FunctionComponent = () => {
                 name="email"
                 render={({
                            field: {onChange},
-                           fieldState: {}
                          }) => (
                   <TextField variant="standard"
                              type="email"
@@ -131,7 +130,6 @@ export const Login: FunctionComponent = () => {
                 name="password"
                 render={({
                            field: {onChange},
-                           fieldState: {}
                          }) => (
                   <TextField variant="standard"
                              type="password"
