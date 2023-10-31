@@ -40,7 +40,9 @@ export const SkillsFilter = ({onChange, value, withShowAll = true}: {onChange: (
         <ModalSkills
           value={selectedSkills}
           onChange={setSelectedSkills}
-          onClose={() => setShowSkillsModal(false) }
+          onClose={() => {
+            setShowSkillsModal(false)
+          }}
         />
       )}
     </>
