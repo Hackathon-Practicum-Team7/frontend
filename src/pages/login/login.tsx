@@ -172,7 +172,7 @@ export const Login: FunctionComponent = () => {
       </div>
       <Typography paragraph sx={[customLoginStyles.text, customLoginStyles['text_secondary']]}>
         Новый пользователь?
-        <Link href="#"
+        <Link href={'/in-progress'}
               underline="hover"
               sx={[customLoginStyles.text, customLoginStyles['text_secondary'], customLoginStyles['text_link']]}>
           Зарегистрироваться

@@ -9,7 +9,7 @@ import { Avatar } from '@mui/material';
 import { CustomButton } from '../../components/custom-button/custom-button';
 import SuitcaseIcon from '../../images/suitcase-icon-black.svg?react';
 import DownloadIcon from '../../images/download-icon.svg?react';
-import EmailIcon from '../../images/email-cc-icon.svg?react';
+import EmailIcon from '../../images/email-icon-black.svg?react';
 import PhoneIcon from '../../images/phone-cc-icon.svg?react';
 import PaperPlaneIcon from '../../images/telegramm-cc-icon.svg?react';
 import { ContactButton } from '../../components/contact-button/contact-button';
