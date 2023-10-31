@@ -73,3 +73,11 @@ export type TMenuItem = {
   path: string,
   onClick: () => void
 }
+
+export type TExtraPage = {
+  type: 'in-progress' | 'not-found',
+  title: string,
+  subtitle: string,
+  firstParagraph: string,
+  secondParagraph: string,
+}

@@ -1,4 +1,5 @@
 import {FunctionComponent} from 'react';
+import {useNavigate} from 'react-router-dom';
 import {Avatar} from '@mui/material';
 
 import navStyles from './navigation.module.css';
@@ -15,6 +16,7 @@ export const Navigation: FunctionComponent<{ onClosePerRedirect: () => void }> =
 
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
   const handleOnClickExit = () => {
     deleteCookie('accessToken');
     deleteCookie('refreshToken');
@@ -24,7 +26,7 @@ export const Navigation: FunctionComponent<{ onClosePerRedirect: () => void }> =
   return (
     <nav className={navStyles.menu}>
       <div>
-        <button className={navStyles['menu__profile-button']}>
+        <button className={navStyles['menu__profile-button']} onClick={() => navigate('/in-progress')}>
           <div className={navStyles['menu__profile-button-wrap']}>
             <Avatar src={userDataState.user?.avatar ? userDataState.user?.avatar : avatarImage}
                     alt="Аватар пользователя"
@@ -36,18 +38,18 @@ export const Navigation: FunctionComponent<{ onClosePerRedirect: () => void }> =
           </div>
         </button>
         <ul className={`${navStyles.list} ${navStyles['list_outer']}`}>
-          <MenuItem itemName="Мои вакансии" path="" onClick={() => console.log('hi there!')}/>
+          <MenuItem itemName="Мои вакансии" path="/in-progress" onClick={props.onClosePerRedirect}/>
           <li className={navStyles['decor-item']}/>
           <ul className={navStyles.list}>
             <MenuItem itemName="Найти кандидата" path="/" onClick={props.onClosePerRedirect}/>
-            <MenuItem itemName="Избранное" path="" onClick={() => console.log('hi there!')}/>
-            <MenuItem itemName="Чат" path="" onClick={() => console.log('hi there!')}/>
+            <MenuItem itemName="Избранное" path="/in-progress" onClick={props.onClosePerRedirect}/>
+            <MenuItem itemName="Чат" path="/in-progress" onClick={props.onClosePerRedirect}/>
           </ul>
         </ul>
       </div>
       <ul className={navStyles.list}>
-        <MenuItem itemName="Инфо профиля" path="" onClick={() => console.log('hi there!')}/>
-        <MenuItem itemName="Помощь" path="" onClick={() => console.log('hi there!')}/>
+        <MenuItem itemName="Инфо профиля" path="/in-progress" onClick={props.onClosePerRedirect}/>
+        <MenuItem itemName="Помощь" path="/in-progress" onClick={props.onClosePerRedirect}/>
         <MenuItem itemName="Выйти" path="/login" onClick={handleOnClickExit}/>
       </ul>
     </nav>

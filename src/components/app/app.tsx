@@ -19,8 +19,6 @@ function App(): ReactElement {
   const userDataState = useSelector(state => state.userDataState)
   const dispatch = useDispatch();
 
-  const isLoginRoute = window.location.pathname === '/login';
-
   useEffect(() => {
     (async () => {
       await dispatch(getCities());
@@ -38,31 +36,13 @@ function App(): ReactElement {
     })();
   }, [userDataState.isAuthorized]);
 
-  // Подгрузка своих стилей для страницы авторизации и других страниц при переходе вперед-назад
-  useEffect(() => {
-    const handleLocationChange = () => {
-      // Обновляем window.location.pathname при изменении адресной строки
-      if (window.location.pathname === '/login') {
-        window.location.pathname = window.location.pathname;
-      }
-    };
-    // popstate - кнопки "назад-вперед" в браузере
-    window.addEventListener("popstate", handleLocationChange);
-    return () => {
-      window.removeEventListener("popstate", handleLocationChange);
-    };
-  }, [window.location.pathname]);
-
   return (
     <BrowserRouter>
-      {
-        !isLoginRoute &&
-        <Header/>
-      }
+      <Header/>
       <main className="main">
         <RoutesComponent/>
       </main>
-      <Footer isTransparent={isLoginRoute}/>
+      <Footer/>
     </BrowserRouter>
   )
 }

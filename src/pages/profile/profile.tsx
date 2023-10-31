@@ -14,7 +14,7 @@ import PhoneIcon from '../../images/phone-cc-icon.svg?react';
 import PaperPlaneIcon from '../../images/telegramm-cc-icon.svg?react';
 import { ContactButton } from '../../components/contact-button/contact-button';
 import { FavoriteButton } from '../../components/favorite-button/favorite-button';
-import { useParams } from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import { useDispatch } from '../../services/hooks/use-dispatch';
 import { loadProfile } from '../../services/async-thunk/load-profile';
 import { useSelector } from '../../services/hooks/use-selector';
@@ -24,6 +24,8 @@ export const ProfilePage: React.FC = () => {
   const dispatch = useDispatch();
 
   const {profile, profileLoading} = useSelector(state => state.loadProfileState);
+
+  const navigate = useNavigate();
 
   useEffect( () => {
     dispatch(loadProfile(studentId!));
@@ -78,7 +80,11 @@ export const ProfilePage: React.FC = () => {
 
         <div className={styles.buttons}>
           <FavoriteButton studentId={studentId!} />
-          <CustomButton width={'266px'} children={'Пригласить на собеседование'} customType={'customOutlined'}></CustomButton>
+          <CustomButton width={'266px'}
+                        children={'Пригласить на собеседование'}
+                        customType={'customOutlined'}
+                        onClick={() => navigate('/in-progress')}
+          ></CustomButton>
         </div>
       </div>
 

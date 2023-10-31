@@ -1,0 +1,60 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  box-sizing: border-box;
+  padding-left: 155px;
+  width: 100%;
+  background-size: contain;
+}
+
+.section_in-progress {
+  background: url(../../images/illustration-in-progress-page.png) 85% 50% no-repeat;
+}
+
+.section_not-found {
+  background: url(../../images/illustration-not-found-page.png) 85% 50% no-repeat;
+}
+
+.info-area {
+  margin: 15vh 0;
+}
+
+.text {
+  margin: 0;
+  font-family: 'YS-Text', 'Arial', sans-serif;
+}
+
+.text_title {
+  margin-bottom: 24px;
+  font-family: 'YS-Display', 'Arial', sans-serif;
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 40px;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, .25);
+}
+
+.text_subtitle {
+  margin-bottom: 16px;
+  font-family: 'YS-Display', 'Arial', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.text_paragraph {
+  margin-bottom: 16px;
+
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.info-area__text-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 56px;
+  max-width: 443px;
+  height: 78px;
+}

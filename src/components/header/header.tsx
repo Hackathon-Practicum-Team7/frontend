@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Avatar, Button, ThemeProvider} from '@mui/material';
+import {Avatar, ThemeProvider} from '@mui/material';
+import {useLocation, useNavigate} from 'react-router-dom';
 
 import styles from './header.module.css';
 import overlayStyles from '../overlay/overlay.module.css';
@@ -12,11 +13,15 @@ import {useSelector} from '../../services/hooks/use-selector';
 import {DropDown} from '../drop-down/drop-down';
 import {BurgerMenuIcon} from '../burger-menu-icon/burger-menu-icon';
 import {Navigation} from '../navigation/navigation';
+import {CustomButton} from '../custom-button/custom-button';
 
 export const Header: React.FC = () => {
   const userDataState = useSelector(state => state.userDataState);
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
   const [isBurgerButtonActive, setIsBurgerButtonActive] = useState<boolean>(false)
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleShowMenu = () => {
     setMenuIsOpen(!menuIsOpen);
@@ -32,32 +37,57 @@ export const Header: React.FC = () => {
     }
   }, [menuIsOpen])
 
+  if (location.pathname === '/login') {
+    return null;
+  }
+
   return (
-    <header className={styles.header}>
-      <div className={styles.leftBar}>
-        <BurgerMenuIcon onClick={handleShowMenu} isOpen={menuIsOpen} isActive={isBurgerButtonActive}/>
+    <>
+      {
+        location.pathname !== '/'
+        && location.pathname !== '/login'
+        && location.pathname !== '/results'
+        && location.pathname !== '/profile/:studentId'
+        && location.pathname !== '/in-progress'
+          ? <header className={`${styles.header} ${styles['header_not-found-page']}`}>
+            <div className={styles.leftBar}>
 
-        <DropDown type="menu" onClose={handleShowMenu} isOpen={menuIsOpen}>
-          <Navigation onClosePerRedirect={handleShowMenu}/>
-        </DropDown>
+              <div className={styles.content}>
+                <p className={styles.logo}>Карьерный Трекер</p>
+                <p className={styles.text}>для работодателей, 2023</p>
+              </div>
+            </div>
+          </header>
+
+          : <header className={styles.header}>
+            <div className={styles.leftBar}>
+              {
+                <BurgerMenuIcon onClick={handleShowMenu} isOpen={menuIsOpen} isActive={isBurgerButtonActive}/>
+              }
+
+              <DropDown type="menu" onClose={handleShowMenu} isOpen={menuIsOpen}>
+                <Navigation onClosePerRedirect={handleShowMenu}/>
+              </DropDown>
 
 
-        <div className={styles.content}>
-          <p className={styles.logo}>Карьерный Трекер</p>
-          <p className={styles.text}>для работодателей, 2023</p>
-        </div>
-      </div>
+              <div className={styles.content}>
+                <p className={styles.logo}>Карьерный Трекер</p>
+                <p className={styles.text}>для работодателей, 2023</p>
+              </div>
+            </div>
 
-      <div className={styles.rightBar}>
-        <ThemeProvider theme={themeHeader}>
-          <Button href="/add-vacancy" className={styles.button} variant='contained'>
-            <p>Добавить вакансию</p>
-          </Button>
-        </ThemeProvider>
-        <Avatar src={userDataState.user?.avatar ? userDataState.user?.avatar : avatarImage}
-                alt="Аватар пользователя"
-                sx={{ width: 50, height: 50 }}/>
-      </div>
-    </header>
+            <div className={styles.rightBar}>
+              <ThemeProvider theme={themeHeader}>
+                <CustomButton customType="customContained" onClick={() => navigate('/in-progress')}>
+                  <p>Добавить вакансию</p>
+                </CustomButton>
+              </ThemeProvider>
+              <Avatar src={userDataState.user?.avatar ? userDataState.user?.avatar : avatarImage}
+                      alt="Аватар пользователя"
+                      sx={{width: 50, height: 50}}/>
+            </div>
+          </header>
+      }
+    </>
   )
 }
