@@ -12,11 +12,13 @@ import {getStudents} from "../../services/async-thunk/get-students";
 import {useDispatch} from "../../services/hooks/use-dispatch";
 import {useSelector} from "../../services/hooks/use-selector";
 import {selectedFiltersSlice} from "../../services/slices/selected-filters";
+import {useNavigate} from "react-router-dom";
 
 export const SideFilters = ({setFiltersAreOpen} : {setFiltersAreOpen: (value: boolean) => void}): ReactElement => {
   const dispatch = useDispatch();
   const selectedFilters = useSelector(state => state.selectedFiltersState);
   const {control, handleSubmit, reset, watch, resetField, setValue} = useForm<IFormInput>();
+  const navigate = useNavigate();
 
   const professionStream = watch('professionStream', '');
   watch((_, { name }) => {
@@ -249,7 +251,7 @@ export const SideFilters = ({setFiltersAreOpen} : {setFiltersAreOpen: (value: bo
                 Применить фильтры
               </CustomButton>
               <CustomButton width="100%" customType="customOutlinedFilter" extraStyles="filterButton"
-                            onClick={() => console.log('hi')} type="submit">
+                            onClick={() => navigate('/in-progress')} type="submit">
                 Создать вакансию на основе фильтров
               </CustomButton>
             </div>
