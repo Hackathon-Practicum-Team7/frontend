@@ -66,10 +66,6 @@ export const tableOptions = {
   ],
 }
 
-export const failedAuthErrorMessage = 'Ошибка авторизации';
-// export const failedAuthErrorMessage = 'Неверные почта или пароль';
-// export const failedAuthErrorMessage = 'Не удается войти. Пожалуйста, проверь правильность написания логина и пароля';
-
 export const authValidationSchema = yup.object().shape({
   email: yup
     .string()

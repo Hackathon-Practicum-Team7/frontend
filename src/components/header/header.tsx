@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Avatar, Button, ThemeProvider} from '@mui/material';
+import {Avatar, ThemeProvider} from '@mui/material';
+import {useNavigate} from 'react-router-dom';
 
 import styles from './header.module.css';
 import overlayStyles from '../overlay/overlay.module.css';
@@ -12,11 +13,14 @@ import {useSelector} from '../../services/hooks/use-selector';
 import {DropDown} from '../drop-down/drop-down';
 import {BurgerMenuIcon} from '../burger-menu-icon/burger-menu-icon';
 import {Navigation} from '../navigation/navigation';
+import {CustomButton} from '../custom-button/custom-button';
 
 export const Header: React.FC = () => {
   const userDataState = useSelector(state => state.userDataState);
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
   const [isBurgerButtonActive, setIsBurgerButtonActive] = useState<boolean>(false)
+
+  const navigate = useNavigate();
 
   const handleShowMenu = () => {
     setMenuIsOpen(!menuIsOpen);
@@ -50,9 +54,9 @@ export const Header: React.FC = () => {
 
       <div className={styles.rightBar}>
         <ThemeProvider theme={themeHeader}>
-          <Button href="/add-vacancy" className={styles.button} variant='contained'>
+          <CustomButton customType="customContained" onClick={() => navigate('/in-progress')}>
             <p>Добавить вакансию</p>
-          </Button>
+          </CustomButton>
         </ThemeProvider>
         <Avatar src={userDataState.user?.avatar ? userDataState.user?.avatar : avatarImage}
                 alt="Аватар пользователя"
