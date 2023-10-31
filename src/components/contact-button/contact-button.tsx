@@ -1,16 +1,17 @@
 import { ThemeProvider } from "@emotion/react";
-import { createTheme, Button } from "@mui/material";
-import { ReactNode } from "react";
+import {createTheme, Button, Tooltip} from "@mui/material";
+import {ReactNode, useState} from "react";
 import styles from './contact-button.module.css';
 
 interface Props {
   icon: ReactNode
   label: string
   onClick?: () => void
-  href?: string
+  href?: string,
+  tooltipTitle?: string
 }
 
-export const ContactButton: React.FC<Props> = ({icon, label, onClick, href}) => {
+export const ContactButton: React.FC<Props> = ({icon, label, onClick, href, tooltipTitle}) => {
   const theme = createTheme({
     components: {
       MuiButton: {
@@ -31,14 +32,50 @@ export const ContactButton: React.FC<Props> = ({icon, label, onClick, href}) => 
           },
         },
       },
+
+      MuiTooltip: {
+        styleOverrides: {
+          tooltip: {
+            backgroundColor: 'rgba(121, 121, 129, 0.9)',
+            fontFamily: 'YS-Text',
+            fontWeight: '400',
+            fontSize: '12px'
+          },
+          arrow: {
+            color: 'rgba(121, 121, 129, 0.9)',
+          }
+        }
+      }
     },
   });
 
+  const [open, setOpen] = useState(false);
+
+  const handleTooltipClose = () => {
+    setOpen(false);
+  };
+
+  const handleTooltipOpen = () => {
+    setOpen(true);
+  };
+
   return (
     <ThemeProvider theme={theme}>
-        <Button startIcon={icon} onClick={onClick} href={href}>
-          <div className={styles.text}>{label}</div>
-        </Button>
+      <Tooltip
+        title={tooltipTitle}
+        placement="right"
+        arrow
+        onClose={handleTooltipClose}
+        leaveDelay={250}
+        open={open}
+      >
+      <Button startIcon={icon} onClick={() => {
+        if (onClick) onClick();
+        handleTooltipOpen();
+      }} href={href}>
+        <div className={styles.text}>{label}</div>
+      </Button>
+    </Tooltip>
     </ThemeProvider>
   )
 }
