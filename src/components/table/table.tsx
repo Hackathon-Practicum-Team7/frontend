@@ -91,7 +91,7 @@ export default function EnhancedTable({ areCandidatesFound, rows, setRows }: TEn
   const [orderBy, setOrderBy] = useState<keyof IData>('profile');
   const [selected, setSelected] = useState<string[]>([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const numberOfPages = Math.ceil(rows.length/rowsPerPage);
   const refinedRows = useMemo(() => rows
     .slice()
@@ -324,7 +324,7 @@ export default function EnhancedTable({ areCandidatesFound, rows, setRows }: TEn
                   {emptyRows > 0 && (
                     <TableRow
                       style={{
-                        height: (53) * emptyRows,
+                        height: (70) * emptyRows,
                       }}
                     >
                       <TableCell colSpan={6} />
