@@ -70,4 +70,5 @@ npm run preview
 Данные для авторизации:
 
 _Логин_: recruiter1@example.com
+
 _Пароль_: MnTre328
