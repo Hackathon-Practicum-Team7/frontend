@@ -5,7 +5,7 @@ import { CardSkills } from '../../components/card-skills/card-skills';
 import { CardExperience } from '../../components/card-experience/card-experience';
 import { CardEducation } from '../../components/card-education/card-education';
 import { BreadcrumbsNav } from '../../components/breadcrumbs/breadcrumbs';
-import { Avatar } from '@mui/material';
+import {Avatar} from '@mui/material';
 import { CustomButton } from '../../components/custom-button/custom-button';
 import SuitcaseIcon from '../../images/suitcase-icon-black.svg?react';
 import DownloadIcon from '../../images/download-icon.svg?react';
@@ -72,8 +72,16 @@ export const ProfilePage: React.FC = () => {
               <ContactButton icon={<DownloadIcon />} label="Резюме" href={profile.resume} />
             </div>
             <div className={styles.cellButton}>
-              <ContactButton icon={<EmailIcon />} label={profile.contact.email} onClick={ () => copyToClipboard(profile.contact.email)}/>
-              <ContactButton icon={<PhoneIcon />} label={profile.contact.phone} onClick={ () => copyToClipboard(profile.contact.phone) }/>
+                <ContactButton icon={<EmailIcon />}
+                               label={profile.contact.email}
+                               onClick={ () => copyToClipboard(profile.contact.email)}
+                               tooltipTitle={'Адрес скопирован'}
+                />
+              <ContactButton icon={<PhoneIcon />}
+                             label={profile.contact.phone}
+                             onClick={ () => copyToClipboard(profile.contact.phone)}
+                             tooltipTitle={'Телефон скопирован'}
+              />
               <ContactButton icon={<PaperPlaneIcon />} label={'@student'} href={profile.contact.telegram}/>
             </div>
           </div>
