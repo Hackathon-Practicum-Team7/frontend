@@ -21,6 +21,7 @@ export const Navigation: FunctionComponent<{ onClosePerRedirect: () => void }> =
     deleteCookie('accessToken');
     deleteCookie('refreshToken');
     dispatch(userDataActions.setIsAuthorized(false));
+    props.onClosePerRedirect();
   }
 
   return (
