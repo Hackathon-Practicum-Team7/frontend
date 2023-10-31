@@ -1,9 +1,9 @@
 import {FunctionComponent} from 'react';
-import {ExtraPagesContainer} from '../components/extra-pages-container/extra-pages-container';
+import {ExtraPageContainer} from '../components/extra-page-container/extra-page-container';
 
 export const NotFound404: FunctionComponent = () => {
   return (
-    <ExtraPagesContainer type="not-found"
+    <ExtraPageContainer type="not-found"
                          title="Ошибка 404"
                          subtitle="Эта страница за пределами Вселенной"
                          firstParagraph="Страница, которую вы пытаетесь найти, не существует или была перемещена."

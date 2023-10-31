@@ -1,13 +1,13 @@
 import {FunctionComponent} from 'react';
 
-import extraPagesStyles from './extra-pages-container.module.css';
+import extraPagesStyles from './extra-page-container.module.css';
 
 import {CustomButton} from '../custom-button/custom-button';
 import {useNavigate} from 'react-router-dom';
 
 import {TExtraPage} from '../../utils/types';
 
-export const ExtraPagesContainer: FunctionComponent<TExtraPage> = (props) => {
+export const ExtraPageContainer: FunctionComponent<TExtraPage> = (props) => {
   const navigate = useNavigate();
 
   return (
