@@ -6,6 +6,8 @@ import {HomePage} from "../../pages/home/home"
 import {Login} from '../../pages/login/login';
 import {ResultsPage} from "../../pages/results/results";
 import {ProfilePage} from '../../pages/profile/profile';
+import {InProgressPage} from '../../pages/in-progress-page';
+import {NotFound404} from '../../pages/not-found-404';
 
 export default function RoutesComponent(): ReactElement {
   return (
