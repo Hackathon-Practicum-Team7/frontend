@@ -3,7 +3,7 @@
   height: 90px;
   padding: 0 40px;
   color: #FFFFFF;
-  background-color:#1A1B22;
+  background-color: #1A1B22;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,6 +13,11 @@
   position: absolute;
   left: 0;
   bottom: 0;
+  background-color: transparent;
+}
+
+.footer_not-found-page {
+  color: #1A1B22;
   background-color: transparent;
 }
 
@@ -37,6 +42,10 @@
   padding-left: 8px;
 }
 
+.text_black {
+  border-left: 1px solid #1A1B22;
+}
+
 .button {
   font-size: 12px;
   font-weight: 500;
@@ -44,4 +53,8 @@
   display: flex;
   min-width: 152px;
   height: 20px;
+}
+
+.button_not-found-page {
+  color: #1A1B22;
 }
