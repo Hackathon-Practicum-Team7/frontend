@@ -47,7 +47,7 @@ export const Header: React.FC = () => {
         location.pathname !== '/'
         && location.pathname !== '/login'
         && location.pathname !== '/results'
-        && location.pathname !== '/profile/:studentId'
+        && (location.pathname && !location.pathname.includes(`/profile`))
         && location.pathname !== '/in-progress'
           ? <header className={`${styles.header} ${styles['header_not-found-page']}`}>
             <div className={styles.leftBar}>
