@@ -56,13 +56,10 @@ export const filterOptions = {
 }
 
 export const tableOptions = {
-  sorting: [
-    'По умолчанию',
-  ],
   pagination: [
-    {text: 'По 5 кандидатов', value: 5},
     {text: 'По 10 кандидатов', value: 10},
     {text: 'По 20 кандидатов', value: 20},
+    {text: 'По 50 кандидатов', value: 50},
   ],
 }
 
