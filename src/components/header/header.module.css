@@ -9,6 +9,11 @@
   align-items: center;
 }
 
+.header_not-found-page {
+  color: #1A1B22;
+  background-color: #FFF;
+}
+
 .leftBar {
   display: flex;
   justify-content: space-between;
