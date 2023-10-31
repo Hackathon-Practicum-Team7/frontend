@@ -27,7 +27,8 @@ export default function RoutesComponent(): ReactElement {
           <ProfilePage/>
         </ProtectedRoute>
       }/>
-      <Route path='/*' element={<ApologyPage></ApologyPage>}/>
+      <Route path='/add-vacancy' element={<ApologyPage></ApologyPage>} />
+      <Route path='/*' element={<></>}/>
     </Routes>
   );
 }
