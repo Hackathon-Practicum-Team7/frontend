@@ -6,6 +6,7 @@ import {HomePage} from "../../pages/home/home"
 import {Login} from '../../pages/login/login';
 import {ResultsPage} from "../../pages/results/results";
 import {ProfilePage} from '../../pages/profile/profile';
+import { ApologyPage } from '../../pages/apology-page/apology-page';
 
 export default function RoutesComponent(): ReactElement {
   return (
@@ -26,7 +27,7 @@ export default function RoutesComponent(): ReactElement {
           <ProfilePage/>
         </ProtectedRoute>
       }/>
-      <Route path='*' element={<></>}/>
+      <Route path='/*' element={<ApologyPage></ApologyPage>}/>
     </Routes>
   );
 }

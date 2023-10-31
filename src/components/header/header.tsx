@@ -50,7 +50,7 @@ export const Header: React.FC = () => {
 
       <div className={styles.rightBar}>
         <ThemeProvider theme={themeHeader}>
-          <Button className={styles.button} variant='contained'>
+          <Button href="/add-vacancy" className={styles.button} variant='contained'>
             <p>Добавить вакансию</p>
           </Button>
         </ThemeProvider>

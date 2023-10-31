@@ -71,7 +71,7 @@ export const ProfilePage: React.FC = () => {
             <div className={styles.cellButton}>
               <ContactButton icon={<EmailIcon />} label={profile.contact.email} onClick={ () => copyToClipboard(profile.contact.email)}/>
               <ContactButton icon={<PhoneIcon />} label={profile.contact.phone} onClick={ () => copyToClipboard(profile.contact.phone) }/>
-              <ContactButton icon={<PaperPlaneIcon />} label={profile.contact.telegram} href={profile.contact.telegram}/>
+              <ContactButton icon={<PaperPlaneIcon />} label={'@student'} href={profile.contact.telegram}/>
             </div>
           </div>
         </div>
