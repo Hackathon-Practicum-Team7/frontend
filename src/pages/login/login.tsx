@@ -11,9 +11,9 @@ import {useNavigate, useLocation} from 'react-router-dom'
 import {yupResolver} from '@hookform/resolvers/yup';
 
 import loginStyles from './login.module.css';
+import {customLoginStyles} from '../../utils/constants/style-constants';
 
 import {authValidationSchema} from '../../utils/constants/constants';
-import {customLoginStyles} from '../../utils/constants/style-constants';
 import {TAuthForm} from '../../utils/types';
 import {useSelector} from '../../services/hooks/use-selector';
 import {inputValuesActions} from '../../services/slices/login-input-values';
