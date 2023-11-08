@@ -1,5 +1,5 @@
 import {AppDispatch, AppThunk, TGetStudentsQueryParams} from "../slices-types";
-import {baseUrl} from "../../utils/constants/constants";
+import {baseUrlLocal} from "../../utils/constants/constants";
 import {getCookie, getResponseData} from "../../utils/helpers";
 import {studentsActions} from "../slices/get-students";
 
@@ -35,7 +35,7 @@ export const getStudents = ( studentsQueryParams: TGetStudentsQueryParams ): App
     });
     const queryParams = new URLSearchParams(params).toString();
     return fetch(
-      `${baseUrl}/students?` + queryParams, {
+      `${baseUrlLocal}/students?` + queryParams, {
         method: 'GET',
         headers: {
           Authorization: `JWT ${token}`,

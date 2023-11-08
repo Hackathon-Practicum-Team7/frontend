@@ -17,7 +17,8 @@ declare module '@mui/material/Chip' {
   }
 }
 
-export const baseUrl = 'https://seventeam-hakaton.sytes.net/api/v1';
+export const baseUrlProduction = 'https://seventeam-hakaton.sytes.net/api/v1';
+export const baseUrlLocal = 'https://localhost:8000';
 
 export const filterOptions = {
   profession: [

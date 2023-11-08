@@ -1,5 +1,5 @@
 import {AppDispatch, AppThunk} from "../slices-types";
-import {baseUrl} from "../../utils/constants/constants";
+import {baseUrlLocal} from "../../utils/constants/constants";
 import {checkDownloadResponse, getCookie} from "../../utils/helpers";
 import {downloadExcelActions} from "../slices/download-excel";
 
@@ -9,7 +9,7 @@ export const postDownloadExcel = (ids: string[]): AppThunk => {
     dispatch(downloadExcelActions.downloadExcelLoading());
     const token = getCookie('accessToken');
     return fetch(
-      `${baseUrl}/download/excel/`, {
+      `${baseUrlLocal}/download/excel/`, {
         method: 'POST',
         headers: {
           Authorization: `JWT ${token}`,
