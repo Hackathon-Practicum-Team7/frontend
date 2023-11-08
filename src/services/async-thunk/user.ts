@@ -1,6 +1,6 @@
 import {AppDispatch, AppThunk, TUserData} from '../slices-types';
 import {userDataActions} from '../slices/user-data';
-import {baseUrl} from '../../utils/constants/constants';
+import {baseUrlLocal} from '../../utils/constants/constants';
 import UnauthorizedError from '../exceptions/error-401-unauthorized';
 import {getResponseData} from '../../utils/helpers';
 
@@ -17,7 +17,7 @@ export const getUser = (token: string | undefined): AppThunk => {
     //     'Authorization': `JWT ${token}`,
     //   };
 
-    return fetch(`${baseUrl}/auth/users/me/`, {
+    return fetch(`${baseUrlLocal}/auth/users/me/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

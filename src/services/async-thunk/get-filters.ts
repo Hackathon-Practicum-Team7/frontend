@@ -1,5 +1,5 @@
 import {filterActions} from "../slices/get-filters";
-import {baseUrl} from "../../utils/constants/constants";
+import {baseUrlLocal} from "../../utils/constants/constants";
 import {AppDispatch, AppThunk} from "../slices-types";
 import {getResponseData} from "../../utils/helpers";
 
@@ -7,7 +7,7 @@ export const getCities = (): AppThunk => {
   return function (dispatch: AppDispatch) {
     dispatch(filterActions.getCitiesLoading());
     return fetch(
-      `${baseUrl}/cities`, {
+      `${baseUrlLocal}/cities`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ export const getSkills = (): AppThunk => {
   return function (dispatch: AppDispatch) {
     dispatch(filterActions.getSkillsLoading());
     return fetch(
-      `${baseUrl}/skills`, {
+      `${baseUrlLocal}/skills`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ export const getProfessionSkills = (): AppThunk => {
   return function (dispatch: AppDispatch) {
     dispatch(filterActions.getProfessionStreamLoading());
     return fetch(
-      `${baseUrl}/professions`, {
+      `${baseUrlLocal}/professions`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

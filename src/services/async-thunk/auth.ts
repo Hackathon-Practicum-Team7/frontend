@@ -1,7 +1,7 @@
 import {AppDispatch, AppThunk, TTokens} from '../slices-types';
 import {userDataActions} from '../slices/user-data';
 
-import {baseUrl} from '../../utils/constants/constants';
+import {baseUrlLocal} from '../../utils/constants/constants';
 
 import {getResponseData} from '../../utils/helpers';
 import {setCookie} from '../../utils/helpers';
@@ -11,7 +11,7 @@ export const login = (email: string, password: string): AppThunk => {
   return function (dispatch: AppDispatch) {
     dispatch(userDataActions.getUserDataLoading());
 
-    return fetch(`${baseUrl}/auth/jwt/create/`, {
+    return fetch(`${baseUrlLocal}/auth/jwt/create/`, {
       method: 'POST',
       credentials: 'same-origin',
       mode: 'cors',
@@ -54,7 +54,7 @@ export const login = (email: string, password: string): AppThunk => {
 }
 
 export const validateToken = (token: string) => {
-  return fetch(`${baseUrl}/auth/jwt/verify/`, {
+  return fetch(`${baseUrlLocal}/auth/jwt/verify/`, {
     method: 'POST',
     credentials: 'same-origin',
     mode: 'cors',
@@ -76,7 +76,7 @@ export const validateToken = (token: string) => {
 }
 
 export const refreshToken = (refreshToken: string) => {
-  return fetch(`${baseUrl}/auth/jwt/refresh/`, {
+  return fetch(`${baseUrlLocal}/auth/jwt/refresh/`, {
     method: 'POST',
     credentials: 'same-origin',
     mode: 'cors',

@@ -1,5 +1,5 @@
 import {AppDispatch, AppThunk} from "../slices-types";
-import {baseUrl} from "../../utils/constants/constants";
+import {baseUrlLocal} from "../../utils/constants/constants";
 import {checkResponse, getCookie} from "../../utils/helpers";
 import {favoriteStudentsActions} from "../slices/favorite";
 
@@ -8,7 +8,7 @@ export const postFavourite = (ids: string[]): AppThunk => {
     dispatch(favoriteStudentsActions.postFavoriteLoading());
     const token = getCookie('accessToken');
     return fetch(
-      `${baseUrl}/students/favorite/`, {
+      `${baseUrlLocal}/students/favorite/`, {
         method: 'POST',
         headers: {
           Authorization: `JWT ${token}`,
@@ -34,7 +34,7 @@ export const deleteFavorite = (ids: string[]): AppThunk => {
     dispatch(favoriteStudentsActions.deleteFavoriteLoading());
     const token = getCookie('accessToken');
     return fetch(
-      `${baseUrl}/students/favorite/`, {
+      `${baseUrlLocal}/students/favorite/`, {
         method: 'DELETE',
         headers: {
           Authorization: `JWT ${token}`,
