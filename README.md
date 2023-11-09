@@ -119,7 +119,7 @@ docker compose exec -i backend python manage.py migrate
 docker compose exec -it backend python manage.py loaddata fixtures/data.json
 ```
 
-6. Открыть приложение в браузере по адресу http://localhost:8000/.
+6. Открыть приложение в браузере по адресу http://127.0.0.1:8000/.
 
 
 7. Для авторизации необходимо использовать следующие данные:
