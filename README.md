@@ -83,45 +83,52 @@
 
 Проект создан с помощью **<a href="https://vitejs.dev/">Vite</a>**
 
-Проект запускается локально по адресу http://localhost:5173/ путем клонирования данного репозитория и последовательного запуска команд в терминале.
+Для запуска проекта предварительно должны быть установлены программы Git, Docker, NodeJS и менеджер пакетов npm.
 
-Предварительно должны быть установлены программы Git, NodeJS и менеджер пакетов npm.
+Для запуска приложения необходимо выполнить следующие инструкции.
 
-
+1. Клонировать репозиторий с бэкенд-частью проекта:
 ```
-// clone repo
-git clone https://github.com/Hackathon-Practicum-Team7/frontend
-
-// go to dir
-cd frontend
-
-// install dependencies
-npm install
-
-// build project
-npm run build
-
-// run dev mode
-npm run dev
-
-// run preview Vite mode
-npm run preview
-
+git clone git@github.com:Hackathon-Practicum-Team7/backend.git
 ```
 
-------
-
-<h2 align="center">Деплой</h2>
-
-Продакшн-версия доступна по ссылке: https://seventeam-hakaton.sytes.net/
-
-Тестовые данные для авторизации:
-
-_Логин_:
+2. Перейти в папку с проектом:
 ```
-recruiter1@example.com
+cd backend
+```
+
+3. В директории /backend создать файл .env со следующим содержимым:
+```
+DB_ENGINE=django.db.backends.postgresql
+POSTGRES_DB=hakaton
+POSTGRES_USER=user
+POSTGRES_PASSWORD=yourpassword
+DB_HOST=db
+DB_PORT=5432
+```
+
+4. Запустить контейнеры в Docker:
+```
+docker compose up -d --build
+docker compose exec -i backend python manage.py collectstatic --noinput
+docker compose exec -i backend python manage.py migrate
+```
+
+5. Загрузить фикстуры в БД:
+```
+docker compose exec -it backend python manage.py loaddata fixtures/data.json
+```
+
+6. Открыть приложение в браузере по адресу http://localhost:8000/.
+
+
+7. Для авторизации необходимо использовать следующие данные:
+
+_Почта_:
+```
+recruiter1@example.ru
 ```
 _Пароль_:
 ```
-MnTre328
+password123
 ```
